@@ -4,6 +4,7 @@ import { CheckCircle2, Minus, Plus } from 'lucide-react'
 import { formatPrice } from '#/lib/format'
 import { useCreateBookingMutation } from '#/hooks/mutations/rooms.mutation'
 import type { Room } from '#/types'
+import { DateInput } from '#/components/shared/date-input'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -98,21 +99,19 @@ export function BookingCard({
       <div className="mt-4 grid grid-cols-2 gap-3">
         <label className="rounded-md border border-line p-2 text-sm">
           <span className="island-kicker block">Check-in</span>
-          <input
-            type="date"
+          <DateInput
             value={checkIn}
             onChange={(e) => setCheckIn(e.target.value)}
-            className="mt-1 w-full bg-transparent outline-none"
+            className="mt-1"
           />
         </label>
         <label className="rounded-md border border-line p-2 text-sm">
           <span className="island-kicker block">Check-out</span>
-          <input
-            type="date"
+          <DateInput
             value={checkOut}
             min={checkIn || undefined}
             onChange={(e) => setCheckOut(e.target.value)}
-            className="mt-1 w-full bg-transparent outline-none"
+            className="mt-1"
           />
         </label>
       </div>

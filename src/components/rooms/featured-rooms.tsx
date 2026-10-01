@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { RoomCard } from '#/components/rooms/room-card'
+import { RoomCardSkeleton } from '#/components/rooms/room-card-skeleton'
 import { useRoomsQuery } from '#/hooks/queries/rooms.query'
 
 // Featured rooms band: first three rooms + a link to the full list.
@@ -23,15 +24,10 @@ export function FeaturedRooms() {
       </div>
 
       {rooms.isPending ? (
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className="feature-card rounded-md border border-line p-4"
-            >
-              <div className="aspect-[4/3] animate-pulse rounded-md bg-black/5" />
-              <div className="mt-4 h-5 w-2/3 animate-pulse rounded-md bg-black/5" />
-              <div className="mt-2 h-4 w-full animate-pulse rounded-md bg-black/5" />
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className={i === 3 ? 'md:hidden' : undefined}>
+              <RoomCardSkeleton />
             </div>
           ))}
         </div>
@@ -46,9 +42,10 @@ export function FeaturedRooms() {
           </button>
         </div>
       ) : rooms.data.length === 0 ? null : (
-        <ul className="mt-8 grid gap-6 md:grid-cols-3">
-          {rooms.data.slice(0, 3).map((room) => (
-            <li key={room.id}>
+        <ul className="mt-8 grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3">
+          {/* Four on two-up phones (no orphan), three from md. */}
+          {rooms.data.slice(0, 4).map((room, i) => (
+            <li key={room.id} className={i === 3 ? 'md:hidden' : undefined}>
               <RoomCard room={room} />
             </li>
           ))}

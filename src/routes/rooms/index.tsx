@@ -93,7 +93,7 @@ function RoomsPage() {
         />
 
         {rooms.isPending ? (
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, i) => (
               <RoomCardSkeleton key={i} />
             ))}
@@ -129,7 +129,7 @@ function RoomsPage() {
               </div>
             ) : (
               <>
-                <ul className="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <ul className="mt-4 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
                   {paged.map((room) => (
                     <li key={room.id}>
                       <RoomCard room={room} reveal={false} />

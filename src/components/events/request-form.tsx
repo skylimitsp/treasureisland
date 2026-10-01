@@ -4,6 +4,7 @@ import { AlertCircle, Minus, Plus } from 'lucide-react'
 import { EnquiryConfirmation } from '#/components/events/enquiry-confirmation'
 import { useCreateEventEnquiryMutation } from '#/hooks/mutations/events.mutation'
 import type { EventCategory, EventEnquiry, EventEnquiryInput } from '#/types'
+import { DateInput } from '#/components/shared/date-input'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const PHONE_RE = /^[+\d][\d\s()-]{6,}$/
@@ -61,6 +62,9 @@ function validate(values: FormValues): Errors {
 
 const inputClass =
   'w-full rounded-md border border-line bg-foam/80 px-4 py-3 text-sea-ink outline-none focus:border-lagoon-deep focus:ring-2 focus:ring-lagoon/30 disabled:opacity-60'
+
+// Date fields wrap a bare input, so focus styles move to the wrapping box.
+const dateBoxClass = inputClass.replace(/focus:/g, 'focus-within:')
 
 // Celebration enquiry form — an enquiry, not a booking. No payment is taken.
 export function RequestForm({
@@ -177,9 +181,9 @@ export function RequestForm({
           >
             Preferred date *
           </label>
-          <input
+          <DateInput
             id="ev-date"
-            type="date"
+            placeholder="Choose a date"
             min={today()}
             aria-required
             aria-invalid={Boolean(show('date'))}
@@ -188,7 +192,7 @@ export function RequestForm({
             value={values.date}
             onChange={(e) => set('date', e.target.value)}
             onBlur={() => blur('date')}
-            className={`mt-1.5 ${inputClass}`}
+            className={`mt-1.5 ${dateBoxClass}`}
           />
           {show('date') ? (
             <p

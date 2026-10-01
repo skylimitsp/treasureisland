@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { Minus, Plus, Search } from 'lucide-react'
+import { DateInput } from '#/components/shared/date-input'
 
 // Frosted quick-search: seeds the booking flow by deep-linking to /rooms.
 export function HeroSearch() {
@@ -28,22 +29,20 @@ export function HeroSearch() {
     >
       <label className="rounded-md border border-line glass-field px-4 py-2 focus-within:border-lagoon-deep focus-within:ring-2 focus-within:ring-lagoon/30">
         <span className="island-kicker block">Check-in</span>
-        <input
-          type="date"
+        <DateInput
           value={checkIn}
           onChange={(e) => setCheckIn(e.target.value)}
-          className="mt-1 w-full min-w-0 bg-transparent text-sea-ink outline-none"
+          className="mt-1 text-sea-ink"
         />
       </label>
 
       <label className="rounded-md border border-line glass-field px-4 py-2 focus-within:border-lagoon-deep focus-within:ring-2 focus-within:ring-lagoon/30">
         <span className="island-kicker block">Check-out</span>
-        <input
-          type="date"
+        <DateInput
           value={checkOut}
           min={checkIn || undefined}
           onChange={(e) => setCheckOut(e.target.value)}
-          className="mt-1 w-full min-w-0 bg-transparent text-sea-ink outline-none"
+          className="mt-1 text-sea-ink"
         />
       </label>
 

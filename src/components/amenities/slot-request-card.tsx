@@ -4,6 +4,7 @@ import { Minus, Plus } from 'lucide-react'
 import { SlotRequestConfirmation } from '#/components/amenities/slot-request-confirmation'
 import { useSlotRequestMutation } from '#/hooks/mutations/amenities.mutation'
 import type { Amenity } from '#/types'
+import { DateInput } from '#/components/shared/date-input'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const today = () => new Date().toISOString().slice(0, 10)
@@ -30,6 +31,9 @@ const SLOTS: Record<string, Array<string>> = {
 
 const inputClass =
   'w-full rounded-md border border-line bg-foam/80 px-3 py-2 text-sea-ink outline-none focus:border-lagoon-deep focus:ring-2 focus:ring-lagoon/30 disabled:opacity-60'
+
+// Date fields wrap a bare input, so focus styles move to the wrapping box.
+const dateBoxClass = inputClass.replace(/focus:/g, 'focus-within:')
 
 // Light reserve-a-slot request — no payment, no live inventory. Mirrors the
 // room booking mechanics: validate, submit via mutation, confirm, aria-live.
@@ -91,14 +95,14 @@ export function SlotRequestCard({ amenity }: { amenity: Amenity }) {
 
       <label className="mt-4 block text-sm font-semibold text-sea-ink">
         Date *
-        <input
-          type="date"
+        <DateInput
           min={today()}
           value={date}
+          placeholder="Choose a date"
           disabled={pending}
           onChange={(e) => setDate(e.target.value)}
           aria-invalid={touched && !date}
-          className={`mt-1.5 font-normal ${inputClass}`}
+          className={`mt-1.5 font-normal ${dateBoxClass}`}
         />
       </label>
 

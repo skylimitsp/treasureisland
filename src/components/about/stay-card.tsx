@@ -4,6 +4,7 @@ import { CalendarDays, MapPin, Minus, Plus } from 'lucide-react'
 
 import { formatPrice } from '#/lib/format'
 import { useRoomsQuery } from '#/hooks/queries/rooms.query'
+import { DateInput } from '#/components/shared/date-input'
 
 // Info/booking card mirroring the StayBox reserve panel; seeds the /rooms flow.
 export function StayCard() {
@@ -66,11 +67,11 @@ export function StayCard() {
         <span className="island-kicker">Check in</span>
         <span className="mt-1 flex items-center gap-2 rounded-md border border-line bg-foam/80 px-3 py-2 text-sm">
           <CalendarDays size={15} className="text-lagoon-deep" aria-hidden />
-          <input
-            type="date"
+          <DateInput
             value={checkIn}
+            showIcon={false}
             onChange={(e) => setCheckIn(e.target.value)}
-            className="w-full bg-transparent outline-none"
+            className="w-full"
           />
         </span>
       </label>
@@ -79,12 +80,12 @@ export function StayCard() {
         <span className="island-kicker">Check out</span>
         <span className="mt-1 flex items-center gap-2 rounded-md border border-line bg-foam/80 px-3 py-2 text-sm">
           <CalendarDays size={15} className="text-lagoon-deep" aria-hidden />
-          <input
-            type="date"
+          <DateInput
             value={checkOut}
             min={checkIn || undefined}
+            showIcon={false}
             onChange={(e) => setCheckOut(e.target.value)}
-            className="w-full bg-transparent outline-none"
+            className="w-full"
           />
         </span>
       </label>
