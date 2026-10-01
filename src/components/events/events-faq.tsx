@@ -42,7 +42,7 @@ export function EventsFaq() {
         <h2 className="display-title mt-2 text-3xl md:text-4xl">
           Questions, answered.
         </h2>
-        <div className="mt-6 divide-y divide-[color:var(--line)] border-y border-line">
+        <div className="mt-6 divide-y divide-line border-y border-line">
           {FAQS.map((faq) => (
             <details key={faq.q} data-reveal className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-sea-ink">

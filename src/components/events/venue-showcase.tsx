@@ -7,7 +7,7 @@ const VENUES = [
     setting: 'Open sand-edge lawn to the water.',
     capacity: 'up to 180 seated',
     bestFor: 'Ceremonies, grand parties',
-    image: '/events/lawn.jpg',
+    image: '/photos/aerial-resort.webp',
     speed: '0.85',
   },
   {
@@ -15,7 +15,7 @@ const VENUES = [
     setting: 'Covered terrace, sunset-facing.',
     capacity: 'up to 90',
     bestFor: 'Receptions, cocktails',
-    image: '/events/terrace.jpg',
+    image: '/photos/lantern-terrace.webp',
     speed: '1.15',
   },
   {
@@ -23,7 +23,7 @@ const VENUES = [
     setting: 'Indoor, climate-controlled.',
     capacity: 'up to 120',
     bestFor: 'Dinners, meetings, wet-weather',
-    image: '/events/reception.jpg',
+    image: '/photos/ocean-deck-dining.webp',
     speed: '1.0',
   },
 ]
@@ -55,6 +55,7 @@ export function VenueShowcase() {
                   src={venue.image}
                   alt={`${venue.name} — ${venue.setting}`}
                   loading="lazy"
+                  decoding="async"
                   data-speed={venue.speed}
                   className="absolute inset-0 h-full w-full object-cover"
                 />

@@ -11,21 +11,30 @@ import type {
 const EVENT_TEASERS: Array<EventTeaser> = [
   {
     slug: 'weddings',
-    name: 'Weddings',
+    name: 'Say “I do” on the sand',
     blurb: 'Barefoot ceremonies on the sand and receptions under the stars.',
-    image: '/wedding.webp',
+    image: '/events/wedding-carriage.webp',
+    tag: 'Beachfront ceremonies',
+    kicker: 'Weddings',
+    cta: 'Plan your wedding',
   },
   {
     slug: 'birthdays',
-    name: 'Birthdays',
+    name: 'Birthdays by lantern light',
     blurb: 'Private terraces, custom menus, and a cake by the pool.',
-    image: '/events/birthdays.jpg',
+    image: '/photos/lantern-terrace.webp',
+    tag: 'Up to 90 guests',
+    kicker: 'Birthdays',
+    cta: 'Plan a party',
   },
   {
     slug: 'family-parties',
-    name: 'Family parties',
+    name: 'Gather the whole family',
     blurb: 'Reunions and gatherings with the whole island to play in.',
-    image: '/events/family.jpg',
+    image: '/photos/pool-loungers.webp',
+    tag: 'All ages welcome',
+    kicker: 'Family',
+    cta: 'Plan a reunion',
   },
 ]
 
@@ -95,7 +104,7 @@ const EVENT_TYPES: Array<EventType> = [
     capacityMin: 2,
     capacityMax: 180,
     fromPrice: 2500,
-    gallery: ['/wedding.webp', '/events/lawn.jpg'],
+    gallery: ['/events/wedding-carriage.webp', '/photos/pool-at-night.webp'],
     packages: EVENT_PACKAGES,
   },
   {
@@ -108,7 +117,7 @@ const EVENT_TYPES: Array<EventType> = [
     capacityMin: 2,
     capacityMax: 120,
     fromPrice: 2500,
-    gallery: ['/events/birthdays.jpg', '/events/poolside.jpg'],
+    gallery: ['/photos/lantern-terrace.webp', '/photos/pool-loungers.webp'],
     packages: EVENT_PACKAGES,
   },
   {
@@ -121,7 +130,7 @@ const EVENT_TYPES: Array<EventType> = [
     capacityMin: 10,
     capacityMax: 120,
     fromPrice: 2500,
-    gallery: ['/events/family.jpg', '/events/table-setting.jpg'],
+    gallery: ['/photos/pool-loungers.webp', '/photos/breakfast.webp'],
     packages: EVENT_PACKAGES,
   },
   {
@@ -134,7 +143,7 @@ const EVENT_TYPES: Array<EventType> = [
     capacityMin: 4,
     capacityMax: 120,
     fromPrice: 2500,
-    gallery: ['/events/reception.jpg', '/events/terrace.jpg'],
+    gallery: ['/photos/ocean-deck-dining.webp', '/photos/lantern-terrace.webp'],
     packages: EVENT_PACKAGES,
   },
 ]

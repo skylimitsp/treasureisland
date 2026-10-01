@@ -60,7 +60,7 @@ function validate(values: FormValues): Errors {
 }
 
 const inputClass =
-  'w-full rounded-md border border-line bg-white/80 px-4 py-3 text-sea-ink outline-none focus:border-lagoon-deep disabled:opacity-60'
+  'w-full rounded-md border border-line bg-foam/80 px-4 py-3 text-sea-ink outline-none focus:border-lagoon-deep focus:ring-2 focus:ring-lagoon/30 disabled:opacity-60'
 
 // Celebration enquiry form — an enquiry, not a booking. No payment is taken.
 export function RequestForm({

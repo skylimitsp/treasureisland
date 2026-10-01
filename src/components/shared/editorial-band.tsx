@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { PhotoCollage } from '#/components/shared/photo-collage'
 
-// "Upgrade your experience" — editorial copy beside a photo collage.
+// "Upgrade your experience" — editorial copy beside a bento photo layout.
 export function EditorialBand() {
   return (
     <section className="page-wrap mt-28 grid items-center gap-12 md:grid-cols-2">

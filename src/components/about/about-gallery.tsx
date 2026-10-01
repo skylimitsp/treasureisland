@@ -17,6 +17,7 @@ export function AboutGallery({ images }: { images: Array<GalleryImage> }) {
               src={img.src}
               alt={img.alt}
               loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover"
             />
           </figure>

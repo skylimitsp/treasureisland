@@ -20,9 +20,10 @@ export function AboutThisResort({
       </div>
       <figure className="img-frame aspect-[5/4]">
         <img
-          src="/heroes/escape.jpg"
+          src="/photos/beach-hero.webp"
           alt="Aerial view of Treasure Island resort"
           loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover"
         />
       </figure>

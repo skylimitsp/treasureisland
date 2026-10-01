@@ -61,7 +61,7 @@ export function Hero() {
 
           <div
             data-hero
-            className="mt-6 inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/15 px-4 py-2 text-white backdrop-blur"
+            className="mt-6 inline-flex items-center gap-3 rounded-md border border-white/25 bg-white/15 px-4 py-2 text-white backdrop-blur"
           >
             <span className="flex text-gold" aria-hidden>
               {Array.from({ length: 5 }).map((_, i) => (

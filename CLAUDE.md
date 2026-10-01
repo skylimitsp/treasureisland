@@ -165,7 +165,22 @@ export const Route = createFileRoute('/rooms/')({
 - Prefer a route `loader` + `ensureQueryData` so list/detail content is
   server-rendered (crawlable), not just fetched on the client.
 
-## 9. Authorship
+## 9. Skills (use them for UI work)
+
+Three agent skills are installed in `.agents/skills/` and linked from `.claude/skills/`:
+
+- **frontend-engineer:** the end-to-end workflow (UX concept → UI → component
+  architecture → implementation) and the review checklist. Start here for any
+  page, component or flow.
+- **frontend-design:** a distinctive, non-templated visual direction. Use it
+  when designing new sections so they don't look generic.
+- **ui-ux-pro-max:** searchable UX, typography, colour, chart and stack guidance
+  (with scripts and data). Use it for UX/contrast checks and patterns — but the
+  beach palette and type pairing in §7 always win over its suggestions.
+
+`skills-lock.json` pins the versions of the two external skills.
+
+## 10. Authorship
 
 New hook/service files carry a short doc header:
 
@@ -177,7 +192,7 @@ New hook/service files carry a short doc header:
  */
 ```
 
-## 10. Definition of done
+## 11. Definition of done
 
 - [ ] `pnpm exec tsc --noEmit` and `pnpm lint` pass; `pnpm build` succeeds.
 - [ ] `pnpm dev` boots and the page renders.
@@ -185,3 +200,6 @@ New hook/service files carry a short doc header:
 - [ ] Data flows through a hook + `src/data` accessor (no direct mock imports in UI).
 - [ ] The route sets `seo()` metadata (title + description; `noindex` if private).
 - [ ] Loading, empty, and error states are handled for any new list/detail view.
+- [ ] UI work follows the `frontend-engineer` skill's checklist (§9).
+- [ ] New images are WebP (AVIF too for full-bleed heroes), ≤1600px wide
+      (≤2000px for heroes), with `decoding="async"` and lazy-loading below the fold.

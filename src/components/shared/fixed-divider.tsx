@@ -2,6 +2,8 @@ import { Link } from '@tanstack/react-router'
 
 import type { LinkProps } from '@tanstack/react-router'
 
+import { bgImage } from '#/lib/media'
+
 // Full-bleed fixed-background band with one centered line + optional CTA.
 // `bg-fixed` is toggled on pointer-fine desktops by enableFixedBands().
 export function FixedDivider({
@@ -28,9 +30,9 @@ export function FixedDivider({
   return (
     <section
       data-fixed-band
-      className="relative my-24 flex min-h-[60vh] items-center justify-center overflow-hidden bg-cover bg-center px-6 py-24 text-center"
+      className="relative my-24 flex last:mb-0 min-h-[60vh] items-center justify-center overflow-hidden bg-cover bg-center px-6 py-24 text-center"
       style={{
-        backgroundImage: `linear-gradient(rgba(23,58,64,.42), rgba(23,58,64,.42)), url('${image}')`,
+        backgroundImage: `linear-gradient(rgba(23,58,64,.42), rgba(23,58,64,.42)), ${bgImage(image)}`,
       }}
     >
       <div data-reveal className="max-w-2xl text-white">

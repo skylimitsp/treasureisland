@@ -1,19 +1,17 @@
-import { Leaf, Palmtree, Users } from 'lucide-react'
-
+import { OverlayCard } from '#/components/shared/overlay-card'
 import type { AboutValue } from '#/types/about'
 
-const ICONS = { leaf: Leaf, users: Users, palm: Palmtree }
-
-// One resort-value card (icon, title, one-line body).
+// One resort value as a tall overlay card (same style as the home teasers).
 export function ValueCard({ value }: { value: AboutValue }) {
-  const Icon = ICONS[value.icon]
   return (
-    <div data-reveal className="feature-card rounded-md border border-line p-6">
-      <span className="flex size-11 items-center justify-center rounded-full bg-lagoon-deep/10 text-lagoon-deep">
-        <Icon size={20} strokeWidth={1.75} aria-hidden />
-      </span>
-      <h3 className="display-title mt-4 text-xl">{value.title}</h3>
-      <p className="mt-2 text-sm text-sea-ink-soft">{value.body}</p>
+    <div data-reveal className="group">
+      <OverlayCard
+        image={value.image}
+        tag={value.tag}
+        kicker={value.title}
+        title={value.headline}
+        body={value.body}
+      />
     </div>
   )
 }

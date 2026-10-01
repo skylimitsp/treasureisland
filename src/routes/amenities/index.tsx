@@ -48,7 +48,7 @@ function AmenitiesPage() {
       <AmenityShowcase />
       <AmenityStats />
       <FixedDivider
-        image="/heroes/reserve.jpg"
+        image="/photos/beach-hero.webp"
         kicker="Ready when you are"
         title="Your day, already planned."
         subtitle="Reserve your stay and let the island fill the hours."

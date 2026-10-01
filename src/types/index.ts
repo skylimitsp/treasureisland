@@ -99,6 +99,9 @@ export interface EventTeaser {
   name: string
   blurb: string
   image: string
+  tag: string
+  kicker: string
+  cta: string
 }
 
 export type EventCategory = 'weddings' | 'birthdays' | 'family' | 'meetings'

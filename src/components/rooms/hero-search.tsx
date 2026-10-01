@@ -24,37 +24,37 @@ export function HeroSearch() {
   return (
     <form
       onSubmit={onSubmit}
-      className="island-shell mt-8 grid gap-3 rounded-md p-3 sm:grid-cols-[1fr_1fr_auto_auto] sm:items-end"
+      className="glass-panel mt-8 grid gap-3 rounded-md p-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] sm:items-end"
     >
-      <label className="rounded-md border border-line bg-white/70 px-4 py-2">
+      <label className="rounded-md border border-line glass-field px-4 py-2 focus-within:border-lagoon-deep focus-within:ring-2 focus-within:ring-lagoon/30">
         <span className="island-kicker block">Check-in</span>
         <input
           type="date"
           value={checkIn}
           onChange={(e) => setCheckIn(e.target.value)}
-          className="mt-1 w-full bg-transparent text-sea-ink outline-none"
+          className="mt-1 w-full min-w-0 bg-transparent text-sea-ink outline-none"
         />
       </label>
 
-      <label className="rounded-md border border-line bg-white/70 px-4 py-2">
+      <label className="rounded-md border border-line glass-field px-4 py-2 focus-within:border-lagoon-deep focus-within:ring-2 focus-within:ring-lagoon/30">
         <span className="island-kicker block">Check-out</span>
         <input
           type="date"
           value={checkOut}
           min={checkIn || undefined}
           onChange={(e) => setCheckOut(e.target.value)}
-          className="mt-1 w-full bg-transparent text-sea-ink outline-none"
+          className="mt-1 w-full min-w-0 bg-transparent text-sea-ink outline-none"
         />
       </label>
 
-      <div className="rounded-md border border-line bg-white/70 px-4 py-2">
+      <div className="rounded-md border border-line glass-field px-4 py-2">
         <span className="island-kicker block">Guests</span>
         <div className="mt-1 flex items-center gap-3">
           <button
             type="button"
             aria-label="Fewer guests"
             onClick={() => setGuests((g) => Math.max(1, g - 1))}
-            className="flex size-7 items-center justify-center rounded-full border border-line"
+            className="relative flex size-7 items-center justify-center rounded-full border border-line after:absolute after:-inset-2 after:content-['']"
           >
             <Minus size={14} aria-hidden />
           </button>
@@ -63,7 +63,7 @@ export function HeroSearch() {
             type="button"
             aria-label="More guests"
             onClick={() => setGuests((g) => Math.min(8, g + 1))}
-            className="flex size-7 items-center justify-center rounded-full border border-line"
+            className="relative flex size-7 items-center justify-center rounded-full border border-line after:absolute after:-inset-2 after:content-['']"
           >
             <Plus size={14} aria-hidden />
           </button>

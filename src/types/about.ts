@@ -19,7 +19,10 @@ export interface AboutHost {
 export interface AboutValue {
   icon: 'leaf' | 'users' | 'palm'
   title: string
+  headline: string
   body: string
+  image: string
+  tag: string
 }
 
 export interface GalleryImage {

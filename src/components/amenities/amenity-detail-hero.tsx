@@ -14,6 +14,7 @@ export function AmenityDetailHero({ amenity }: { amenity: Amenity }) {
           src={amenity.hero}
           alt={amenity.name}
           loading="eager"
+          fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (
@@ -29,7 +30,7 @@ export function AmenityDetailHero({ amenity }: { amenity: Amenity }) {
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(to top, rgba(23,58,64,.82), rgba(23,58,64,.15) 62%)',
+            'linear-gradient(to top, rgba(23,58,64,.82), rgba(23,58,64,.15) 62%), linear-gradient(90deg, rgba(23,58,64,.5), rgba(23,58,64,0) 65%)',
         }}
         aria-hidden
       />
@@ -39,11 +40,14 @@ export function AmenityDetailHero({ amenity }: { amenity: Amenity }) {
           aria-label="Breadcrumb"
           className="flex items-center gap-2 text-sm text-white/80"
         >
-          <Link to="/" className="no-underline hover:text-white">
+          <Link to="/" className="text-white/80 no-underline hover:text-white">
             Home
           </Link>
           <ChevronRight size={14} aria-hidden />
-          <Link to="/amenities" className="no-underline hover:text-white">
+          <Link
+            to="/amenities"
+            className="text-white/80 no-underline hover:text-white"
+          >
             Amenities
           </Link>
           <ChevronRight size={14} aria-hidden />

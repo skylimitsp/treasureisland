@@ -16,6 +16,7 @@ import { RoomGallery } from '#/components/rooms/room-gallery'
 import { BookingCard } from '#/components/rooms/booking-card'
 import { TestimonialCard } from '#/components/shared/testimonial-card'
 import { SimilarRooms } from '#/components/rooms/similar-rooms'
+import { bgImage } from '#/lib/media'
 
 const RATING_BARS = ['Comfort', 'Cleanliness', 'Location', 'Service', 'Value']
 
@@ -81,10 +82,10 @@ function RoomDetailPage() {
   const rating = stats.data?.averageRating ?? 4.9
   const gallery = [
     r.image,
-    '/amenities/restaurant.webp',
-    '/amenities/jacuzzi.webp',
-    '/heroes/reserve.jpg',
-    '/heroes/escape.jpg',
+    '/photos/breakfast.webp',
+    '/photos/pool-loungers.webp',
+    '/photos/pool-at-night.webp',
+    '/photos/aerial-resort.webp',
   ]
 
   return (
@@ -217,8 +218,7 @@ function RoomDetailPage() {
             <div
               className="img-frame mt-4 flex aspect-[16/7] items-center justify-center bg-cover bg-center text-white"
               style={{
-                backgroundImage:
-                  "linear-gradient(rgba(23,58,64,.35),rgba(23,58,64,.35)), url('/heroes/escape.jpg')",
+                backgroundImage: `linear-gradient(rgba(23,58,64,.35),rgba(23,58,64,.35)), ${bgImage('/photos/beach-hero.webp')}`,
               }}
             >
               <span className="chip !border-white/30 !bg-white/15 !text-white">

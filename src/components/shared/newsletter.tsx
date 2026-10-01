@@ -57,7 +57,7 @@ export function Newsletter({
           onBlur={() => setTouched(true)}
           placeholder="you@example.com"
           aria-invalid={invalid}
-          className="min-w-0 flex-1 rounded-md border border-line bg-white/80 px-4 py-3 text-sea-ink outline-none focus:border-lagoon-deep"
+          className="min-w-0 flex-1 rounded-md border border-line bg-foam/80 px-4 py-3 text-sea-ink outline-none focus:border-lagoon-deep focus:ring-2 focus:ring-lagoon/30"
         />
         <button
           type="submit"

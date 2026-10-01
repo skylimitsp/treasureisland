@@ -27,6 +27,7 @@ import { EditorialBand } from '#/components/shared/editorial-band'
 import { FixedDivider } from '#/components/shared/fixed-divider'
 import { ExperiencesMasonry } from '#/components/amenities/experiences-masonry'
 import { EventsTeaser } from '#/components/events/events-teaser'
+import { StaySteps } from '#/components/shared/stay-steps'
 import { Testimonials } from '#/components/shared/testimonials'
 import { Faq } from '#/components/shared/faq'
 
@@ -62,7 +63,13 @@ export const Route = createFileRoute('/')({
       ...base,
       links: [
         ...base.links,
-        { rel: 'preload', as: 'image', href: '/heroes/hero.avif' },
+        {
+          rel: 'preload',
+          as: 'image',
+          href: '/photos/beach-hero.avif',
+          type: 'image/avif',
+          fetchPriority: 'high',
+        },
       ],
     }
   },
@@ -88,18 +95,19 @@ function Home() {
       <FeaturedRooms />
       <EditorialBand />
       <FixedDivider
-        image="/heroes/escape.jpg"
+        image="/photos/aerial-resort.webp"
         kicker="A world away"
         title="Escape to the island."
         ctaLabel="Plan your escape"
         ctaTo="/rooms"
       />
       <ExperiencesMasonry />
+      <StaySteps />
       <EventsTeaser />
       <Testimonials />
       <Faq />
       <FixedDivider
-        image="/heroes/reserve.jpg"
+        image="/photos/pool-at-night.webp"
         title="Reserve your stay."
         subtitle="Your private stretch of paradise is waiting."
         ctaLabel="Book Now"

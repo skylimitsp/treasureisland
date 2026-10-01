@@ -28,6 +28,7 @@ export function RoomCard({
           src={room.image}
           alt={room.name}
           loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover"
         />
         <span className="price-badge absolute left-3 top-3">

@@ -44,6 +44,8 @@ export function SiteHeader() {
             <img
               src="/media/logo.webp"
               alt="Treasure Island"
+              width={320}
+              height={243}
               className="h-12 w-auto md:h-14"
             />
           </Link>
@@ -97,7 +99,7 @@ export function SiteHeader() {
         role="dialog"
         aria-modal="true"
         aria-label="Menu"
-        className="fixed inset-y-0 right-0 z-50 flex w-72 max-w-[82%] flex-col bg-[color:var(--foam)] shadow-2xl md:hidden"
+        className="fixed inset-y-0 right-0 z-50 flex w-72 max-w-[82%] flex-col bg-foam shadow-2xl md:hidden"
         style={{
           transform: open ? 'translateX(0)' : 'translateX(100%)',
           transition: 'transform 300ms ease',

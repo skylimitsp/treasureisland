@@ -15,14 +15,13 @@ const AMENITIES: Array<Amenity> = [
       'over the sand. Mornings bring slow breakfasts with the tide; evenings ' +
       'turn to shared plates, natural wines, and the last of the light on the ' +
       'water. Every table looks out to the horizon.',
-    image: '/amenities/restaurant.webp',
-    hero: '/amenities/restaurant.webp',
+    image: '/photos/ocean-deck-dining.webp',
+    hero: '/photos/ocean-deck-dining.webp',
     gallery: [
-      '/amenities/restaurant.webp',
-      '/amenities/restaurant-2.webp',
-      '/amenities/restaurant-3.webp',
-      '/amenities/restaurant-4.webp',
-      '/amenities/collage-dinner.webp',
+      '/photos/ocean-deck-dining.webp',
+      '/photos/breakfast.webp',
+      '/photos/lantern-terrace.webp',
+      '/photos/infinity-lounge.webp',
     ],
     highlights: [
       'Wild-caught seafood',
@@ -80,12 +79,12 @@ const AMENITIES: Array<Amenity> = [
       'lesson before heading to the shoreline; confident riders can push on ' +
       'along the firm sand as the sun drops. Boots and helmets provided — you ' +
       'just bring the sense of adventure.',
-    image: '/amenities/horse-riding.webp',
-    hero: '/amenities/horse-riding.webp',
+    image: '/photos/horse-riding.webp',
+    hero: '/photos/horse-riding.webp',
     gallery: [
-      '/amenities/horse-riding.webp',
-      '/amenities/horse-riding-2.webp',
-      '/heroes/escape.jpg',
+      '/photos/horse-riding.webp',
+      '/photos/palm-pool-aerial.webp',
+      '/photos/aerial-resort.webp',
     ],
     highlights: [
       'Golden-hour beach trails',
@@ -113,13 +112,12 @@ const AMENITIES: Array<Amenity> = [
       'Heated jets ease tired muscles while the lagoon glitters just beyond ' +
       'the deck. Open through the evening, it is the quietest way to close a ' +
       'day in the sun.',
-    image: '/amenities/jacuzzi.webp',
-    hero: '/amenities/jacuzzi.webp',
+    image: '/photos/pool-at-night.webp',
+    hero: '/photos/pool-at-night.webp',
     gallery: [
-      '/amenities/jacuzzi.webp',
-      '/amenities/jacuzzi-2.webp',
-      '/amenities/infinity-pool.webp',
-      '/amenities/lagoon-view.webp',
+      '/photos/pool-at-night.webp',
+      '/photos/pool-loungers.webp',
+      '/photos/palm-pool-aerial.webp',
     ],
     highlights: [
       'Warm mineral soak',
@@ -146,14 +144,13 @@ const AMENITIES: Array<Amenity> = [
       'glass of something cold, or take the wheel of a jet-ski for the ' +
       'adrenaline half-hour. Life jackets and a safety briefing come as ' +
       'standard; the open water is all yours.',
-    image: '/amenities/boat-cruise.webp',
-    hero: '/amenities/boat-cruise.webp',
+    image: '/photos/jetski-trail.webp',
+    hero: '/photos/jetski-trail.webp',
     gallery: [
-      '/amenities/boat-cruise.webp',
-      '/amenities/boat-cruise-2.webp',
-      '/amenities/boat-cruise-3.webp',
-      '/amenities/lagoon-view.webp',
-      '/amenities/aerial-lagoon.webp',
+      '/photos/jetski-trail.webp',
+      '/photos/jetski-loop.webp',
+      '/photos/aerial-resort.webp',
+      '/photos/palm-pool-aerial.webp',
     ],
     highlights: [
       'Sunset dolphin cruises',
@@ -181,13 +178,13 @@ const AMENITIES: Array<Amenity> = [
       'ledge and towel service make it easy to lose an afternoon here. Open ' +
       'from dawn for lap swimmers and late into the evening for a quiet float ' +
       'under the stars.',
-    image: '/amenities/swimming-pool.webp',
-    hero: '/amenities/swimming-pool.webp',
+    image: '/photos/infinity-lounge.webp',
+    hero: '/photos/infinity-lounge.webp',
     gallery: [
-      '/amenities/swimming-pool.webp',
-      '/amenities/infinity-pool.webp',
-      '/amenities/collage-pool.webp',
-      '/amenities/collage-ocean.webp',
+      '/photos/infinity-lounge.webp',
+      '/photos/pool-loungers.webp',
+      '/photos/palm-pool-aerial.webp',
+      '/photos/beach-hero.webp',
     ],
     highlights: [
       'Infinity edge',

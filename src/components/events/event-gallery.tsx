@@ -6,22 +6,28 @@ import { gsap, ScrollTrigger } from '#/lib/gsap'
 // Curated grid of past celebrations with a clip-path image-reveal per tile.
 const TILES = [
   {
-    image: '/wedding.webp',
-    alt: 'A beachfront wedding ceremony',
+    image: '/events/wedding-carriage.webp',
+    alt: 'Newlyweds in a horse-drawn carriage',
     featured: true,
   },
   {
-    image: '/weddding.webp',
-    alt: 'A styled reception table setting',
+    image: '/events/wedding-ceremony.webp',
+    alt: 'A couple at their wedding ceremony',
   },
-  { image: '/events/poolside.jpg', alt: 'A poolside birthday celebration' },
   {
-    image: '/wedding_-1024x768.webp',
-    alt: 'An evening reception in the dining hall',
+    image: '/photos/pool-loungers.webp',
+    alt: 'Poolside loungers set for a party',
+  },
+  {
+    image: '/events/wedding-carriage-wide.webp',
+    alt: 'A carriage arrival on the wedding day',
     featured: true,
   },
-  { image: '/events/family.jpg', alt: 'A family gathering by the sea' },
-  { image: '/events/terrace.jpg', alt: 'Cocktails on the ocean terrace' },
+  { image: '/photos/beach-hero.webp', alt: 'The pool and sea beyond' },
+  {
+    image: '/photos/lantern-terrace.webp',
+    alt: 'The lantern-lit garden terrace',
+  },
 ]
 
 export function EventGallery() {

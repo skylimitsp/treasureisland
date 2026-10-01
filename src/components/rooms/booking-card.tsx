@@ -145,7 +145,7 @@ export function BookingCard({
         value={guestName}
         onChange={(e) => setGuestName(e.target.value)}
         placeholder="Full name"
-        className="mt-3 w-full rounded-md border border-line bg-white/70 px-3 py-2 outline-none focus:border-lagoon-deep"
+        className="mt-3 w-full rounded-md border border-line bg-foam/80 px-3 py-2 outline-none focus:border-lagoon-deep focus:ring-2 focus:ring-lagoon/30"
       />
       <input
         type="email"
@@ -153,7 +153,7 @@ export function BookingCard({
         onChange={(e) => setEmail(e.target.value)}
         placeholder="you@example.com"
         aria-invalid={touched && !emailOk}
-        className="mt-2 w-full rounded-md border border-line bg-white/70 px-3 py-2 outline-none focus:border-lagoon-deep"
+        className="mt-2 w-full rounded-md border border-line bg-foam/80 px-3 py-2 outline-none focus:border-lagoon-deep focus:ring-2 focus:ring-lagoon/30"
       />
 
       {n > 0 ? (

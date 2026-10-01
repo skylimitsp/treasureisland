@@ -101,7 +101,7 @@ function AboutPage() {
       </section>
 
       <FixedDivider
-        image="/heroes/reserve.jpg"
+        image="/photos/jetski-loop.webp"
         title="Your island is waiting."
         ctaLabel="Explore rooms"
         ctaTo="/rooms"

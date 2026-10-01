@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 
-const LARGE = '/rooms/room1.jpg'
-const RIGHT = ['/amenities/restaurant.webp', '/amenities/jacuzzi.webp']
+const LARGE = '/rooms/room-1.webp'
+const RIGHT = ['/photos/ocean-deck-dining.webp', '/photos/infinity-lounge.webp']
 const THUMBS = [
-  '/wedding.webp',
-  '/heroes/escape.jpg',
-  '/rooms/room5.jpg',
-  '/rooms/room6.jpg',
+  '/events/wedding-carriage.webp',
+  '/photos/aerial-resort.webp',
+  '/rooms/room-5.webp',
+  '/rooms/room-6.webp',
 ]
 const ALL = [LARGE, ...RIGHT, ...THUMBS]
 
@@ -38,6 +38,8 @@ export function DetailGallery() {
         src={src}
         alt={`Treasure Island — photo ${i + 1}`}
         loading={i === 0 ? 'eager' : 'lazy'}
+        fetchPriority={i === 0 ? 'high' : 'auto'}
+        decoding="async"
         className="h-full w-full object-cover"
       />
     </button>

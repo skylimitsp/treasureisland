@@ -32,7 +32,7 @@ export function EventTypeCard({
   return (
     <article
       data-reveal
-      className="feature-card flex h-full flex-col rounded-md border border-line p-6 md:p-8"
+      className="feature-card flex h-full flex-col rounded-md border border-line p-6"
     >
       <span
         className="flex size-12 items-center justify-center rounded-full text-lagoon-deep"

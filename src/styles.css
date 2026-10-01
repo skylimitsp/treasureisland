@@ -13,15 +13,19 @@
   --lagoon-deep: #328f97;
   --palm: #2f6a4a;
   --sand: #e7f0e8;
-  --foam: #f3faf5;
-  --surface: rgba(255, 255, 255, 0.74);
-  --surface-strong: rgba(255, 255, 255, 0.9);
+  --foam: #ffffff;
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
   --line: rgba(23, 58, 64, 0.14);
   --inset-glint: rgba(255, 255, 255, 0.82);
   --kicker: rgba(47, 106, 74, 0.9);
-  --bg-base: #e7f3ec;
-  --header-bg: rgba(251, 255, 248, 0.84);
-  --chip-bg: rgba(255, 255, 255, 0.8);
+  --bg-base: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.94);
+  --footer-bg: #173a40;
+  --panel-warm: #a4502b;
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-field: rgba(243, 250, 245, 0.78);
+  --chip-bg: #ffffff;
   --chip-line: rgba(47, 106, 74, 0.18);
   --link-bg-hover: rgba(255, 255, 255, 0.9);
   --hero-a: rgba(79, 184, 178, 0.36);
@@ -80,6 +84,10 @@
   --kicker: #b8efe5;
   --bg-base: #0a1418;
   --header-bg: rgba(10, 20, 24, 0.8);
+  --footer-bg: #0d2227;
+  --panel-warm: #a4502b;
+  --glass: rgba(16, 30, 34, 0.72);
+  --glass-field: rgba(16, 29, 34, 0.7);
   --chip-bg: rgba(13, 28, 32, 0.9);
   --chip-line: rgba(141, 229, 219, 0.24);
   --link-bg-hover: rgba(24, 44, 49, 0.8);
@@ -139,6 +147,8 @@
   --color-sunset-deep: var(--sunset-deep);
   --color-gold: var(--gold);
   --color-line: var(--line);
+  --color-footer: var(--footer-bg);
+  --color-panel-warm: var(--panel-warm);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -188,70 +198,18 @@ body {
   margin: 0;
   color: var(--sea-ink);
   font-family: var(--font-sans);
-  background-color: var(--bg-base);
-  background:
-    radial-gradient(1100px 620px at -8% -10%, var(--hero-a), transparent 58%),
-    radial-gradient(1050px 620px at 112% -12%, var(--hero-b), transparent 62%),
-    radial-gradient(
-      720px 380px at 50% 115%,
-      rgba(79, 184, 178, 0.1),
-      transparent 68%
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--sand) 68%, white) 0%,
-      var(--foam) 44%,
-      var(--bg-base) 100%
-    );
+  /* Pure white canvas (light); dark mode keeps its deep base. */
+  background: var(--bg-base);
   overflow-x: hidden;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.28;
-  background:
-    radial-gradient(
-      circle at 20% 15%,
-      rgba(255, 255, 255, 0.8),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 78% 26%,
-      rgba(79, 184, 178, 0.2),
-      transparent 42%
-    ),
-    radial-gradient(circle at 42% 82%, rgba(47, 106, 74, 0.14), transparent 36%);
-}
-
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.14;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%);
-}
-
-a {
-  color: var(--lagoon-deep);
-  text-decoration-color: rgba(50, 143, 151, 0.4);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-}
-
-a:hover {
-  color: #246f76;
+/* One visible, on-brand focus ring for every interactive element. */
+:focus-visible {
+  outline: 2px solid var(--lagoon-deep);
+  outline-offset: 2px;
 }
 
 code {
@@ -273,7 +231,7 @@ pre code {
 
 .prose pre {
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: #1d2e45;
   color: #e8efff;
 }
@@ -285,7 +243,9 @@ pre code {
 
 .display-title {
   font-family: var(--font-display);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  text-wrap: balance;
 }
 
 /* Signature: one italic serif accent word inside a display heading. */
@@ -297,46 +257,43 @@ pre code {
 
 .island-shell {
   border: 1px solid var(--line);
-  background: linear-gradient(165deg, var(--surface-strong), var(--surface));
+  background: var(--surface-strong);
   box-shadow:
-    0 1px 0 var(--inset-glint) inset,
-    0 22px 44px rgba(30, 90, 72, 0.1),
-    0 6px 18px rgba(23, 58, 64, 0.08);
-  backdrop-filter: blur(4px);
+    0 1px 2px rgba(23, 58, 64, 0.04),
+    0 8px 24px rgba(23, 58, 64, 0.06);
 }
 
 .feature-card {
-  background: linear-gradient(
-    165deg,
-    color-mix(in oklab, var(--surface-strong) 93%, white 7%),
-    var(--surface)
-  );
+  background: var(--surface-strong);
   box-shadow:
-    0 1px 0 var(--inset-glint) inset,
-    0 18px 34px rgba(30, 90, 72, 0.1),
-    0 4px 14px rgba(23, 58, 64, 0.06);
+    0 1px 2px rgba(23, 58, 64, 0.04),
+    0 8px 24px rgba(23, 58, 64, 0.06);
 }
 
 .feature-card:hover {
-  transform: translateY(-2px);
   border-color: color-mix(in oklab, var(--lagoon-deep) 35%, var(--line));
+  box-shadow:
+    0 2px 4px rgba(23, 58, 64, 0.05),
+    0 14px 32px rgba(23, 58, 64, 0.1);
 }
 
 button,
 .island-shell,
+.feature-card,
 a {
   transition:
     background-color 180ms ease,
     color 180ms ease,
     border-color 180ms ease,
+    box-shadow 180ms ease,
     transform 180ms ease;
 }
 
 .island-kicker {
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 0.69rem;
+  font-size: 0.72rem;
   color: var(--kicker);
 }
 
@@ -355,7 +312,7 @@ a {
   height: 2px;
   transform: scaleX(0);
   transform-origin: left;
-  background: linear-gradient(90deg, var(--lagoon), #7ed3bf);
+  background: var(--lagoon);
   transition: transform 170ms ease;
 }
 
@@ -382,11 +339,6 @@ a {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.site-footer {
-  border-top: 1px solid var(--line);
-  background: color-mix(in oklab, var(--header-bg) 84%, transparent 16%);
 }
 
 /* --- Header (fixed overlay; frosts on scroll via .is-scrolled) ------------ */
@@ -445,11 +397,13 @@ a {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-md);
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   line-height: 1;
   min-height: 44px;
+  white-space: nowrap;
+  flex-shrink: 0;
   cursor: pointer;
   text-decoration: none;
 }
@@ -460,9 +414,8 @@ a {
   border: 1px solid transparent;
 }
 .btn-primary:hover {
-  background: #246f76;
+  background: color-mix(in oklab, var(--lagoon-deep) 78%, var(--sea-ink));
   color: #fff;
-  transform: translateY(-1px);
 }
 
 .btn-ghost {
@@ -483,7 +436,27 @@ a {
 .btn-warm:hover {
   background: var(--sunset-deep);
   color: #fff;
-  transform: translateY(-1px);
+}
+
+/* --- Frosted hero search (sits over photography) ------------------------- */
+.glass-panel {
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 12px 32px rgba(23, 58, 64, 0.18);
+}
+.glass-field {
+  background: var(--glass-field);
+}
+
+/* Soft blush wash (white → warm sand) for light colour-block panels. */
+.panel-blush {
+  background: linear-gradient(
+    180deg,
+    var(--bg-base) 0%,
+    color-mix(in oklab, var(--sunset) 10%, var(--bg-base)) 45%,
+    color-mix(in oklab, var(--sunset) 26%, var(--bg-base)) 100%
+  );
 }
 
 /* --- Chips & badges ------------------------------------------------------- */
@@ -491,7 +464,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  border-radius: 9999px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--chip-line);
   background: var(--chip-bg);
   color: var(--sea-ink-soft);
@@ -503,14 +476,13 @@ a {
 .price-badge {
   display: inline-flex;
   align-items: center;
-  border-radius: 9999px;
+  border-radius: var(--radius-md);
   background: color-mix(in oklab, var(--surface-strong) 92%, white);
   border: 1px solid var(--line);
   color: var(--sea-ink);
   padding: 0.35rem 0.8rem;
   font-size: 0.85rem;
   font-weight: 700;
-  backdrop-filter: blur(4px);
 }
 
 /* --- Imagery -------------------------------------------------------------- */
@@ -522,8 +494,7 @@ a {
 
 .img-frame {
   overflow: hidden;
-  border-radius: var(--radius);
-  box-shadow: 0 0 0 1px var(--inset-glint) inset;
+  border-radius: var(--radius-md);
 }
 .img-frame img {
   /* Dusk photography has dark skies — bias the crop toward the lit content. */
@@ -532,7 +503,7 @@ a {
 }
 .group:hover .img-frame img,
 .img-frame:hover img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 /* --- Motion helpers (see docs/animation-guide.md) ------------------------- */
@@ -551,7 +522,7 @@ a {
   background-attachment: fixed;
 }
 
-/* Hero background — small AVIF (LCP) with JPEG fallback + legibility scrim.
+/* Hero background — small AVIF (LCP) with WebP fallback + legibility scrim.
    Directional: darker top (nav), bottom, and left (headline) for contrast. */
 .hero-bg {
   background-image:
@@ -568,8 +539,8 @@ a {
       rgba(23, 58, 64, 0.08) 62%
     ),
     image-set(
-      url('/heroes/hero.avif') type('image/avif'),
-      url('/heroes/hero.jpg') type('image/jpeg')
+      url('/photos/beach-hero.avif') type('image/avif'),
+      url('/photos/beach-hero.webp') type('image/webp')
     );
   background-size: cover;
   background-position: center;
@@ -578,6 +549,9 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .rise-in {
     animation: none;
+  }
+  .img-frame img {
+    transition: none;
   }
   .gsap-ready .will-animate {
     opacity: 1;
@@ -588,11 +562,29 @@ a {
 }
 
 @layer base {
+  /* Base link colour lives in a layer so Tailwind text-* utilities can override it. */
+  a {
+    color: var(--lagoon-deep);
+    text-decoration-color: rgba(50, 143, 151, 0.4);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  a:hover {
+    color: color-mix(in oklab, var(--lagoon-deep) 78%, var(--sea-ink));
+  }
   * {
     @apply border-border outline-ring/50;
   }
+  /* Space above the footer, unless the page ends on a full-bleed band. */
+  main {
+    padding-bottom: 7rem;
+  }
+  main:has(> [data-fixed-band]:last-child) {
+    padding-bottom: 0;
+  }
   body {
-    background-color: var(--background);
+    background-color: var(--bg-base);
     color: var(--foreground);
   }
 }

@@ -87,7 +87,7 @@ function EventsPage() {
       <Testimonials />
       <EventsFaq />
       <FixedDivider
-        image="/events/aerial.jpg"
+        image="/photos/pool-at-night.webp"
         kicker="Celebrations by the sea"
         title="Let’s plan your day."
         ctaLabel="Explore rooms"

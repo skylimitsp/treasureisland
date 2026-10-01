@@ -27,6 +27,7 @@ export function ExperienceTile({ amenity }: { amenity: Amenity }) {
           src={amenity.image}
           alt={amenity.name}
           loading="lazy"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (

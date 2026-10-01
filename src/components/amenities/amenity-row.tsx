@@ -38,6 +38,7 @@ export function AmenityRow({
               src={amenity.image}
               alt={amenity.name}
               loading="lazy"
+              decoding="async"
               className="absolute inset-0 h-full w-full scale-105 object-cover"
             />
           ) : (

@@ -1,9 +1,11 @@
 import { Link } from '@tanstack/react-router'
+import { ArrowRight } from 'lucide-react'
 
+import { EventTeaserCard } from '#/components/events/event-teaser-card'
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { useEventTeasersQuery } from '#/hooks/queries/events.query'
 
-// Celebrations teaser: wedding / birthday / family cards → /events.
+// Celebrations teaser: tall overlay cards for weddings, birthdays, family → /events.
 export function EventsTeaser() {
   const events = useEventTeasersQuery()
 
@@ -16,41 +18,19 @@ export function EventsTeaser() {
             Weddings &amp; celebrations
           </h2>
         </div>
-        <Link to="/events" className="btn btn-primary no-underline">
+        <Link
+          to="/events"
+          className="inline-flex items-center gap-2 font-semibold text-panel-warm no-underline hover:text-sunset-deep"
+        >
           Enquire about your event
+          <ArrowRight size={16} aria-hidden />
         </Link>
       </div>
 
-      <ul className="mt-8 grid gap-6 md:grid-cols-3">
+      <ul className="mt-10 grid gap-6 md:grid-cols-3">
         {(events.data ?? []).map((event) => (
           <li key={event.slug}>
-            <Link
-              to="/events"
-              data-reveal
-              className="group img-frame relative block aspect-[4/5] overflow-hidden rounded-md border border-line no-underline"
-            >
-              <img
-                src={event.image}
-                alt={event.name}
-                loading="lazy"
-                data-speed="1.08"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    'linear-gradient(to top, rgba(23,58,64,.74), transparent 60%)',
-                }}
-                aria-hidden
-              />
-              <div className="relative z-10 flex h-full flex-col justify-end p-6 text-white">
-                <h3 className="display-title text-2xl text-white">
-                  {event.name}
-                </h3>
-                <p className="mt-1 text-sm text-white/85">{event.blurb}</p>
-              </div>
-            </Link>
+            <EventTeaserCard event={event} />
           </li>
         ))}
       </ul>

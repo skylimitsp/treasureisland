@@ -31,13 +31,13 @@ export function StayCard() {
     <div className="island-shell rounded-md p-5">
       <label className="block">
         <span className="island-kicker">Location</span>
-        <span className="mt-1 flex items-center gap-2 rounded-md border border-line bg-white/70 px-3 py-2.5 text-sm">
+        <span className="mt-1 flex items-center gap-2 rounded-md border border-line bg-foam/80 px-3 py-2.5 text-sm">
           <MapPin size={15} className="text-lagoon-deep" aria-hidden />
           Treasure Island, Indian Ocean
         </span>
       </label>
 
-      <div className="mt-4 flex items-center justify-between rounded-md border border-line bg-white/70 px-3 py-2.5">
+      <div className="mt-4 flex items-center justify-between rounded-md border border-line bg-foam/80 px-3 py-2.5">
         <span className="island-kicker">Guests</span>
         <div className="flex items-center gap-3">
           <button
@@ -64,7 +64,7 @@ export function StayCard() {
 
       <label className="mt-4 block">
         <span className="island-kicker">Check in</span>
-        <span className="mt-1 flex items-center gap-2 rounded-md border border-line bg-white/70 px-3 py-2 text-sm">
+        <span className="mt-1 flex items-center gap-2 rounded-md border border-line bg-foam/80 px-3 py-2 text-sm">
           <CalendarDays size={15} className="text-lagoon-deep" aria-hidden />
           <input
             type="date"
@@ -77,7 +77,7 @@ export function StayCard() {
 
       <label className="mt-4 block">
         <span className="island-kicker">Check out</span>
-        <span className="mt-1 flex items-center gap-2 rounded-md border border-line bg-white/70 px-3 py-2 text-sm">
+        <span className="mt-1 flex items-center gap-2 rounded-md border border-line bg-foam/80 px-3 py-2 text-sm">
           <CalendarDays size={15} className="text-lagoon-deep" aria-hidden />
           <input
             type="date"

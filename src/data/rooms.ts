@@ -29,7 +29,7 @@ const ROOMS: Array<Room> = [
       'Coffee & tea',
       'Air conditioning',
     ],
-    image: '/treasure.webp',
+    image: '/rooms/garden-view.webp',
     oceanView: true,
   },
   {
@@ -45,7 +45,7 @@ const ROOMS: Array<Room> = [
     sizeSqm: 130,
     beds: '2 king',
     amenities: ['Ocean view', 'Private lounge', 'Minibar', 'Rain shower'],
-    image: '/treasure-livingarea.webp',
+    image: '/rooms/living-area.webp',
     oceanView: true,
   },
   {
@@ -61,7 +61,7 @@ const ROOMS: Array<Room> = [
     sizeSqm: 75,
     beds: '1 king',
     amenities: ['Private balcony', 'Ocean view', 'Minibar', 'Rain shower'],
-    image: '/treasure-room.webp',
+    image: '/rooms/suite-bedroom.webp',
     oceanView: true,
   },
   {
@@ -77,7 +77,7 @@ const ROOMS: Array<Room> = [
     sizeSqm: 55,
     beds: '1 king',
     amenities: ['Ocean view', 'Coffee & tea', 'Air conditioning', 'Wi-Fi'],
-    image: '/treasure-room1.webp',
+    image: '/rooms/kitchenette.webp',
     oceanView: true,
   },
   {
@@ -93,7 +93,7 @@ const ROOMS: Array<Room> = [
     sizeSqm: 160,
     beds: '3 queen',
     amenities: ['Family sized', 'Living room', 'Breakfast', 'Wi-Fi'],
-    image: '/rooms/room1.jpg',
+    image: '/rooms/room-1.webp',
     oceanView: true,
   },
   {
@@ -109,7 +109,7 @@ const ROOMS: Array<Room> = [
     sizeSqm: 150,
     beds: '3 queen',
     amenities: ['Private veranda', 'Garden setting', 'Breakfast', 'Wi-Fi'],
-    image: '/rooms/room2.jpg',
+    image: '/rooms/room-2.webp',
     oceanView: false,
   },
   {
@@ -125,7 +125,7 @@ const ROOMS: Array<Room> = [
     sizeSqm: 110,
     beds: '2 queen',
     amenities: ['Garden setting', 'Coffee & tea', 'Air conditioning', 'Wi-Fi'],
-    image: '/rooms/room3.jpg',
+    image: '/rooms/room-3.webp',
     oceanView: false,
   },
   {
@@ -141,7 +141,7 @@ const ROOMS: Array<Room> = [
     sizeSqm: 45,
     beds: '1 queen',
     amenities: ['Coffee & tea', 'Air conditioning', 'Rain shower', 'Wi-Fi'],
-    image: '/rooms/room5.jpg',
+    image: '/rooms/room-5.webp',
     oceanView: false,
   },
   {
@@ -157,7 +157,7 @@ const ROOMS: Array<Room> = [
     sizeSqm: 40,
     beds: '2 twin',
     amenities: ['Coffee & tea', 'Air conditioning', 'Wi-Fi', 'Daily service'],
-    image: '/rooms/room6.jpg',
+    image: '/rooms/room-6.webp',
     oceanView: false,
   },
 ]

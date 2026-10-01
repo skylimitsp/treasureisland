@@ -41,6 +41,8 @@ export function RoomGallery({
             src={src}
             alt={`${name} — photo ${i + 1}`}
             loading={i === 0 ? 'eager' : 'lazy'}
+            fetchPriority={i === 0 ? 'high' : 'auto'}
+            decoding="async"
             className="h-full w-full object-cover"
           />
         </button>

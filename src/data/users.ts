@@ -8,7 +8,7 @@ const USERS: Array<User> = [
     name: 'Amara Mensah',
     email: 'amara@treasureisland.example',
     role: 'admin',
-    avatar: '/about/host.jpg',
+    avatar: '/photos/lantern-terrace.webp',
   },
   {
     id: 'u2',

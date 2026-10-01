@@ -19,6 +19,7 @@ export function GalleryTile({
         src={image}
         alt={alt}
         loading="lazy"
+        decoding="async"
         className={`h-full w-full object-cover ${featured ? 'aspect-[3/4] sm:h-full' : 'aspect-[4/3]'}`}
       />
     </figure>

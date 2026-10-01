@@ -81,6 +81,7 @@ export function AmenityGallery({
                 src={src}
                 alt={`${name} — photo ${i + 1}`}
                 loading="lazy"
+                decoding="async"
                 className={`h-full w-full object-cover ${
                   i === 0 ? 'aspect-[4/3] sm:h-full' : 'aspect-[4/3]'
                 }`}

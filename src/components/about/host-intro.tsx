@@ -12,6 +12,7 @@ export function HostIntro({ host }: { host: AboutHost }) {
           src={host.photo}
           alt={host.photoAlt}
           loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover"
         />
       </figure>

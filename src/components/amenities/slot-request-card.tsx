@@ -29,7 +29,7 @@ const SLOTS: Record<string, Array<string>> = {
 }
 
 const inputClass =
-  'w-full rounded-md border border-line bg-white/80 px-3 py-2 text-sea-ink outline-none focus:border-lagoon-deep disabled:opacity-60'
+  'w-full rounded-md border border-line bg-foam/80 px-3 py-2 text-sea-ink outline-none focus:border-lagoon-deep focus:ring-2 focus:ring-lagoon/30 disabled:opacity-60'
 
 // Light reserve-a-slot request — no payment, no live inventory. Mirrors the
 // room booking mechanics: validate, submit via mutation, confirm, aria-live.
