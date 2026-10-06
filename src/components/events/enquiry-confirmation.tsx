@@ -5,9 +5,9 @@ import type { EventEnquiry } from '#/types'
 
 const TYPE_LABELS: Record<string, string> = {
   weddings: 'Wedding',
-  birthdays: 'Birthday',
+  birthdays: 'Birthday party',
   family: 'Family party',
-  meetings: 'Meeting',
+  meetings: 'Meetings & Events',
 }
 
 // Success panel shown after an enquiry is submitted; takes focus on mount.
@@ -34,8 +34,8 @@ export function EnquiryConfirmation({ enquiry }: { enquiry: EventEnquiry }) {
         Enquiry received — thank you.
       </h3>
       <p className="mt-2 text-sea-ink-soft">
-        Our events team will reply within 48 hours with a tailored proposal.
-        This is an enquiry, not a confirmed booking — nothing has been charged.
+        Our event consultants will get in touch. This is an enquiry, not a
+        confirmed booking — nothing has been charged.
       </p>
 
       <dl className="mt-6 grid gap-3 border-t border-line pt-6 text-sm sm:grid-cols-2">
@@ -44,7 +44,7 @@ export function EnquiryConfirmation({ enquiry }: { enquiry: EventEnquiry }) {
           <dd className="mt-1 font-semibold text-sea-ink">{enquiry.id}</dd>
         </div>
         <div>
-          <dt className="island-kicker">Celebration</dt>
+          <dt className="island-kicker">Event</dt>
           <dd className="mt-1 text-sea-ink">
             {TYPE_LABELS[enquiry.eventType] ?? enquiry.eventType}
           </dd>
@@ -63,8 +63,8 @@ export function EnquiryConfirmation({ enquiry }: { enquiry: EventEnquiry }) {
       </dl>
 
       <p className="mt-6 text-sm text-sea-ink-soft">
-        Keep your reference <strong>{enquiry.id}</strong> handy — we will quote
-        it when we reply to {enquiry.email}.
+        Keep your reference <strong>{enquiry.id}</strong> handy if you contact
+        us about this enquiry.
       </p>
     </div>
   )

@@ -45,7 +45,7 @@ export function seo(input: SeoInput = {}) {
     { title },
     { name: 'description', content: description },
     { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:site', content: SITE.twitter },
+    ...(SITE.twitter ? [{ name: 'twitter:site', content: SITE.twitter }] : []),
     { name: 'twitter:title', content: title },
     { name: 'twitter:description', content: description },
     { name: 'twitter:image', content: image },

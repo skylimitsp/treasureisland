@@ -24,8 +24,9 @@ export const Route = createFileRoute('/amenities/')({
     seo({
       title: 'Amenities',
       description:
-        'Ocean-view dining, a 12D cinema, horse riding, jacuzzi, and boat ' +
-        'cruises with jet-ski at Treasure Island.',
+        'Jacuzzi bath, boat cruise with jet-ski, 12D cinema, taxi boat, ' +
+        'swimming and waterfront cabanas, horse riding, gaming and the ' +
+        'restaurant at Treasure Island Ada, Ada Foah.',
       path: '/amenities',
     }),
   component: AmenitiesPage,
@@ -49,12 +50,11 @@ function AmenitiesPage() {
       <AmenityStats />
       <FixedDivider
         image="/photos/beach-hero.webp"
-        kicker="Ready when you are"
-        title="Your day, already planned."
-        subtitle="Reserve your stay and let the island fill the hours."
-        ctaLabel="Plan your stay"
+        kicker="Treasure Island Ada"
+        title="Definition of luxury, hospitality and serendipity."
+        ctaLabel="Book Early"
         ctaTo="/rooms"
-        ctaLabel2="Ask concierge"
+        ctaLabel2="Events & Meetings"
         ctaTo2="/events"
         variant="warm"
       />

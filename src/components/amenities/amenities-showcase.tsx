@@ -1,17 +1,9 @@
 import { Link } from '@tanstack/react-router'
-import { Anchor, Bath, Film, Ship, Utensils } from 'lucide-react'
 
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { useAmenitiesQuery } from '#/hooks/queries/amenities.query'
-import type { AmenityIcon } from '#/types'
-
-const ICONS: Record<AmenityIcon, typeof Utensils> = {
-  utensils: Utensils,
-  film: Film,
-  bath: Bath,
-  anchor: Anchor,
-  ship: Ship,
-}
+import { AmenityGlyph } from '#/components/amenities/amenity-icon'
+import { ResponsiveImage } from '#/components/shared/responsive-image'
 
 // Showcase: a sticky intro column beside a revealing list of amenity tiles.
 export function AmenitiesShowcase() {
@@ -25,9 +17,8 @@ export function AmenitiesShowcase() {
           Everything the island has to <em>offer</em>.
         </h2>
         <p className="mt-5 text-sea-ink-soft">
-          Dine at the water’s edge, ride the shoreline at golden hour, or take
-          the boat out at sunset. Five signature experiences, steps from your
-          door.
+          Visit Us any day. Monday through Sunday 24 / 7 to experience our
+          various types of services and amenities.
         </p>
         <Link to="/amenities" className="btn btn-ghost mt-7 no-underline">
           Explore all amenities
@@ -36,7 +27,6 @@ export function AmenitiesShowcase() {
 
       <ul className="flex flex-col gap-6">
         {(amenities.data ?? []).map((a) => {
-          const Icon = ICONS[a.icon]
           return (
             <li key={a.slug}>
               <Link
@@ -45,9 +35,9 @@ export function AmenitiesShowcase() {
                 className="group img-frame relative flex aspect-[16/10] items-end overflow-hidden rounded-md border border-line no-underline"
               >
                 {a.image ? (
-                  <img
+                  <ResponsiveImage
                     src={a.image}
-                    alt={a.name}
+                    alt={a.imageAlt ?? a.name}
                     loading="lazy"
                     decoding="async"
                     className="absolute inset-0 h-full w-full object-cover"
@@ -65,7 +55,7 @@ export function AmenitiesShowcase() {
                 />
                 <div className="relative z-10 p-6 text-white">
                   <span className="chip mb-3 !border-white/30 !bg-white/15 !text-white">
-                    <Icon size={15} strokeWidth={1.75} aria-hidden />
+                    <AmenityGlyph icon={a.icon} size={15} />
                     {a.category}
                   </span>
                   <h3 className="display-title text-2xl text-white">

@@ -5,19 +5,21 @@ function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 
-// Celebrations hero: shared inner-page hero with enquiry + venue CTAs.
+// Events hero (official copy): shared inner-page hero with enquiry + spaces CTAs.
 export function EventsHero() {
   return (
     <PageHero
       image="/photos/infinity-lounge.webp"
-      kicker="Celebrations by the sea"
+      video="/videos/hero-aerial-night"
+      mobileVideo="/videos/hero-aerial-night-720"
+      kicker="Events & Meetings"
       title={
         <>
-          Say yes where the <em style={{ color: 'var(--sunset)' }}>ocean</em>{' '}
-          begins.
+          Weddings, parties &amp;{' '}
+          <em style={{ color: 'var(--sunset)' }}>meetings</em>.
         </>
       }
-      body="Weddings, birthdays and gatherings on a private beachfront — barefoot luxury, planned end to end by our island team."
+      body="Treasure Island Resort offers an environment perfectly designed for successful events."
       actions={
         <>
           <button
@@ -25,14 +27,14 @@ export function EventsHero() {
             onClick={() => scrollToId('enquire')}
             className="btn btn-primary"
           >
-            Request a date
+            Send an enquiry
           </button>
           <button
             type="button"
             onClick={() => scrollToId('venues')}
             className="btn btn-ghost !border-white/70 !text-white"
           >
-            See venues
+            See our spaces
           </button>
         </>
       }

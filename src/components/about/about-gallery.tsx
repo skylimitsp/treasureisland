@@ -1,4 +1,5 @@
 import type { GalleryImage } from '#/types/about'
+import { ResponsiveImage } from '#/components/shared/responsive-image'
 
 // Masonry-ish gallery of resort life; images lazy-load and lift on hover.
 export function AboutGallery({ images }: { images: Array<GalleryImage> }) {
@@ -13,7 +14,7 @@ export function AboutGallery({ images }: { images: Array<GalleryImage> }) {
               i % 3 === 0 ? 'aspect-[3/4]' : 'aspect-[4/3]'
             }`}
           >
-            <img
+            <ResponsiveImage
               src={img.src}
               alt={img.alt}
               loading="lazy"

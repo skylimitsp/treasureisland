@@ -18,6 +18,9 @@ import appCss from '../styles.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
 
+const FONTS_CSS =
+  'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap'
+
 interface MyRouterContext {
   queryClient: QueryClient
 }
@@ -33,7 +36,17 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         ...base.meta,
       ],
-      links: [{ rel: 'stylesheet', href: appCss }],
+      links: [
+        // Fonts load in parallel with app CSS (an @import would chain them).
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.gstatic.com',
+          crossOrigin: 'anonymous',
+        },
+        { rel: 'stylesheet', href: FONTS_CSS },
+        { rel: 'stylesheet', href: appCss },
+      ],
       scripts: base.scripts,
     }
   },

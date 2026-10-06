@@ -1,4 +1,13 @@
-import { Anchor, Bath, Film, Ship, Utensils } from 'lucide-react'
+import {
+  Bath,
+  Compass,
+  Film,
+  Gamepad2,
+  Sailboat,
+  Ship,
+  Utensils,
+  Waves,
+} from 'lucide-react'
 
 import type { LucideIcon } from 'lucide-react'
 import type { AmenityIcon } from '#/types'
@@ -8,8 +17,11 @@ export const amenityIcons: Record<AmenityIcon, LucideIcon> = {
   utensils: Utensils,
   film: Film,
   bath: Bath,
-  anchor: Anchor,
   ship: Ship,
+  sailboat: Sailboat,
+  waves: Waves,
+  compass: Compass,
+  gamepad: Gamepad2,
 }
 
 // Renders the lucide glyph for an amenity icon token.

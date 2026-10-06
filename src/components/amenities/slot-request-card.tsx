@@ -9,25 +9,18 @@ import { DateInput } from '#/components/shared/date-input'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const today = () => new Date().toISOString().slice(0, 10)
 
-// CTA verb + time-slot options adapt to the amenity category.
-const VERBS: Record<string, string> = {
-  Dining: 'Reserve a table',
-  Entertainment: 'Reserve seats',
-  Adventure: 'Book a ride',
-  'On the water': 'Book a session',
+// Cabana durations come from the official text; others ask a time of day.
+const SLOT_FIELDS: Record<string, { label: string; options: Array<string> }> = {
+  'swimming-cabanas': {
+    label: 'Duration',
+    options: ['An hour', 'Half a day', 'The full day'],
+  },
 }
-
-const SLOTS: Record<string, Array<string>> = {
-  Dining: [
-    'Breakfast · 8:00',
-    'Lunch · 13:00',
-    'Sunset · 18:00',
-    'Dinner · 20:00',
-  ],
-  Entertainment: ['16:00', '17:30', '19:00', '20:30'],
-  Adventure: ['Sunrise · 6:30', 'Golden hour · 16:30', 'Sunset · 17:30'],
-  'On the water': ['09:00', '11:00', '14:00', 'Sunset · 16:30'],
+const DEFAULT_SLOTS = {
+  label: 'Time',
+  options: ['Morning', 'Afternoon', 'Evening'],
 }
+const VERB = 'Request a reservation'
 
 const inputClass =
   'w-full rounded-md border border-line bg-foam/80 px-3 py-2 text-sea-ink outline-none focus:border-lagoon-deep focus:ring-2 focus:ring-lagoon/30 disabled:opacity-60'
@@ -38,8 +31,7 @@ const dateBoxClass = inputClass.replace(/focus:/g, 'focus-within:')
 // Light reserve-a-slot request — no payment, no live inventory. Mirrors the
 // room booking mechanics: validate, submit via mutation, confirm, aria-live.
 export function SlotRequestCard({ amenity }: { amenity: Amenity }) {
-  const verb = VERBS[amenity.category] ?? 'Request a slot'
-  const slots = SLOTS[amenity.category] ?? ['Morning', 'Afternoon', 'Evening']
+  const slotField = SLOT_FIELDS[amenity.slug] ?? DEFAULT_SLOTS
 
   const [date, setDate] = useState('')
   const [slot, setSlot] = useState('')
@@ -88,9 +80,9 @@ export function SlotRequestCard({ amenity }: { amenity: Amenity }) {
       noValidate
       className="island-shell rounded-md p-6"
     >
-      <h2 className="display-title text-xl">{verb}</h2>
+      <h2 className="display-title text-xl">{VERB}</h2>
       <p className="mt-1 text-sm text-sea-ink-soft">
-        A request, not an instant booking — we’ll confirm by email.
+        Send a reservation request — it is not a confirmed booking.
       </p>
 
       <label className="mt-4 block text-sm font-semibold text-sea-ink">
@@ -107,7 +99,7 @@ export function SlotRequestCard({ amenity }: { amenity: Amenity }) {
       </label>
 
       <label className="mt-3 block text-sm font-semibold text-sea-ink">
-        Time *
+        {slotField.label} *
         <select
           value={slot}
           disabled={pending}
@@ -115,8 +107,8 @@ export function SlotRequestCard({ amenity }: { amenity: Amenity }) {
           aria-invalid={touched && !slot}
           className={`mt-1.5 font-normal ${inputClass}`}
         >
-          <option value="">Select a time</option>
-          {slots.map((s) => (
+          <option value="">Select {slotField.label.toLowerCase()}</option>
+          {slotField.options.map((s) => (
             <option key={s} value={s}>
               {s}
             </option>
@@ -195,13 +187,14 @@ export function SlotRequestCard({ amenity }: { amenity: Amenity }) {
         disabled={pending}
         className="btn btn-primary mt-5 w-full disabled:opacity-60"
       >
-        {pending ? 'Sending…' : verb}
+        {pending ? 'Sending…' : VERB}
       </button>
 
       <p aria-live="assertive" className="mt-2 min-h-5 text-sm">
         {touched && !valid ? (
           <span className="text-destructive">
-            Add a date, time, your name, and a valid email.
+            Add a date, {slotField.label.toLowerCase()}, your name, and a valid
+            email.
           </span>
         ) : request.isError ? (
           <span className="text-destructive">{request.error.message}</span>

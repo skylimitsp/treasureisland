@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 
 import { AmenityGlyph } from '#/components/amenities/amenity-icon'
 import type { Amenity } from '#/types'
+import { ResponsiveImage } from '#/components/shared/responsive-image'
 
 // Compact cross-link card to another amenity's detail page.
 export function RelatedAmenityCard({ amenity }: { amenity: Amenity }) {
@@ -14,15 +15,15 @@ export function RelatedAmenityCard({ amenity }: { amenity: Amenity }) {
       className="img-frame group relative block aspect-[4/3] overflow-hidden rounded-md no-underline"
     >
       {amenity.image ? (
-        <img
+        <ResponsiveImage
           src={amenity.image}
-          alt={amenity.name}
+          alt={amenity.imageAlt ?? amenity.name}
           loading="lazy"
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (
-        // 12D Cinema has no photo yet → dark placeholder tile.
+        // No photo → dark placeholder tile.
         <div
           className="absolute inset-0 flex items-center justify-center bg-sea-ink text-white/60"
           aria-hidden

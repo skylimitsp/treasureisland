@@ -23,8 +23,8 @@ export function Testimonials() {
             What our guests say
           </h2>
           <p className="mt-3 text-sea-ink-soft">
-            Real words from couples, families and friends who came for a week
-            and stayed in touch.
+            Words from guests and partners who have stayed and celebrated with
+            us.
           </p>
         </div>
         <div className="flex gap-3">
@@ -51,8 +51,9 @@ export function Testimonials() {
 
       <ul
         ref={trackRef}
-        className="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        aria-label="Guest reviews"
+        tabIndex={0}
+        className="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto rounded-md pb-2 [scrollbar-width:none] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lagoon-deep [&::-webkit-scrollbar]:hidden"
+        aria-label="Guest reviews (scroll horizontally)"
       >
         {items.map((item) => (
           <li

@@ -20,7 +20,7 @@ export function StaySteps() {
         </h2>
         <p className="mt-4 text-sea-ink-soft">
           From choosing a room to your first swim — here’s how a stay at
-          Treasure Island comes together.
+          Treasure Island Ada comes together.
         </p>
       </div>
 
@@ -29,15 +29,15 @@ export function StaySteps() {
           tone="blush"
           badge="01"
           title="Choose your room"
-          body="Browse villas, suites and garden rooms, and find the one that fits your trip."
+          body="From home-style chalets and standard rooms to waterfront rooms, suites with balconies and penthouses."
         >
           <ArchPhoto src="/rooms/suite-bedroom.webp" />
         </ColorBlockPanel>
         <ColorBlockPanel
           tone="deep"
           badge="02"
-          title="Book in minutes"
-          body="Pick your dates and guests, then confirm online. Your booking is held straight away."
+          title="Book early"
+          body="Pick your dates and guests, then call, WhatsApp or email our reservations team to confirm."
         >
           <BookingPreviewCard />
         </ColorBlockPanel>
@@ -45,7 +45,7 @@ export function StaySteps() {
           tone="warm"
           badge="03"
           title="Arrive and unwind"
-          body="Check in, kick off your shoes and watch the pool light up as the sun goes down."
+          body="Cross the river to the island and settle in — we’re open 24 hours, and a warm welcome awaits you."
         >
           <ArchPhoto src="/photos/pool-at-night.webp" />
         </ColorBlockPanel>
@@ -53,14 +53,15 @@ export function StaySteps() {
           tone="blush"
           badge={<Sparkles size={18} aria-hidden />}
           title="Add the extras"
-          body="A boat cruise, a guided horse ride or a table by the water — book them during your stay."
+          body="A boat cruise or jet ski, horse riding, the 12D cinema or a jacuzzi bath — add them during your stay."
         >
           <ArchPhoto src="/photos/ocean-deck-dining.webp" />
         </ColorBlockPanel>
       </ul>
 
       <p className="mt-6 text-center text-sm italic text-sea-ink-soft">
-        Questions before you book? Our concierge team is one message away.
+        Questions before you book? Call (+233)-055-270-1946 — we’re open 24
+        hours.
       </p>
     </section>
   )

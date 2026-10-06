@@ -1,9 +1,13 @@
 import { ArrowRight } from 'lucide-react'
 
+import { BackgroundVideo } from '#/components/shared/background-video'
+import { ResponsiveImage } from '#/components/shared/responsive-image'
+
 // Tall photo card fading into deep sea ink: tag, kicker, title, copy, CTA.
 // Wrap it in a `group` link to get the hover zoom and arrow nudge.
 export function OverlayCard({
   image,
+  video,
   tag,
   kicker,
   title,
@@ -11,6 +15,7 @@ export function OverlayCard({
   cta,
 }: {
   image: string
+  video?: string
   tag: string
   kicker: string
   title: string
@@ -19,13 +24,20 @@ export function OverlayCard({
 }) {
   return (
     <div className="relative flex aspect-[13/20] flex-col justify-end overflow-hidden rounded-md bg-footer text-white sm:aspect-[3/4] md:aspect-[13/20]">
-      <img
-        src={image}
-        alt=""
-        loading="lazy"
-        decoding="async"
-        className="absolute inset-0 h-[78%] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-      />
+      {video ? (
+        <BackgroundVideo
+          src={video}
+          className="absolute inset-0 h-[78%] w-full transition-transform duration-700 group-hover:scale-[1.03]"
+        />
+      ) : (
+        <ResponsiveImage
+          src={image}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-[78%] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+        />
+      )}
       <div
         className="absolute inset-0"
         style={{

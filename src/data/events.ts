@@ -2,215 +2,114 @@ import type {
   EnquiryStatus,
   EventEnquiry,
   EventEnquiryInput,
-  EventPackage,
   EventTeaser,
   EventType,
 } from '#/types'
 
-// Mock celebration types teased on the landing page — API swap seam.
+// Official Events & Meetings copy (treasureislandghana.com), spelling fixes only.
+const MEETING_COPY = [
+  'Treasure Island Resort offers an environment perfectly designed for successful events. The hotel and resort are located in tranquil and aesthetically pleasing surroundings to refresh the mind and focus attention. At Treasure Island Resort, we believe that perfection is achieved through the harmony of unparalleled location, exemplary service and quiet efficiency. Our service philosophy stems from an understanding of your needs and our attention to the smallest detail. Specially dedicated event consultants will understand your requirements, help you choose the most suitable destination and plan the event to the smallest detail. Our warm and friendly staff will make every effort to ensure your event is memorable and successful.',
+]
+
+const WEDDING_COPY = [
+  'From the engagement to the joyous day and all the important milestones in between, Treasure Island can handle any wedding function with flawless aplomb. Our wedding planners collaborate with the bride and groom to create an event that will delight the couple, the parents and all friends and family who attend. Whether a couple chooses a traditional ceremony or a themed extravaganza, the Treasure Island team ensures that the day is nothing short of perfection. With everything so adroitly handled, the bridal couple is free to relax and anticipate their beautiful ceremony.',
+  'A wedding at Treasure Island Resort ensures unique menus designed for each ceremony, gorgeous choices for indoor and outdoor banquet rooms, beautiful accommodations for your guests, and an expert catering team that thrives on making every detail of the event extravagant, elegant and lively.',
+]
+
+const FAMILY_COPY = [
+  'When you host a party or family reunion, the special celebrations let you strengthen bonds with those you hold most dear. It’s also the chance to share what we’re looking forward to—along with what we’ve been through—with people we count on to care. At Treasure Island Resort, we’ve experienced more years of hosting family celebrations like birthdays, confirmations, graduations, engagement parties, anniversaries, vow renewals, reunions, and more. It’s among our most cherished traditions as a company, and one of the most-prized accomplishments of the people who work in our hotels. That’s our story. Call it our family story.',
+]
+
+// Celebration types teased on the landing page — API swap seam.
 const EVENT_TEASERS: Array<EventTeaser> = [
   {
     slug: 'weddings',
-    name: 'Say “I do” on the sand',
-    blurb: 'Barefoot ceremonies on the sand and receptions under the stars.',
+    name: 'Weddings',
+    blurb:
+      'From the engagement to the joyous day and all the important milestones in between, Treasure Island can handle any wedding function with flawless aplomb.',
     image: '/events/wedding-carriage.webp',
-    tag: 'Beachfront ceremonies',
-    kicker: 'Weddings',
+    video: '/videos/event-wedding',
+    tag: 'Ada Foah',
+    kicker: 'Events & Meetings',
     cta: 'Plan your wedding',
   },
   {
     slug: 'birthdays',
-    name: 'Birthdays by lantern light',
-    blurb: 'Private terraces, custom menus, and a cake by the pool.',
+    name: 'Birthday Parties',
+    blurb:
+      'Our warm and friendly staff will make every effort to ensure your event is memorable and successful.',
     image: '/photos/lantern-terrace.webp',
-    tag: 'Up to 90 guests',
-    kicker: 'Birthdays',
+    video: '/videos/event-beach-drummers',
+    tag: 'Ada Foah',
+    kicker: 'Events & Meetings',
     cta: 'Plan a party',
   },
   {
     slug: 'family-parties',
-    name: 'Gather the whole family',
-    blurb: 'Reunions and gatherings with the whole island to play in.',
+    name: 'Host a Family Party',
+    blurb:
+      'When you host a party or family reunion, the special celebrations let you strengthen bonds with those you hold most dear.',
     image: '/photos/pool-loungers.webp',
-    tag: 'All ages welcome',
-    kicker: 'Family',
+    tag: 'Ada Foah',
+    kicker: 'Events & Meetings',
     cta: 'Plan a reunion',
   },
 ]
 
-// Three comparison tiers shared across every celebration type.
-const EVENT_PACKAGES: Array<EventPackage> = [
-  {
-    slug: 'intimate',
-    name: 'Intimate',
-    tierLevel: 1,
-    blurb: 'Small, heartfelt gatherings by the water.',
-    inclusions: [
-      'Ceremony / space hire',
-      'Set menu',
-      'Coordinator (day-of)',
-      'Sound system',
-    ],
-    capacityMin: 2,
-    capacityMax: 40,
-    fromPrice: 2500,
-  },
-  {
-    slug: 'signature',
-    name: 'Signature',
-    tierLevel: 2,
-    blurb: 'Our most-loved celebration, terrace to lawn.',
-    inclusions: [
-      'Everything in Intimate',
-      'Terrace + lawn',
-      '3-course + canapés',
-      'Planner (full)',
-      'Décor styling',
-      '5 room-block rate',
-    ],
-    capacityMin: 40,
-    capacityMax: 100,
-    fromPrice: 6500,
-    featured: true,
-  },
-  {
-    slug: 'grand',
-    name: 'Grand',
-    tierLevel: 3,
-    blurb: 'A whole-resort event, styled end to end.',
-    inclusions: [
-      'Everything in Signature',
-      'Full-resort options',
-      'Bespoke menu & bar',
-      'Live entertainment',
-      'Accommodation block',
-      'Dedicated event manager',
-    ],
-    capacityMin: 100,
-    capacityMax: 180,
-    fromPrice: null, // on request
-  },
-]
-
-// The four celebration types introduced on the page — API swap seam.
+// The four official event types — API swap seam.
 const EVENT_TYPES: Array<EventType> = [
   {
     slug: 'weddings',
     category: 'weddings',
     name: 'Weddings',
-    blurb: 'Ceremonies on the lawn, receptions under the stars.',
+    title: 'Weddings',
+    blurb:
+      'From the engagement to the joyous day and all the important milestones in between, Treasure Island can handle any wedding function with flawless aplomb.',
+    description: WEDDING_COPY,
     icon: 'Heart',
-    inclusions: ['Ceremony setup', 'Coordinator', 'Menu tasting'],
-    capacityMin: 2,
-    capacityMax: 180,
-    fromPrice: 2500,
     gallery: ['/events/wedding-carriage.webp', '/photos/pool-at-night.webp'],
-    packages: EVENT_PACKAGES,
   },
   {
     slug: 'birthdays',
     category: 'birthdays',
-    name: 'Birthday parties',
-    blurb: 'Milestone parties from intimate to grand.',
+    name: 'Birthday Parties',
+    title: 'Birthday Parties',
+    blurb:
+      'Our warm and friendly staff will make every effort to ensure your event is memorable and successful.',
+    description: MEETING_COPY,
     icon: 'Cake',
-    inclusions: ['Décor', 'Cake', 'DJ-ready deck'],
-    capacityMin: 2,
-    capacityMax: 120,
-    fromPrice: 2500,
     gallery: ['/photos/lantern-terrace.webp', '/photos/pool-loungers.webp'],
-    packages: EVENT_PACKAGES,
   },
   {
     slug: 'family',
     category: 'family',
-    name: 'Family parties',
-    blurb: 'Reunions, anniversaries, naming days.',
+    name: 'Family Parties',
+    title: 'Host a Family Party',
+    blurb:
+      'When you host a party or family reunion, the special celebrations let you strengthen bonds with those you hold most dear.',
+    description: FAMILY_COPY,
     icon: 'Users',
-    inclusions: ['Buffet', "Kids' corner", 'Group rates'],
-    capacityMin: 10,
-    capacityMax: 120,
-    fromPrice: 2500,
     gallery: ['/photos/pool-loungers.webp', '/photos/breakfast.webp'],
-    packages: EVENT_PACKAGES,
   },
   {
     slug: 'meetings',
     category: 'meetings',
-    name: 'Meetings & retreats',
-    blurb: 'Off-sites, board days, wellness retreats.',
+    name: 'Meetings & Events',
+    title: 'Beach Hotel Meeting',
+    blurb:
+      'Treasure Island Resort offers an environment perfectly designed for successful events.',
+    description: MEETING_COPY,
     icon: 'Presentation',
-    inclusions: ['AV', 'Breakout space', 'Catering breaks'],
-    capacityMin: 4,
-    capacityMax: 120,
-    fromPrice: 2500,
-    gallery: ['/photos/ocean-deck-dining.webp', '/photos/lantern-terrace.webp'],
-    packages: EVENT_PACKAGES,
+    gallery: [
+      '/photos/conference-hall.webp',
+      '/photos/ocean-deck-dining.webp',
+      '/photos/lantern-terrace.webp',
+    ],
   },
 ]
 
-// In-memory enquiries so the mock write path behaves end-to-end.
-const enquiries: Array<EventEnquiry> = [
-  {
-    id: 'ENQ-2026-0001',
-    eventType: 'weddings',
-    date: '2026-11-14',
-    flexibleDates: true,
-    guests: 80,
-    name: 'Isabella Moreau',
-    email: 'isabella.moreau@example.com',
-    phone: '+33 6 12 34 56 78',
-    budget: '$10k–$20k',
-    message: 'Beach ceremony at sunset, reception on the lawn for 80 guests.',
-    consent: true,
-    status: 'new',
-    createdAt: '2026-08-17T10:24:00.000Z',
-  },
-  {
-    id: 'ENQ-2026-0002',
-    eventType: 'birthdays',
-    date: '2026-09-20',
-    flexibleDates: false,
-    guests: 30,
-    name: 'Tomiwa Adeyemi',
-    email: 'tomiwa.adeyemi@example.com',
-    phone: '+234 803 000 1122',
-    budget: '$5k–$10k',
-    message: 'Milestone 40th birthday, poolside with a DJ.',
-    consent: true,
-    status: 'contacted',
-    createdAt: '2026-08-12T15:48:00.000Z',
-  },
-  {
-    id: 'ENQ-2026-0003',
-    eventType: 'family',
-    date: '2026-12-27',
-    flexibleDates: true,
-    guests: 45,
-    name: 'The Okafor Reunion',
-    email: 'okafor.reunion@example.com',
-    phone: '+1 202 555 0147',
-    budget: null,
-    message: 'Family reunion over the holidays, need group room rates.',
-    consent: false,
-    status: 'new',
-    createdAt: '2026-08-18T08:05:00.000Z',
-  },
-  {
-    id: 'ENQ-2026-0004',
-    eventType: 'meetings',
-    date: '2026-10-05',
-    flexibleDates: false,
-    guests: 18,
-    name: 'Northwind Ventures',
-    email: 'offsite@northwind.example',
-    phone: '+44 20 7946 0958',
-    budget: '$20k+',
-    message: 'Three-day leadership off-site with breakout space and AV.',
-    consent: true,
-    status: 'closed',
-    createdAt: '2026-07-30T12:00:00.000Z',
-  },
-]
+// In-memory enquiries (starts empty) so the mock write path behaves end-to-end.
+const enquiries: Array<EventEnquiry> = []
 
 export function getEventTeasers(): Array<EventTeaser> {
   return EVENT_TEASERS
@@ -222,10 +121,6 @@ export function getEventTypes(): Array<EventType> {
 
 export function getEventTypeBySlug(slug: string): EventType | undefined {
   return EVENT_TYPES.find((type) => type.slug === slug)
-}
-
-export function getEventPackages(): Array<EventPackage> {
-  return EVENT_PACKAGES
 }
 
 export function getEventEnquiries(): Array<EventEnquiry> {

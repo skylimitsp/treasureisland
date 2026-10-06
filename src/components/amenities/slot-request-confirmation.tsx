@@ -30,8 +30,8 @@ export function SlotRequestConfirmation({
         Request received
       </h3>
       <p className="mt-1 text-sm text-sea-ink-soft">
-        Reference <strong>{request.id}</strong> — we’ll confirm by email to{' '}
-        {request.email}. Nothing is charged and no slot is held yet.
+        Reference <strong>{request.id}</strong>, sent with {request.email}.
+        Nothing is charged and no slot is held yet.
       </p>
 
       <dl className="mt-4 space-y-1 border-t border-line pt-4 text-sm">
@@ -44,7 +44,7 @@ export function SlotRequestConfirmation({
           <dd>{request.date}</dd>
         </div>
         <div className="flex justify-between">
-          <dt className="text-sea-ink-soft">Time</dt>
+          <dt className="text-sea-ink-soft">Slot</dt>
           <dd>{request.slot}</dd>
         </div>
         <div className="flex justify-between">

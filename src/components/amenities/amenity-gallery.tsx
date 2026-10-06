@@ -4,9 +4,10 @@ import { X } from 'lucide-react'
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { useGsap } from '#/hooks/use-gsap'
 import { gsap, ScrollTrigger } from '#/lib/gsap'
+import { ResponsiveImage } from '#/components/shared/responsive-image'
 
 // Mosaic gallery with a clip-wipe image-reveal per tile and a keyboard-driven
-// lightbox. An empty gallery (e.g. 12D Cinema) shows dark placeholder tiles.
+// lightbox. Hidden with fewer than two photos (the hero already shows one).
 export function AmenityGallery({
   images,
   name,
@@ -49,47 +50,36 @@ export function AmenityGallery({
     return () => window.removeEventListener('keydown', onKey)
   }, [open, images.length])
 
+  if (images.length < 2) return null
+
   return (
     <section ref={ref} data-reveal>
       <SectionKicker>Gallery</SectionKicker>
       <h2 className="display-title mt-2 text-2xl md:text-3xl">A closer look</h2>
 
-      {images.length === 0 ? (
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div
-              key={i}
-              className="img-frame flex aspect-[4/3] items-center justify-center rounded-md border border-line bg-sea-ink text-sm text-white/60"
-            >
-              Photography coming soon
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="mt-6 grid auto-rows-[minmax(0,1fr)] gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {images.map((src, i) => (
-            <button
-              key={src + i}
-              type="button"
-              onClick={() => setOpen(i)}
-              className={`img-frame group relative overflow-hidden rounded-md border border-line ${
-                i === 0 ? 'sm:col-span-2 sm:row-span-2' : ''
+      <div className="mt-6 grid auto-rows-[minmax(0,1fr)] gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {images.map((src, i) => (
+          <button
+            key={src + i}
+            type="button"
+            onClick={() => setOpen(i)}
+            className={`img-frame group relative overflow-hidden rounded-md border border-line ${
+              i === 0 ? 'sm:col-span-2 sm:row-span-2' : ''
+            }`}
+          >
+            <ResponsiveImage
+              data-gallery
+              src={src}
+              alt={`${name} — photo ${i + 1}`}
+              loading="lazy"
+              decoding="async"
+              className={`h-full w-full object-cover ${
+                i === 0 ? 'aspect-[4/3] sm:h-full' : 'aspect-[4/3]'
               }`}
-            >
-              <img
-                data-gallery
-                src={src}
-                alt={`${name} — photo ${i + 1}`}
-                loading="lazy"
-                decoding="async"
-                className={`h-full w-full object-cover ${
-                  i === 0 ? 'aspect-[4/3] sm:h-full' : 'aspect-[4/3]'
-                }`}
-              />
-            </button>
-          ))}
-        </div>
-      )}
+            />
+          </button>
+        ))}
+      </div>
 
       {open !== null ? (
         <div
@@ -107,7 +97,8 @@ export function AmenityGallery({
           >
             <X aria-hidden />
           </button>
-          <img
+          <ResponsiveImage
+            sizes="100vw"
             src={images[open]}
             alt={`${name} — photo ${open + 1}`}
             className="max-h-[86vh] max-w-full rounded-md object-contain"

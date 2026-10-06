@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as MenuRouteImport } from './routes/menu'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminAmenitiesRouteImport } from './routes/admin/amenities'
 import { Route as AdminAvailabilityRouteImport } from './routes/admin/availability'
@@ -48,6 +49,11 @@ const AdminRouteRoute = AdminRouteRouteImport.update({
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MenuRoute = MenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -136,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/events': typeof EventsRoute
+  '/menu': typeof MenuRoute
   '/admin/amenities': typeof AdminAmenitiesRoute
   '/admin/availability': typeof AdminAvailabilityRoute
   '/admin/content': typeof AdminContentRoute
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/events': typeof EventsRoute
+  '/menu': typeof MenuRoute
   '/admin/amenities': typeof AdminAmenitiesRoute
   '/admin/availability': typeof AdminAvailabilityRoute
   '/admin/content': typeof AdminContentRoute
@@ -180,6 +188,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/events': typeof EventsRoute
+  '/menu': typeof MenuRoute
   '/admin/amenities': typeof AdminAmenitiesRoute
   '/admin/availability': typeof AdminAvailabilityRoute
   '/admin/content': typeof AdminContentRoute
@@ -204,6 +213,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/about'
     | '/events'
+    | '/menu'
     | '/admin/amenities'
     | '/admin/availability'
     | '/admin/content'
@@ -225,6 +235,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/events'
+    | '/menu'
     | '/admin/amenities'
     | '/admin/availability'
     | '/admin/content'
@@ -247,6 +258,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/about'
     | '/events'
+    | '/menu'
     | '/admin/amenities'
     | '/admin/availability'
     | '/admin/content'
@@ -270,6 +282,7 @@ export interface RootRouteChildren {
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   EventsRoute: typeof EventsRoute
+  MenuRoute: typeof MenuRoute
   AmenitiesSlugRoute: typeof AmenitiesSlugRoute
   AuthLoginRoute: typeof AuthLoginRoute
   RoomsRoomSlugRoute: typeof RoomsRoomSlugRoute
@@ -305,6 +318,13 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/menu': {
+      id: '/menu'
+      path: '/menu'
+      fullPath: '/menu'
+      preLoaderRoute: typeof MenuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -459,6 +479,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRouteRoute: AdminRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   EventsRoute: EventsRoute,
+  MenuRoute: MenuRoute,
   AmenitiesSlugRoute: AmenitiesSlugRoute,
   AuthLoginRoute: AuthLoginRoute,
   RoomsRoomSlugRoute: RoomsRoomSlugRoute,

@@ -1,31 +1,24 @@
 import { Link } from '@tanstack/react-router'
-import { Anchor, Bath, Film, Ship, Utensils } from 'lucide-react'
 
-import type { Amenity, AmenityIcon } from '#/types'
-
-const ICONS: Record<AmenityIcon, typeof Utensils> = {
-  utensils: Utensils,
-  film: Film,
-  bath: Bath,
-  anchor: Anchor,
-  ship: Ship,
-}
+import { AmenityGlyph } from '#/components/amenities/amenity-icon'
+import type { Amenity } from '#/types'
+import { ResponsiveImage } from '#/components/shared/responsive-image'
 
 // Image tile for the experiences masonry — photo (or dark fallback), scrim,
 // icon chip, and the experience name in the brand typography.
 export function ExperienceTile({ amenity }: { amenity: Amenity }) {
-  const Icon = ICONS[amenity.icon]
   return (
     <Link
-      to="/amenities"
+      to="/amenities/$slug"
+      params={{ slug: amenity.slug }}
       data-reveal
       aria-label={amenity.name}
       className="img-frame group relative block h-full w-full overflow-hidden rounded-md no-underline"
     >
       {amenity.image ? (
-        <img
+        <ResponsiveImage
           src={amenity.image}
-          alt={amenity.name}
+          alt={amenity.imageAlt ?? amenity.name}
           loading="lazy"
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
@@ -43,7 +36,7 @@ export function ExperienceTile({ amenity }: { amenity: Amenity }) {
       />
       <div className="absolute inset-x-0 bottom-0 p-4 text-white">
         <span className="mb-1 inline-flex items-center gap-1.5 text-white/80">
-          <Icon size={15} strokeWidth={1.75} aria-hidden />
+          <AmenityGlyph icon={amenity.icon} size={15} />
           <span className="island-kicker !text-white/80">
             {amenity.category}
           </span>

@@ -10,7 +10,10 @@ export interface User {
   avatar?: string
 }
 
+// Official room types: Double Room, Family Room, Deluxe Room.
 export type RoomCategory = 'double' | 'family' | 'deluxe'
+
+export type RoomView = 'Beach' | 'River' | 'Jungle'
 
 export interface Room {
   id: string
@@ -18,13 +21,13 @@ export interface Room {
   name: string
   category: RoomCategory
   description: string
-  pricePerNight: number
+  pricePerNight: number // USD
   maxGuests: number
-  sizeSqm: number
-  beds: string
+  beds: string | null // null = not published
+  view: RoomView | null
+  bathroom: string
   amenities: Array<string>
   image: string
-  oceanView: boolean
 }
 
 export interface BookingInput {
@@ -49,12 +52,17 @@ export interface Booking extends BookingInput {
 
 export interface ResortStats {
   rooms: number
-  averageRating: number
-  reviews: number
-  beachfrontMetres: number
 }
 
-export type AmenityIcon = 'utensils' | 'film' | 'bath' | 'anchor' | 'ship'
+export type AmenityIcon =
+  | 'utensils'
+  | 'film'
+  | 'bath'
+  | 'ship'
+  | 'sailboat'
+  | 'waves'
+  | 'compass'
+  | 'gamepad'
 
 export interface Amenity {
   id: string
@@ -64,14 +72,16 @@ export interface Amenity {
   blurb: string
   description: string
   image: string
+  imageAlt?: string // set when the photo is a stand-in, not the amenity itself
   hero: string
   gallery: Array<string>
-  highlights: Array<string>
+  highlights?: Array<string>
   icon: AmenityIcon
-  hours: string
-  location: string
-  capacity: string | null
-  priceFrom: number | null // null = complimentary / included
+  hours?: string
+  location?: string
+  capacity?: string
+  price: string | null // official GH₵ price-list label; null = not published
+  priceNote?: string
   bookable: boolean
 }
 
@@ -99,6 +109,7 @@ export interface EventTeaser {
   name: string
   blurb: string
   image: string
+  video?: string // base path in /videos, no extension
   tag: string
   kicker: string
   cta: string
@@ -111,30 +122,33 @@ export interface EventInclusion {
   detail?: string
 }
 
+// Pricing/capacity fields stay optional until the resort publishes real figures.
 export interface EventPackage {
   slug: string
   name: string
-  tierLevel: number
+  tierLevel?: number
   blurb: string
-  inclusions: Array<string>
-  capacityMin: number
-  capacityMax: number
-  fromPrice: number | null // null = "on request"
+  inclusions?: Array<string>
+  capacityMin?: number
+  capacityMax?: number
+  fromPrice?: number | null // null = "on request"
   featured?: boolean
 }
 
 export interface EventType {
   slug: string
   category: EventCategory
-  name: string
-  blurb: string
+  name: string // short label, e.g. "Meetings"
+  title: string // official page title, e.g. "Beach Hotel Meeting"
+  blurb: string // official excerpt
+  description: Array<string> // official paragraphs
   icon: string // lucide icon name
-  inclusions: Array<string> // "what's included" chips
-  capacityMin: number
-  capacityMax: number
-  fromPrice: number | null
+  inclusions?: Array<string> // "what's included" chips
+  capacityMin?: number
+  capacityMax?: number
+  fromPrice?: number | null
   gallery: Array<string>
-  packages: Array<EventPackage>
+  packages?: Array<EventPackage>
 }
 
 export type EnquiryStatus = 'new' | 'contacted' | 'closed'
@@ -162,8 +176,8 @@ export interface Testimonial {
   id: string
   quote: string
   name: string
-  origin: string
-  rating: number
+  origin: string // role or context line, e.g. "Businessman"
+  rating?: number
 }
 
 export interface Faq {
@@ -176,7 +190,7 @@ export interface Review {
   quote: string
   name: string
   origin: string
-  rating: number
+  rating?: number
   featured: boolean
 }
 
@@ -216,4 +230,40 @@ export interface NewsletterSignup {
   source: NewsletterSource
   status: 'subscribed'
   createdAt: string
+}
+
+// ---- Restaurant menu ----
+
+export type MenuGroup = 'food' | 'drinks'
+
+export type MenuCategory =
+  | 'breakfast'
+  | 'small-plates'
+  | 'from-the-sea'
+  | 'grill'
+  | 'ghanaian-kitchen'
+  | 'sides'
+  | 'desserts'
+  | 'juices'
+  | 'mocktails'
+  | 'cocktails'
+  | 'wine'
+  | 'beer'
+  | 'soft-drinks'
+
+export interface MenuSection {
+  id: MenuCategory
+  title: string
+  group: MenuGroup
+  order: number
+  tagline?: string
+}
+
+export interface MenuItem {
+  id: string
+  name: string
+  description: string
+  category: MenuCategory
+  price: number
+  available: boolean
 }

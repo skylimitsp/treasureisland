@@ -55,7 +55,7 @@ export const roomDetailQueryOptions = (slug: string) =>
   })
 
 /**
- * Lists the resort's rooms, villas, and suites.
+ * Lists the resort's rooms, suites, chalets, and penthouses.
  * @author Joseph Nartey
  * @github devjoemedia
  */

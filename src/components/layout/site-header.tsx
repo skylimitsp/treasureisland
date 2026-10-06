@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { Menu, X } from 'lucide-react'
 
@@ -9,6 +9,7 @@ const NAV = [
   { to: '/', label: 'Home' },
   { to: '/rooms', label: 'Rooms' },
   { to: '/amenities', label: 'Amenities' },
+  { to: '/menu', label: 'Menu' },
   { to: '/events', label: 'Events' },
   { to: '/about', label: 'About' },
 ] as const
@@ -21,14 +22,26 @@ const HERO_ROUTES: Array<string> = ['/', '/rooms', '/events', '/amenities']
 // a right-side mobile drawer.
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
+  const menuBtnRef = useRef<HTMLButtonElement>(null)
+  const closeBtnRef = useRef<HTMLButtonElement>(null)
   const pathname = useLocation({ select: (l) => l.pathname })
   const solid = !HERO_ROUTES.includes(pathname)
   const ref = useGsap<HTMLElement>((self) => headerShrink(self))
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
+    if (!open) return
+    // Move focus into the drawer; Escape closes it and returns focus.
+    closeBtnRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      setOpen(false)
+      menuBtnRef.current?.focus()
+    }
+    window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
     }
   }, [open])
 
@@ -39,11 +52,11 @@ export function SiteHeader() {
           <Link
             to="/"
             className="brand no-underline"
-            aria-label="Treasure Island — home"
+            aria-label="Treasure Island Ada — home"
           >
             <img
               src="/media/logo.webp"
-              alt="Treasure Island"
+              alt="Treasure Island Ada"
               width={320}
               height={243}
               className="h-12 w-auto md:h-14"
@@ -75,6 +88,7 @@ export function SiteHeader() {
               Book Now
             </Link>
             <button
+              ref={menuBtnRef}
               type="button"
               className="menu-btn flex size-11 items-center justify-center rounded-full md:hidden"
               aria-label="Open menu"
@@ -95,10 +109,12 @@ export function SiteHeader() {
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       />
-      <aside
+      <div
         role="dialog"
         aria-modal="true"
         aria-label="Menu"
+        inert={!open}
+        aria-hidden={!open}
         className="fixed inset-y-0 right-0 z-50 flex w-72 max-w-[82%] flex-col bg-foam shadow-2xl md:hidden"
         style={{
           transform: open ? 'translateX(0)' : 'translateX(100%)',
@@ -108,10 +124,14 @@ export function SiteHeader() {
         <div className="flex items-center justify-between border-b border-line p-4">
           <span className="display-title text-lg text-sea-ink">Menu</span>
           <button
+            ref={closeBtnRef}
             type="button"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setOpen(false)
+              menuBtnRef.current?.focus()
+            }}
             aria-label="Close menu"
-            className="flex size-10 items-center justify-center rounded-full border border-line text-sea-ink"
+            className="flex size-11 items-center justify-center rounded-full border border-line text-sea-ink"
           >
             <X size={18} aria-hidden />
           </button>
@@ -140,7 +160,7 @@ export function SiteHeader() {
             Book Now
           </Link>
         </nav>
-      </aside>
+      </div>
     </header>
   )
 }

@@ -21,7 +21,7 @@ const FIELDS: Array<{ label: string; value: string }> = [
   { label: 'Description', value: SITE.description },
   { label: 'URL', value: SITE.url },
   { label: 'OG image', value: SITE.ogImage },
-  { label: 'Twitter', value: SITE.twitter },
+  { label: 'Twitter', value: SITE.twitter ?? 'Not set' },
   { label: 'Locale', value: SITE.locale },
 ]
 

@@ -1,32 +1,29 @@
 import { Plus } from 'lucide-react'
 
 import { SectionKicker } from '#/components/shared/section-kicker'
+import { CONTACT } from '#/constants/site'
 
-// Native details/summary accordion of celebration questions + a help panel.
+// Only answers backed by the official site (contact, hours, location, getting here).
 const FAQS = [
   {
-    q: 'Do you cater in-house?',
-    a: 'Yes — our kitchen handles everything from canapés to plated dinners, and we accommodate dietary and cultural menus. External caterers are welcome by arrangement.',
+    q: 'How do I enquire about an event?',
+    a: `Call us on ${CONTACT.phone}, message us on WhatsApp at ${CONTACT.whatsapp} or email ${CONTACT.email} — or use the enquiry form on this page.`,
   },
   {
-    q: 'What are the guest counts?',
-    a: 'Minimums and maximums vary by venue (up to 180 on the lawn, 90 on the terrace, 120 in the hall). Final numbers are confirmed 14 days out.',
+    q: 'Do you offer group rates?',
+    a: 'We have great group rates, and customized packages to suit your needs.',
   },
   {
-    q: 'Can we bring our own vendors?',
-    a: 'We keep a preferred list of florists, DJs and celebrants, but external vendors are welcome provided they carry their own insurance.',
+    q: 'When are you open?',
+    a: 'Visit us any day. Monday through Sunday 24/7 to experience our various types of services and amenities. A warm welcome awaits you.',
   },
   {
-    q: 'Are accommodation blocks available?',
-    a: 'We hold room blocks and group rates for your guests so everyone can stay on the island. Ask us and we will reserve a block alongside your date.',
+    q: 'Where is Treasure Island?',
+    a: 'Ada Foah, Volta Region, Ghana — on a private island near the estuary of the Atlantic Ocean & Volta River.',
   },
   {
-    q: 'How do deposits and cancellation work?',
-    a: 'A deposit confirms your date, with the balance due before the event. Cancellation is on a sliding scale — the earlier you tell us, the more is refundable.',
-  },
-  {
-    q: 'What happens if it rains?',
-    a: 'Every outdoor booking includes a wet-weather plan in the climate-controlled dining hall, so your celebration goes ahead whatever the sky does.',
+    q: 'How do we get there?',
+    a: 'By road from Accra it is roughly 100 km, about 2 hours. Tro-tros (shared minibuses) run from major stations including Accra’s Tema Station; taxis or private cars offer direct routes. The resort is on an island in the Volta River, so the journey involves crossing the river: local ferries depart from points along the Volta, and chartered motorboats suit groups.',
   },
 ]
 
@@ -59,13 +56,14 @@ export function EventsFaq() {
         </div>
       </div>
 
-      <aside
+      <div
         data-reveal
         className="island-shell h-fit rounded-md p-6 md:sticky md:top-28"
       >
         <h3 className="display-title text-xl">Not finding what you need?</h3>
         <p className="mt-2 text-sm text-sea-ink-soft">
-          Our events team is happy to answer anything and help shape your day.
+          Specially dedicated event consultants will understand your
+          requirements.
         </p>
         <button
           type="button"
@@ -74,7 +72,7 @@ export function EventsFaq() {
         >
           Send an enquiry
         </button>
-      </aside>
+      </div>
     </section>
   )
 }

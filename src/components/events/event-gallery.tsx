@@ -3,7 +3,7 @@ import { GalleryTile } from '#/components/events/gallery-tile'
 import { useGsap } from '#/hooks/use-gsap'
 import { gsap, ScrollTrigger } from '#/lib/gsap'
 
-// Curated grid of past celebrations with a clip-path image-reveal per tile.
+// Curated photo grid with a clip-path image-reveal per tile.
 const TILES = [
   {
     image: '/events/wedding-carriage.webp',
@@ -16,14 +16,17 @@ const TILES = [
   },
   {
     image: '/photos/pool-loungers.webp',
-    alt: 'Poolside loungers set for a party',
+    alt: 'The pool and loungers from above',
   },
   {
     image: '/events/wedding-carriage-wide.webp',
     alt: 'A carriage arrival on the wedding day',
     featured: true,
   },
-  { image: '/photos/beach-hero.webp', alt: 'The pool and sea beyond' },
+  {
+    image: '/photos/beach-hero.webp',
+    alt: 'The resort, pool and beach from above',
+  },
   {
     image: '/photos/lantern-terrace.webp',
     alt: 'The lantern-lit garden terrace',
@@ -55,9 +58,9 @@ export function EventGallery() {
   return (
     <section ref={ref} className="page-wrap--wide mt-24">
       <div className="max-w-2xl">
-        <SectionKicker>Past celebrations</SectionKicker>
+        <SectionKicker>Gallery</SectionKicker>
         <h2 className="display-title mt-2 text-3xl md:text-4xl">
-          Moments we have <em>hosted</em>.
+          Treasure Island <em>Ada</em>.
         </h2>
       </div>
       <div className="mt-10 grid auto-rows-[minmax(0,1fr)] gap-4 sm:grid-cols-2 lg:grid-cols-3">

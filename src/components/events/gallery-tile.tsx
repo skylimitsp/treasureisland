@@ -1,3 +1,5 @@
+import { ResponsiveImage } from '#/components/shared/responsive-image'
+
 // One framed gallery image; the wipe/scale is driven by the parent's useGsap.
 export function GalleryTile({
   image,
@@ -14,7 +16,7 @@ export function GalleryTile({
         featured ? 'sm:row-span-2' : ''
       }`}
     >
-      <img
+      <ResponsiveImage
         data-gallery
         src={image}
         alt={alt}

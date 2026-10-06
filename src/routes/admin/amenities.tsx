@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { CalendarClock } from 'lucide-react'
 
 import { seo } from '#/lib/seo'
-import { formatPrice, formatStayDate } from '#/lib/format'
+import { formatStayDate } from '#/lib/format'
 import { useAmenitiesQuery } from '#/hooks/queries/amenities.query'
 import { useSlotRequestsQuery } from '#/hooks/queries/slot-requests.query'
 import { AdminPageHeader } from '#/components/admin/admin-page-header'
@@ -26,14 +26,15 @@ function AmenitiesAdminPage() {
     () => [
       { accessorKey: 'name', header: 'Amenity' },
       { accessorKey: 'category', header: 'Category' },
-      { accessorKey: 'hours', header: 'Hours' },
       {
-        accessorKey: 'priceFrom',
-        header: 'From',
+        accessorKey: 'price',
+        header: 'Price',
         cell: ({ row }) =>
-          row.original.priceFrom === null
-            ? 'Included'
-            : formatPrice(row.original.priceFrom),
+          row.original.price
+            ? [row.original.price, row.original.priceNote]
+                .filter(Boolean)
+                .join(' · ')
+            : 'Not published',
       },
       {
         accessorKey: 'bookable',

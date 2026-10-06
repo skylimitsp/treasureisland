@@ -3,10 +3,10 @@ import { ArrowRight, Check } from 'lucide-react'
 
 import { AmenityGlyph } from '#/components/amenities/amenity-icon'
 import { FacilityChip } from '#/components/shared/facility-chip'
-import { formatPrice } from '#/lib/format'
 import type { Amenity } from '#/types'
+import { ResponsiveImage } from '#/components/shared/responsive-image'
 
-// Editorial showcase row — icon, kicker, linked title, blurb, highlight chips,
+// Editorial showcase row — icon, kicker, linked title, blurb, price badge,
 // and an arched photo that alternates side by row index.
 export function AmenityRow({
   amenity,
@@ -33,16 +33,17 @@ export function AmenityRow({
           className="img-frame group relative block aspect-[4/3] overflow-hidden rounded-md no-underline"
         >
           {amenity.image ? (
-            <img
+            <ResponsiveImage
+              sizes="(min-width: 768px) 50vw, 100vw"
               data-speed="0.9"
               src={amenity.image}
-              alt={amenity.name}
+              alt={amenity.imageAlt ?? amenity.name}
               loading="lazy"
               decoding="async"
               className="absolute inset-0 h-full w-full scale-105 object-cover"
             />
           ) : (
-            // 12D Cinema has no photo yet → dark placeholder tile.
+            // No photo → dark placeholder tile.
             <div
               className="absolute inset-0 flex items-center justify-center bg-sea-ink text-white/70"
               aria-hidden
@@ -69,13 +70,15 @@ export function AmenityRow({
         </h3>
         <p className="mt-3 max-w-prose text-sea-ink-soft">{amenity.blurb}</p>
 
-        <ul className="mt-4 flex flex-wrap gap-2">
-          {amenity.highlights.slice(0, 3).map((h) => (
-            <li key={h}>
-              <FacilityChip icon={Check}>{h}</FacilityChip>
-            </li>
-          ))}
-        </ul>
+        {amenity.highlights?.length ? (
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {amenity.highlights.slice(0, 3).map((h) => (
+              <li key={h}>
+                <FacilityChip icon={Check}>{h}</FacilityChip>
+              </li>
+            ))}
+          </ul>
+        ) : null}
 
         <div className="mt-6 flex flex-wrap items-center gap-4">
           <Link
@@ -85,15 +88,14 @@ export function AmenityRow({
           >
             Learn more <ArrowRight size={16} aria-hidden />
           </Link>
-          {amenity.priceFrom !== null ? (
-            <span className="price-badge">
-              from {formatPrice(amenity.priceFrom)}
+          {amenity.price ? (
+            <span className="price-badge">{amenity.price}</span>
+          ) : null}
+          {amenity.priceNote ? (
+            <span className="text-sm text-sea-ink-soft">
+              {amenity.priceNote}
             </span>
-          ) : (
-            <span className="text-sm font-semibold text-sunset">
-              Complimentary
-            </span>
-          )}
+          ) : null}
         </div>
       </div>
     </article>

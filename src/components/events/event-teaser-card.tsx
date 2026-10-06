@@ -9,6 +9,7 @@ export function EventTeaserCard({ event }: { event: EventTeaser }) {
     <Link to="/events" data-reveal className="group block no-underline">
       <OverlayCard
         image={event.image}
+        video={event.video}
         tag={event.tag}
         kicker={event.kicker}
         title={event.name}

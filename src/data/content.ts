@@ -1,63 +1,56 @@
 import type { Faq, Review, Testimonial } from '#/types'
 import type { AboutContent } from '#/types/about'
 
-// Mock guest testimonials — API swap seam.
+// Official guest testimonials from treasureislandghana.com — API swap seam.
 const TESTIMONIALS: Array<Testimonial> = [
   {
     id: 't1',
     quote:
-      'The most beautiful place we have ever stayed. We woke to the sound of the water every morning and never wanted to leave.',
-    name: 'Sarah & James',
-    origin: 'Sydney, Australia',
-    rating: 5,
+      'The service here has just been fantastic; whatever we needed was brought to us right away. Our event coordinator was amazing, she has been most helpful. The food was so delicious; the entire experience was really great.',
+    name: 'Jeff Bans',
+    origin: 'CEO of Touristlink',
   },
   {
     id: 't2',
     quote:
-      'Every detail was thoughtful, from the overwater villa to the sunset cruise. The staff made our anniversary unforgettable.',
-    name: 'The Andersson Family',
-    origin: 'Stockholm, Sweden',
-    rating: 5,
+      'I am impressed with Treasure Island. They are actually newer than some new hotels as they are continuously improving their product and adding new facilities.',
+    name: 'Nathaniel Asante',
+    origin: 'Businessman',
   },
   {
     id: 't3',
     quote:
-      'Barefoot luxury done right. Impeccable dining, a private stretch of beach, and complete calm.',
-    name: 'Priya & Arjun',
-    origin: 'London, United Kingdom',
-    rating: 5,
-  },
-  {
-    id: 't4',
-    quote:
-      'We booked for three nights and extended to a week. The horse riding at golden hour was a highlight.',
-    name: 'Daniel Osei',
-    origin: 'Accra, Ghana',
-    rating: 5,
+      'Truly a home away from home, the 3-bedroom apartment style Supreme’s is my family and I’s favorite. It has everything from a living room to a kitchen section.',
+    name: 'Akosua C. Boateng',
+    origin: 'Guest · 3 Bedroom Supreme',
   },
 ]
 
-// Mock FAQs — also feed FAQPage structured data on the home route.
+// FAQs built only from official facts — also feed FAQPage structured data.
 const FAQS: Array<Faq> = [
   {
-    q: 'What time is check-in and check-out?',
-    a: 'Check-in is from 3pm and check-out is by 11am. Early arrival and late departure can be arranged with the concierge.',
+    q: 'Where is Treasure Island Ada?',
+    a: 'Treasure Island Ada is a private island resort in Ada Foah, near the estuary of the Atlantic Ocean & Volta River in Ghana.',
   },
   {
-    q: 'Is the resort beachfront?',
-    a: 'Yes — Treasure Island sits on a private stretch of white-sand beach with direct lagoon access.',
+    q: 'How do I get to Treasure Island from Accra?',
+    a: 'Ada Foah is roughly 100 km from Accra, about 2 hours by road. Tro-tros (shared minibuses) run from major stations including Accra’s Tema Station, and taxis or private cars offer direct routes. The resort sits on an island in the Volta River, so the final stretch is a river crossing by boat.',
   },
   {
-    q: 'Do you host weddings and celebrations?',
-    a: 'We host weddings, birthdays, and family parties. Send an enquiry from the Events page and our team will craft a proposal.',
+    q: 'When are you open?',
+    a: 'We are open 24 hours. Visit us any day, Monday through Sunday, 24/7, to experience our various types of services and amenities. A warm welcome awaits you.',
   },
   {
-    q: 'How do I get to the island?',
-    a: 'We arrange speedboat and seaplane transfers from the mainland; details are shared after booking.',
+    q: 'What kinds of rooms do you have?',
+    a: 'Accommodations range from individual “home style” chalets to standard rooms, waterfront rooms, deluxe rooms and suites with balconies, and penthouses with a private pool or big jacuzzi.',
   },
   {
-    q: 'Are children welcome?',
-    a: 'Absolutely. We offer family villas, kids’ dining, and supervised activities across the resort.',
+    q: 'Do you host weddings, parties and meetings?',
+    a: 'Yes. We host weddings, birthday parties, family parties and meetings, with great group rates and customized packages to suit your needs.',
+  },
+  {
+    q: 'How do I make a booking?',
+    a: 'Call (+233)-055-270-1946, WhatsApp (+233)-30-291-8140 or email reservations@treasureislandghana.com. Mobile Money payments: (+233)-24-842-3724.',
   },
 ]
 
@@ -84,74 +77,39 @@ export function getFaqs(): Array<Faq> {
   return FAQS
 }
 
-// Mock About content — API swap seam (getAboutContent → httpClient later).
+// Official About copy ("A Message from Manager") — keep verbatim.
 const ABOUT: AboutContent = {
-  kicker: 'Our story',
-  lead: 'Treasure Island began as a single fisherman’s cottage and grew, slowly, into a private-island retreat — built around the water, and the light.',
-  story: [
-    'In 2009 we bought a weathered cottage at the end of a sandbar with no lobby, no neighbours, and forty steps of warm sand between the coffee and the sea.',
-    'Everything here is designed to be barefoot. Lime-washed walls, wide shutters that fold all the way open, and a terrace that catches the breeze from three directions.',
-    'Fifteen years on, the island is still ours to share — the same slow mornings, the same sunset that arrives on time every evening without needing a reservation.',
+  kicker: 'A Message from Manager',
+  title: 'Welcome to Treasure island Ada',
+  subtitle: 'Where Fun and Excitement await you',
+  tagline:
+    'IDEALLY SITUATED BETWEEN WONDER AND WONDERFUL; ON A PRIVATE ISLAND NEAR THE ESTUARY OF THE ATLANTIC OCEAN & VOLTA RIVER.',
+  paragraphs: [
+    'Leave the everyday behind and enter a world of wonder and enchantment at Treasure Island Hotels & Resort in Ada, Ghana.  Located in the heart of the most magical place in Ghana, Treasure Island Hotel & Resorts, in Ada Foah, provides a truly extraordinary backdrop for your Ghana vacation, getaway or meetings.  Beautiful tropical landscaping, tranquil waterways & classic art and architecture work together to create a stunning landmark in the midst of one of the most spectacular places on earth, situated right near the Volta River & The Atlantic Ocean’s estuary.',
+    'Inside our magnificent Treasure Island Hotel & Resorts in Ada, Ghana, an environment of elegance and sophistication awaits you. From our spectacular water slides and unique architecture to our incredibly comfortable guest rooms, 12D Cinema, Game Room, Horse Back Riding, Camel Riding, etc., we offer the ultimate escape just moments away from the thrill and excitement of the island.',
+    'Accommodations range from individual “home style” chalets, to standard rooms, water front boat house rooms, penthouses overlooking the Atlantic Ocean & breathtaking Volta River. Our stylish lobbies provide guests with a warm and inviting welcome and a distinct sense of arrival. Treasure Island Ada, guest rooms include custom draperies, upgraded technology and of course, all rooms feature incredibly comfortable beds. We have great group rates, and customized packages to suit your needs.',
   ],
-  stats: [
-    { label: 'Founded', value: 2009, countUp: false },
-    { label: 'Villas & suites', value: 24, countUp: true },
-    { label: 'Metres of beachfront', value: 340, suffix: 'm', countUp: true },
-    { label: 'Guest rating', value: 4.9, suffix: '★', countUp: true },
-  ],
-  host: {
-    name: 'Amara Mensah',
-    role: 'Founder & Host',
-    quote:
-      'Guests always ask what to do first. I always say: put your bag down and go stand in the water.',
-    bioBlocks: [
-      'I grew up three coves down from this house. After years cooking in city kitchens, I came home, took on my grandfather’s cottage, and spent two years turning it into a place I always wished I could book.',
-      'I live nearby, not on-site — close enough to meet you at the jetty with cold coconut juice, far enough that the island is entirely yours.',
-    ],
-    photo: '/photos/lantern-terrace.webp',
-    photoAlt: 'Amara Mensah, founder and host of Treasure Island',
-  },
-  values: [
-    {
-      icon: 'leaf',
-      title: 'Stewardship',
-      headline: 'Let the island lead',
-      image: '/photos/palm-pool-aerial.webp',
-      tag: 'Solar powered',
-      body: 'Solar power, reef-safe everything, and a low-impact build that lets the island lead.',
-    },
-    {
-      icon: 'users',
-      title: 'Community',
-      headline: 'Rooted in these shores',
-      image: '/photos/horse-riding.webp',
-      tag: 'Local team',
-      body: 'Local hiring and island partners — most of the team grew up on these shores.',
-    },
-    {
-      icon: 'palm',
-      title: 'Craft',
-      headline: 'Made to last',
-      image: '/rooms/living-area.webp',
-      tag: 'Hand-built',
-      body: 'Hand-built, lime-washed, and made to last — details you feel more than notice.',
-    },
-  ],
+  services:
+    'We offer various types of services ranging from but not limited to, home style chalets, penthouses, deluxe rooms with balconies, standard rooms, 12D cinema, game centre, conference centre, night club, full bar and restaurant, boating, jet skiing, horse back riding, petting zoo and a lot more.',
   gallery: [
-    { src: '/photos/pool-at-night.webp', alt: 'Ocean view at dusk' },
-    { src: '/photos/breakfast.webp', alt: 'Beachfront dining' },
-    { src: '/photos/pool-loungers.webp', alt: 'Poolside at the resort' },
-    { src: '/rooms/garden-view.webp', alt: 'A garden-view room' },
+    {
+      src: '/photos/aerial-resort.webp',
+      alt: 'Treasure Island Ada from above',
+    },
+    {
+      src: '/photos/pool-at-night.webp',
+      alt: 'The pool and jacuzzis lit up at night',
+    },
+    {
+      src: '/photos/palm-pool-aerial.webp',
+      alt: 'The pool and water slide from above',
+    },
+    { src: '/rooms/suite-bedroom.webp', alt: 'A suite bedroom' },
     { src: '/events/wedding-ceremony.webp', alt: 'A wedding celebration' },
     {
       src: '/photos/jetski-trail.webp',
-      alt: 'A jet-ski trail across the lagoon',
+      alt: 'A jet ski on the Volta River',
     },
-  ],
-  awards: [
-    { label: 'Best Beach Resort', source: 'Condé Nast Traveller', year: 2024 },
-    { label: 'Top 25 Island Hotels', source: 'Travel + Leisure', year: 2023 },
-    { label: 'Sustainable Stay Award', source: 'Green Globe', year: 2024 },
   ],
 }
 

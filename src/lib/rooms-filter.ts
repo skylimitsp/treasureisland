@@ -1,9 +1,18 @@
-import type { Room, RoomCategory } from '#/types'
+import type { Room, RoomCategory, RoomView } from '#/types'
+
+// Display labels for the official room types.
+export const ROOM_CATEGORY_LABELS: Record<RoomCategory, string> = {
+  double: 'Double Room',
+  family: 'Family Room',
+  deluxe: 'Deluxe Room',
+}
+
+export const ROOM_VIEWS: Array<RoomView> = ['Beach', 'River', 'Jungle']
 
 export interface RoomFilters {
   category?: RoomCategory | 'all'
   guests?: number
-  ocean?: boolean
+  view?: RoomView
   priceMin?: number
   priceMax?: number
   sort?: 'asc' | 'desc' | 'rec'
@@ -19,7 +28,7 @@ export function filterRooms(
       if (room.category !== filters.category) return false
     }
     if (filters.guests && room.maxGuests < filters.guests) return false
-    if (filters.ocean && !room.oceanView) return false
+    if (filters.view && room.view !== filters.view) return false
     if (filters.priceMin && room.pricePerNight < filters.priceMin) return false
     if (filters.priceMax && room.pricePerNight > filters.priceMax) return false
     return true
@@ -37,7 +46,7 @@ export function hasActiveFilters(filters: RoomFilters): boolean {
   return Boolean(
     (filters.category && filters.category !== 'all') ||
     filters.guests ||
-    filters.ocean ||
+    filters.view ||
     filters.priceMin ||
     filters.priceMax ||
     (filters.sort && filters.sort !== 'rec'),
@@ -52,10 +61,9 @@ export const PRICE_BANDS: Array<{
   max?: number
 }> = [
   { value: 'any', label: 'Any price' },
-  { value: 'under-800', label: 'Under $800', max: 799 },
-  { value: '800-1500', label: '$800 – $1,500', min: 800, max: 1500 },
-  { value: '1500-2000', label: '$1,500 – $2,000', min: 1500, max: 2000 },
-  { value: '2000-up', label: '$2,000+', min: 2000 },
+  { value: 'under-200', label: 'Under $200', max: 199 },
+  { value: '200-500', label: '$200 – $500', min: 200, max: 500 },
+  { value: '500-up', label: '$500+', min: 501 },
 ]
 
 // Which band the current min/max corresponds to (for the select value).

@@ -12,9 +12,9 @@ const MAX_SUBMISSIONS = 5
 
 const TYPE_OPTIONS: Array<{ value: EventCategory; label: string }> = [
   { value: 'weddings', label: 'Wedding' },
-  { value: 'birthdays', label: 'Birthday' },
+  { value: 'birthdays', label: 'Birthday party' },
   { value: 'family', label: 'Family party' },
-  { value: 'meetings', label: 'Meeting' },
+  { value: 'meetings', label: 'Meetings & Events' },
 ]
 
 const BUDGET_OPTIONS = ['Under $5k', '$5–15k', '$15–40k', '$40k+']
@@ -70,7 +70,7 @@ const dateBoxClass = inputClass.replace(/focus:/g, 'focus-within:')
 export function RequestForm({
   defaults,
 }: {
-  defaults: { eventType?: EventCategory; packageName?: string }
+  defaults: { eventType?: EventCategory }
 }) {
   const [values, setValues] = useState<FormValues>(INITIAL)
   const [touched, setTouched] = useState<
@@ -81,16 +81,9 @@ export function RequestForm({
   const sentCount = useRef(0)
   const enquiry = useCreateEventEnquiryMutation()
 
-  // Prefill event type / message when a card or tier CTA is clicked upstream.
+  // Prefill the event type when an event card CTA is clicked upstream.
   useEffect(() => {
-    setValues((v) => ({
-      ...v,
-      eventType: defaults.eventType ?? v.eventType,
-      message:
-        defaults.packageName && !v.message
-          ? `We'd love to hear about the ${defaults.packageName} package.`
-          : v.message,
-    }))
+    setValues((v) => ({ ...v, eventType: defaults.eventType ?? v.eventType }))
   }, [defaults])
 
   const errors = validate(values)
@@ -146,8 +139,7 @@ export function RequestForm({
     >
       <p className="text-sm text-sea-ink-soft">
         This is an <strong className="text-sea-ink">enquiry</strong>, not an
-        instant booking — we will reply within 48 hours with a tailored
-        proposal.
+        instant booking — our event consultants will get in touch.
       </p>
 
       <div className="mt-6 grid gap-5 md:grid-cols-2">
@@ -462,7 +454,7 @@ export function RequestForm({
 
       <p className="mt-2 text-xs text-sea-ink-soft">
         No payment is taken here and no date is held — this simply starts the
-        conversation with our events team.
+        conversation with our event consultants.
       </p>
     </form>
   )

@@ -1,24 +1,22 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
-import { Check, ChevronRight, MapPin, Star } from 'lucide-react'
+import { Check, ChevronRight, MapPin } from 'lucide-react'
 
 import { seo } from '#/lib/seo'
 import { hotelRoomLd } from '#/lib/structured-data'
 import {
   roomDetailQueryOptions,
-  useResortStatsQuery,
   useRoomQuery,
 } from '#/hooks/queries/rooms.query'
-import { useTestimonialsQuery } from '#/hooks/queries/content.query'
+import { ROOM_CATEGORY_LABELS } from '#/lib/rooms-filter'
 import { useGsap } from '#/hooks/use-gsap'
 import { revealStagger } from '#/lib/animations'
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { RoomGallery } from '#/components/rooms/room-gallery'
 import { BookingCard } from '#/components/rooms/booking-card'
-import { TestimonialCard } from '#/components/shared/testimonial-card'
 import { SimilarRooms } from '#/components/rooms/similar-rooms'
 import { bgImage } from '#/lib/media'
 
-const RATING_BARS = ['Comfort', 'Cleanliness', 'Location', 'Service', 'Value']
+const LOCATION = 'Ada Foah, Volta Region, Ghana'
 
 export const Route = createFileRoute('/rooms/$roomSlug')({
   loader: async ({ context, params }) => {
@@ -66,8 +64,6 @@ export const Route = createFileRoute('/rooms/$roomSlug')({
 function RoomDetailPage() {
   const { roomSlug } = Route.useParams()
   const room = useRoomQuery(roomSlug)
-  const stats = useResortStatsQuery()
-  const testimonials = useTestimonialsQuery()
   const ref = useGsap<HTMLElement>((self) => revealStagger(self))
 
   if (!room.data) {
@@ -79,7 +75,13 @@ function RoomDetailPage() {
   }
 
   const r = room.data
-  const rating = stats.data?.averageRating ?? 4.9
+  const facts = [
+    { label: 'Room type', value: ROOM_CATEGORY_LABELS[r.category] },
+    { label: 'Bed', value: r.beds },
+    { label: 'Occupancy', value: `Up to ${r.maxGuests} guests` },
+    { label: 'View', value: r.view ? `${r.view} view` : null },
+    { label: 'Bathroom', value: r.bathroom },
+  ].filter((f): f is { label: string; value: string } => Boolean(f.value))
   const gallery = [
     r.image,
     '/photos/breakfast.webp',
@@ -112,19 +114,11 @@ function RoomDetailPage() {
           <h1 className="display-title text-4xl md:text-5xl">{r.name}</h1>
           <div className="mt-2 flex flex-wrap items-center gap-4 text-sm text-sea-ink-soft">
             <span className="inline-flex items-center gap-1">
-              <Star
-                size={15}
-                className="text-gold"
-                fill="currentColor"
-                strokeWidth={0}
-                aria-hidden
-              />
-              {rating} · 100+ reviews
+              <MapPin size={15} aria-hidden /> {LOCATION}
             </span>
-            <span className="inline-flex items-center gap-1">
-              <MapPin size={15} aria-hidden /> Treasure Island, Indian Ocean
+            <span className="island-kicker">
+              {ROOM_CATEGORY_LABELS[r.category]}
             </span>
-            <span className="island-kicker">{r.category}</span>
           </div>
         </div>
       </div>
@@ -138,80 +132,33 @@ function RoomDetailPage() {
           <section>
             <SectionKicker>About this stay</SectionKicker>
             <h2 className="display-title mt-2 text-2xl md:text-3xl">
-              Your private corner of the island
+              Room details
             </h2>
             <p className="mt-4 max-w-prose text-sea-ink-soft">
               {r.description}
             </p>
-            <p className="mt-3 max-w-prose text-sea-ink-soft">
-              Sleeps up to {r.maxGuests} across {r.sizeSqm} m², with {r.beds}.
-              Every detail is designed to be barefoot — wide shutters, sea
-              breeze, and steps to the water.
-            </p>
-          </section>
-
-          <section className="mt-10">
-            <SectionKicker>Everything you need</SectionKicker>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {r.amenities.map((a) => (
-                <li key={a} className="chip" data-reveal>
-                  <Check size={15} strokeWidth={1.75} aria-hidden /> {a}
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="mt-12">
-            <SectionKicker>Guest reviews</SectionKicker>
-            <div className="mt-4 flex items-center gap-4">
-              <span className="display-title text-4xl text-sea-ink">
-                {rating}
-              </span>
-              <div>
-                <div className="flex text-gold" aria-hidden>
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      size={16}
-                      fill="currentColor"
-                      strokeWidth={0}
-                    />
-                  ))}
+            <dl className="mt-6 grid max-w-xl gap-x-6 gap-y-3 sm:grid-cols-2">
+              {facts.map((f) => (
+                <div key={f.label} className="border-b border-line pb-2">
+                  <dt className="island-kicker">{f.label}</dt>
+                  <dd className="mt-1 text-sea-ink">{f.value}</dd>
                 </div>
-                <p className="text-sm text-sea-ink-soft">
-                  Based on 100+ reviews
-                </p>
-              </div>
-            </div>
-            <dl className="mt-5 max-w-md space-y-2">
-              {RATING_BARS.map((label, i) => {
-                const val = 4.7 + (i % 3) * 0.1
-                return (
-                  <div key={label} className="flex items-center gap-3 text-sm">
-                    <dt className="w-28 text-sea-ink-soft">{label}</dt>
-                    <dd className="flex-1">
-                      <div className="h-1.5 rounded-full bg-black/10">
-                        <div
-                          className="h-1.5 rounded-full bg-lagoon-deep"
-                          style={{ width: `${(val / 5) * 100}%` }}
-                        />
-                      </div>
-                    </dd>
-                    <span className="w-8 text-right text-sea-ink-soft">
-                      {val.toFixed(1)}
-                    </span>
-                  </div>
-                )
-              })}
-            </dl>
-            <ul className="mt-8 grid gap-6 md:grid-cols-2">
-              {(testimonials.data ?? []).slice(0, 2).map((t) => (
-                <li key={t.id}>
-                  <TestimonialCard item={t} />
-                </li>
               ))}
-            </ul>
+            </dl>
           </section>
+
+          {r.amenities.length > 0 ? (
+            <section className="mt-10">
+              <SectionKicker>In the room</SectionKicker>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {r.amenities.map((a) => (
+                  <li key={a} className="chip" data-reveal>
+                    <Check size={15} strokeWidth={1.75} aria-hidden /> {a}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
           <section className="mt-12">
             <SectionKicker>Where you’ll be</SectionKicker>
@@ -222,7 +169,7 @@ function RoomDetailPage() {
               }}
             >
               <span className="chip !border-white/30 !bg-white/15 !text-white">
-                <MapPin size={15} aria-hidden /> Treasure Island, Indian Ocean
+                <MapPin size={15} aria-hidden /> {LOCATION}
               </span>
             </div>
           </section>

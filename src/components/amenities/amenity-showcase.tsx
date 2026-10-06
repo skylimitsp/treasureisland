@@ -10,13 +10,13 @@ export function AmenityShowcase() {
   return (
     <section id="showcase" className="page-wrap scroll-mt-24 pt-24">
       <div className="max-w-2xl">
-        <SectionKicker>Signature experiences</SectionKicker>
+        <SectionKicker>Amenities</SectionKicker>
         <h2 className="display-title mt-2 text-3xl md:text-4xl">
-          A day here is never <em>empty</em>.
+          Where Fun and Excitement <em>await you</em>.
         </h2>
         <p className="mt-3 text-sea-ink-soft">
-          From the first coffee on the terrace to a jet-ski at golden hour —
-          here is everything the island holds.
+          Visit Us any day. Monday through Sunday 24 / 7 to experience our
+          various types of services and amenities. A warm welcome awaits you.
         </p>
       </div>
 

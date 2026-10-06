@@ -12,11 +12,8 @@ import { DetailHeader } from '#/components/about/detail-header'
 import { DetailGallery } from '#/components/about/detail-gallery'
 import { StayCard } from '#/components/about/stay-card'
 import { AboutThisResort } from '#/components/about/about-this-resort'
-import { SectionKicker } from '#/components/shared/section-kicker'
-import { HostIntro } from '#/components/about/host-intro'
-import { ValueCard } from '#/components/about/value-card'
+import { AboutServices } from '#/components/about/about-services'
 import { AboutGallery } from '#/components/about/about-gallery'
-import { AwardsStrip } from '#/components/about/awards-strip'
 import { Newsletter } from '#/components/shared/newsletter'
 import { FixedDivider } from '#/components/shared/fixed-divider'
 
@@ -27,8 +24,9 @@ export const Route = createFileRoute('/about')({
     seo({
       title: 'About',
       description:
-        'The story of Treasure Island — a beachfront resort built around the ' +
-        'light, its founder, values, and 340 metres of private shore.',
+        'Welcome to Treasure Island Ada — a private island resort near the ' +
+        'estuary of the Atlantic Ocean & Volta River in Ada Foah, Ghana, ' +
+        'with chalets, penthouses, a 12D cinema, horse riding and more.',
       path: '/about',
     }),
   component: AboutPage,
@@ -73,36 +71,20 @@ function AboutPage() {
         </aside>
       </div>
 
-      <AboutThisResort lead={c.lead} story={c.story} />
+      <AboutThisResort about={c} />
 
-      <HostIntro host={c.host} />
-
-      <section className="page-wrap mt-28">
-        <div className="text-center">
-          <SectionKicker className="justify-center">
-            What we value
-          </SectionKicker>
-          <h2 className="display-title mt-2 text-3xl md:text-4xl">
-            How we run the island
-          </h2>
-        </div>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {c.values.map((value) => (
-            <ValueCard key={value.title} value={value} />
-          ))}
-        </div>
-      </section>
+      <AboutServices services={c.services} />
 
       <AboutGallery images={c.gallery} />
-      <AwardsStrip awards={c.awards} />
 
       <section className="page-wrap mt-28">
         <Newsletter source="about" />
       </section>
 
       <FixedDivider
-        image="/photos/jetski-loop.webp"
-        title="Your island is waiting."
+        image="/photos/island-shore.webp"
+        kicker="Book early"
+        title="The best place to be."
         ctaLabel="Explore rooms"
         ctaTo="/rooms"
         ctaLabel2="Plan an event"

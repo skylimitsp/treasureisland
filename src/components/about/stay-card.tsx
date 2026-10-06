@@ -34,7 +34,7 @@ export function StayCard() {
         <span className="island-kicker">Location</span>
         <span className="mt-1 flex items-center gap-2 rounded-md border border-line bg-foam/80 px-3 py-2.5 text-sm">
           <MapPin size={15} className="text-lagoon-deep" aria-hidden />
-          Treasure Island, Indian Ocean
+          Ada Foah, Ghana
         </span>
       </label>
 

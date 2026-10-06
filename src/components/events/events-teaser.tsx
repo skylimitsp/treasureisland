@@ -5,7 +5,7 @@ import { EventTeaserCard } from '#/components/events/event-teaser-card'
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { useEventTeasersQuery } from '#/hooks/queries/events.query'
 
-// Celebrations teaser: tall overlay cards for weddings, birthdays, family → /events.
+// Events teaser: tall overlay cards for weddings, birthdays, family parties → /events.
 export function EventsTeaser() {
   const events = useEventTeasersQuery()
 
@@ -13,9 +13,9 @@ export function EventsTeaser() {
     <section className="page-wrap mt-28">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <SectionKicker>Celebrate on the island</SectionKicker>
+          <SectionKicker>Events &amp; Meetings</SectionKicker>
           <h2 className="display-title mt-2 text-3xl md:text-4xl">
-            Weddings &amp; celebrations
+            Weddings &amp; parties
           </h2>
         </div>
         <Link

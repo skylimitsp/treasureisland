@@ -3,6 +3,7 @@ import { ChevronRight } from 'lucide-react'
 
 import { AmenityGlyph } from '#/components/amenities/amenity-icon'
 import type { Amenity } from '#/types'
+import { ResponsiveImage } from '#/components/shared/responsive-image'
 
 // Full-bleed detail hero — image (or dark placeholder), scrim, breadcrumb,
 // kicker, Playfair title, and one-line blurb.
@@ -10,15 +11,16 @@ export function AmenityDetailHero({ amenity }: { amenity: Amenity }) {
   return (
     <section className="relative flex min-h-[62vh] items-end overflow-hidden">
       {amenity.hero ? (
-        <img
+        <ResponsiveImage
+          sizes="100vw"
           src={amenity.hero}
-          alt={amenity.name}
+          alt={amenity.imageAlt ?? amenity.name}
           loading="eager"
           fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (
-        // 12D Cinema has no photo yet → dark placeholder background.
+        // No photo → dark placeholder background.
         <div
           className="absolute inset-0 flex items-center justify-center bg-sea-ink text-white/40"
           aria-hidden

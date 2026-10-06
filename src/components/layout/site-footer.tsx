@@ -1,34 +1,28 @@
 import { Link } from '@tanstack/react-router'
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Mail,
-  MapPin,
-  Phone,
-  Twitter,
-} from 'lucide-react'
+import { Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 
 import { FooterLinkColumn } from '#/components/layout/footer-link-column'
 import type { FooterLink } from '#/components/layout/footer-link-column'
 import { FooterNewsletter } from '#/components/layout/footer-newsletter'
 import { FooterWordmark } from '#/components/layout/footer-wordmark'
+import { CONTACT, SITE } from '#/constants/site'
 
 const EXPLORE: ReadonlyArray<FooterLink> = [
   { label: 'Home', to: '/' },
-  { label: 'Rooms & villas', to: '/rooms' },
+  { label: 'Rooms & suites', to: '/rooms' },
   { label: 'Amenities', to: '/amenities' },
+  { label: 'Restaurant', to: '/menu' },
   { label: 'About us', to: '/about' },
 ]
 
 const EXPERIENCES: ReadonlyArray<FooterLink> = [
   {
-    label: 'Ocean-view dining',
+    label: 'Restaurant & bar',
     to: '/amenities/$slug',
     params: { slug: 'restaurant' },
   },
   {
-    label: 'Jacuzzi & spa',
+    label: 'Jacuzzi bath',
     to: '/amenities/$slug',
     params: { slug: 'jacuzzi' },
   },
@@ -37,15 +31,8 @@ const EXPERIENCES: ReadonlyArray<FooterLink> = [
     to: '/amenities/$slug',
     params: { slug: 'boat-cruise' },
   },
-  { label: 'Weddings & events', to: '/events' },
+  { label: 'Events & meetings', to: '/events' },
 ]
-
-const SOCIALS = [
-  { label: 'Facebook', href: 'https://facebook.com', icon: Facebook },
-  { label: 'Instagram', href: 'https://instagram.com', icon: Instagram },
-  { label: 'Twitter (X)', href: 'https://x.com', icon: Twitter },
-  { label: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
-] as const
 
 // Full-bleed footer: newsletter band, link grid, legal bar, bleeding wordmark.
 export function SiteFooter() {
@@ -56,8 +43,10 @@ export function SiteFooter() {
 
         <div className="mt-14 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-white/10 pt-14 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr_auto]">
           <div className="col-span-2 lg:col-span-1">
-            <p className="display-title text-2xl text-white">Treasure Island</p>
-            <p className="mt-3 text-sm text-white/70">Stay. Dine. Unwind.</p>
+            <p className="display-title text-2xl text-white">{SITE.name}</p>
+            <p className="mt-3 text-sm text-white/70">
+              Definition of luxury, hospitality and serendipity.
+            </p>
           </div>
 
           <FooterLinkColumn title="Explore" links={EXPLORE} />
@@ -69,24 +58,45 @@ export function SiteFooter() {
               <li className="flex items-start gap-2">
                 <Phone size={15} className="mt-0.5 shrink-0" aria-hidden />
                 <a
-                  href="tel:+15550123456"
+                  href={CONTACT.phoneHref}
                   className="text-white/70 no-underline hover:text-white"
                 >
-                  +1 (555) 012-3456
+                  {CONTACT.phone}
                 </a>
               </li>
               <li className="flex items-start gap-2">
-                <MapPin size={15} className="mt-0.5 shrink-0" aria-hidden />
-                <span>Treasure Island, Indian Ocean</span>
+                <MessageCircle
+                  size={15}
+                  className="mt-0.5 shrink-0"
+                  aria-hidden
+                />
+                <a
+                  href={CONTACT.whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 no-underline hover:text-white"
+                >
+                  WhatsApp {CONTACT.whatsapp}
+                </a>
               </li>
               <li className="flex items-start gap-2">
                 <Mail size={15} className="mt-0.5 shrink-0" aria-hidden />
                 <a
-                  href="mailto:stay@treasureisland.example"
-                  className="text-white/70 no-underline hover:text-white"
+                  href={`mailto:${CONTACT.email}`}
+                  className="break-all text-white/70 no-underline hover:text-white"
                 >
-                  stay@treasureisland.example
+                  {CONTACT.email}
                 </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin size={15} className="mt-0.5 shrink-0" aria-hidden />
+                <span>
+                  {CONTACT.locality} - {CONTACT.region}, {CONTACT.country}
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Clock size={15} className="mt-0.5 shrink-0" aria-hidden />
+                <span>Open {CONTACT.hours}</span>
               </li>
             </ul>
           </div>
@@ -100,23 +110,11 @@ export function SiteFooter() {
 
         <div className="mt-14 flex flex-col gap-5 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-white/70">
-            © 2026 Treasure Island. All rights reserved.
+            © {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {SOCIALS.map(({ label, href, icon: Icon }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex min-h-11 items-center gap-2 text-sm text-white/70 no-underline hover:text-white"
-                >
-                  <Icon size={15} aria-hidden />
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <p className="text-sm text-white/70">
+            Mobile Money: {CONTACT.mobileMoney}
+          </p>
         </div>
       </div>
 

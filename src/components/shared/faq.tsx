@@ -1,7 +1,8 @@
-import { Plus } from 'lucide-react'
+import { Phone, Plus } from 'lucide-react'
 
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { useFaqsQuery } from '#/hooks/queries/content.query'
+import { CONTACT } from '#/constants/site'
 
 // FAQ accordion (native details/summary) beside a "need help?" panel.
 export function Faq() {
@@ -31,22 +32,27 @@ export function Faq() {
         </div>
       </div>
 
-      <aside
+      <div
         data-reveal
         className="island-shell h-fit rounded-md p-6 md:sticky md:top-28"
       >
         <h3 className="display-title text-xl">Not finding what you need?</h3>
         <p className="mt-2 text-sm text-sea-ink-soft">
-          Our concierge team is happy to answer any question and help plan your
-          stay.
+          We are open {CONTACT.hours.toLowerCase()} — call, WhatsApp or email
+          our reservations team.
         </p>
-        <a
-          href="mailto:stay@treasureisland.example"
-          className="btn btn-primary mt-5 no-underline"
-        >
-          Message the team
-        </a>
-      </aside>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <a href={CONTACT.phoneHref} className="btn btn-primary no-underline">
+            <Phone size={16} aria-hidden /> Call us
+          </a>
+          <a
+            href={`mailto:${CONTACT.email}`}
+            className="btn btn-ghost no-underline"
+          >
+            Email
+          </a>
+        </div>
+      </div>
     </section>
   )
 }

@@ -8,10 +8,10 @@ export function RoomsHero() {
       kicker="Stay with us"
       title={
         <>
-          Rooms &amp; villas built around the <em>light</em>.
+          Rooms, suites &amp; <em>penthouses</em>.
         </>
       }
-      body="Overwater villas, sunset suites, and garden bungalows — each with a private stretch of the island."
+      body="Ten room types, from standard and waterfront rooms to family chalets and penthouses — on a private island near the estuary of the Atlantic Ocean and Volta River."
     />
   )
 }

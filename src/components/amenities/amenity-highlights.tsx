@@ -3,8 +3,10 @@ import { Check } from 'lucide-react'
 import { SectionKicker } from '#/components/shared/section-kicker'
 import type { Amenity } from '#/types'
 
-// Highlights as a checked list — the headline features of the amenity.
+// Highlights as a checked list; renders nothing until the resort supplies them.
 export function AmenityHighlights({ amenity }: { amenity: Amenity }) {
+  if (!amenity.highlights?.length) return null
+
   return (
     <section data-reveal>
       <SectionKicker>Highlights</SectionKicker>

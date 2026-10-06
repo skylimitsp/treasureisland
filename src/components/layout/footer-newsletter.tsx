@@ -29,8 +29,7 @@ export function FooterNewsletter() {
         Sign up for our newsletter
       </h2>
       <p className="mt-3 text-sm text-white/75">
-        Slow mornings, first-look offers and seasonal stays — a few times a
-        year, never spam.
+        News, offers and events from Treasure Island Ada.
       </p>
 
       <form

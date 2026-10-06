@@ -4,19 +4,19 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { seo } from '#/lib/seo'
 import { roomsQueryOptions, useRoomsQuery } from '#/hooks/queries/rooms.query'
-import { filterRooms } from '#/lib/rooms-filter'
+import { ROOM_VIEWS, filterRooms } from '#/lib/rooms-filter'
 import { roomListLd } from '#/lib/structured-data'
 import { getRooms } from '#/data/rooms'
 import { RoomsHero } from '#/components/rooms/rooms-hero'
 import { RoomFiltersBar } from '#/components/rooms/room-filters'
 import { RoomCard } from '#/components/rooms/room-card'
 import { RoomCardSkeleton } from '#/components/rooms/room-card-skeleton'
-import type { RoomCategory } from '#/types'
+import type { RoomCategory, RoomView } from '#/types'
 
 interface RoomsSearch {
   category?: RoomCategory | 'all'
   guests?: number
-  ocean?: boolean
+  view?: RoomView
   priceMin?: number
   priceMax?: number
   sort?: 'asc' | 'desc' | 'rec'
@@ -31,7 +31,9 @@ export const Route = createFileRoute('/rooms/')({
   validateSearch: (search: Record<string, unknown>): RoomsSearch => ({
     category: (search.category as RoomsSearch['category']) || undefined,
     guests: search.guests ? Number(search.guests) : undefined,
-    ocean: search.ocean === true || search.ocean === 'true' ? true : undefined,
+    view: ROOM_VIEWS.includes(search.view as RoomView)
+      ? (search.view as RoomView)
+      : undefined,
     priceMin: search.priceMin ? Number(search.priceMin) : undefined,
     priceMax: search.priceMax ? Number(search.priceMax) : undefined,
     sort: (search.sort as RoomsSearch['sort']) || undefined,
@@ -43,10 +45,10 @@ export const Route = createFileRoute('/rooms/')({
     context.queryClient.ensureQueryData(roomsQueryOptions()),
   head: () =>
     seo({
-      title: 'Rooms & Villas',
+      title: 'Rooms & Suites',
       description:
-        'Double, family, and deluxe rooms, suites, and penthouses at Treasure ' +
-        'Island — book your stay.',
+        'Ten room types at Treasure Island Ada, Ada Foah — from standard and ' +
+        'waterfront rooms to family chalets and penthouses. Book your stay.',
       path: '/rooms',
       jsonLd: roomListLd(getRooms()),
     }),
@@ -129,6 +131,7 @@ function RoomsPage() {
               </div>
             ) : (
               <>
+                <h2 className="sr-only">Rooms & suites</h2>
                 <ul className="mt-4 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
                   {paged.map((room) => (
                     <li key={room.id}>

@@ -4,10 +4,10 @@ import { BedDouble } from 'lucide-react'
 
 import { seo } from '#/lib/seo'
 import { formatPrice } from '#/lib/format'
+import { ROOM_CATEGORY_LABELS } from '#/lib/rooms-filter'
 import { useRoomsQuery } from '#/hooks/queries/rooms.query'
 import { AdminPageHeader } from '#/components/admin/admin-page-header'
 import { DataTable } from '#/components/admin/data-table'
-import { StatusBadge } from '#/components/admin/status-badge'
 import { EmptyState } from '#/components/admin/empty-state'
 import { RoomEditDrawer } from '#/components/admin/room-edit-drawer'
 import type { ColumnDef } from '#/components/admin/data-table'
@@ -28,9 +28,7 @@ function RoomsAdminPage() {
       {
         accessorKey: 'category',
         header: 'Category',
-        cell: ({ row }) => (
-          <span className="capitalize">{row.original.category}</span>
-        ),
+        cell: ({ row }) => ROOM_CATEGORY_LABELS[row.original.category],
       },
       {
         accessorKey: 'pricePerNight',
@@ -39,14 +37,9 @@ function RoomsAdminPage() {
       },
       { accessorKey: 'maxGuests', header: 'Max guests' },
       {
-        accessorKey: 'oceanView',
-        header: 'Ocean view',
-        cell: ({ row }) => (
-          <StatusBadge
-            status={row.original.oceanView ? 'yes' : 'no'}
-            tone={row.original.oceanView ? 'info' : 'neutral'}
-          />
-        ),
+        accessorKey: 'view',
+        header: 'View',
+        cell: ({ row }) => row.original.view ?? '—',
       },
       {
         id: 'actions',

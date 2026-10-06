@@ -30,7 +30,6 @@ function amenityLd(amenity: Amenity, path: string) {
     description: amenity.blurb,
     url,
     ...(amenity.hero ? { image: `${SITE.url}${amenity.hero}` } : {}),
-    isAccessibleForFree: amenity.priceFrom === null,
     containedInPlace: { '@type': 'Resort', name: SITE.name, url: SITE.url },
   }
 }
@@ -124,18 +123,16 @@ function AmenityDetailPage() {
                 <span className="flex text-lagoon-deep" aria-hidden>
                   <Sparkles size={28} strokeWidth={1.5} />
                 </span>
-                <h2 className="display-title mt-3 text-xl">
-                  Included with your stay
-                </h2>
+                <h2 className="display-title mt-3 text-xl">Visit Us any day</h2>
                 <p className="mt-1 text-sm text-sea-ink-soft">
-                  No booking needed — this is complimentary for all guests. Just
-                  drop by during opening hours.
+                  Monday through Sunday 24 / 7 to experience our various types
+                  of services and amenities. A warm welcome awaits you.
                 </p>
                 <Link
                   to="/rooms"
                   className="btn btn-primary mt-5 w-full no-underline"
                 >
-                  Plan your stay
+                  Book Early
                 </Link>
               </div>
             )}

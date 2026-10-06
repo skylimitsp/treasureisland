@@ -1,202 +1,181 @@
 import type { Amenity, SlotRequest, SlotRequestInput } from '#/types'
 
-// Mock amenity list — the API swap seam (see CLAUDE.md §6). Detail fields are
-// populated here; going live swaps each accessor body for an httpClient call.
+// Official amenities from treasureislandghana.com (docs/official-content.md).
+// Optional fields stay unset until the resort confirms them — never invent.
 const AMENITIES: Array<Amenity> = [
   {
     id: 'a1',
-    slug: 'restaurant',
-    name: 'Ocean-View Restaurant',
-    category: 'Dining',
-    blurb: 'Sea-to-table plates and sunset cocktails at the water’s edge.',
+    slug: 'jacuzzi',
+    name: 'Jacuzzi Bath',
+    category: 'Let’s relax',
+    blurb:
+      'There is nothing more romantic to round off your city break in Ada than choosing a decadent hotel with a hot tub.',
     description:
-      'Our coastal-Mediterranean kitchen runs from sunrise to candlelight — ' +
-      'wild-caught seafood, wood-fired plates, and an open terrace set right ' +
-      'over the sand. Mornings bring slow breakfasts with the tide; evenings ' +
-      'turn to shared plates, natural wines, and the last of the light on the ' +
-      'water. Every table looks out to the horizon.',
-    image: '/photos/ocean-deck-dining.webp',
-    hero: '/photos/ocean-deck-dining.webp',
-    gallery: [
-      '/photos/ocean-deck-dining.webp',
-      '/photos/breakfast.webp',
-      '/photos/lantern-terrace.webp',
-      '/photos/infinity-lounge.webp',
-    ],
-    highlights: [
-      'Wild-caught seafood',
-      'Wood-fired kitchen',
-      'Open beach terrace',
-      '24/7 in-room dining',
-      'Natural wine list',
-    ],
-    icon: 'utensils',
-    hours: 'Daily · 7am–11pm',
-    location: 'Beach terrace, west wing',
-    capacity: 'Up to 60 covers',
-    priceFrom: 45,
+      'There is nothing more romantic to round off your city break in Ada ' +
+      'than choosing a decadent hotel with a hot tub. Whilst the rest of Ada ' +
+      'freezes under a cold snap, you can simply sink into the depths of the ' +
+      'hot water and allow the jets and bubbles to soothe your troubles away.',
+    image: '/photos/pool-at-night.webp',
+    hero: '/photos/pool-at-night.webp',
+    gallery: ['/photos/pool-at-night.webp'],
+    icon: 'bath',
+    price: 'GH₵ 290 per hour',
     bookable: true,
   },
   {
     id: 'a2',
-    slug: '12d-cinema',
-    name: '12D Cinema',
-    category: 'Entertainment',
-    blurb: 'Motion seats, wind, and mist — the reef comes alive around you.',
+    slug: 'boat-cruise',
+    name: 'Boat Cruise (Including Jet-Ski)',
+    category: 'On the water',
+    blurb:
+      'You may be floating at a leisurely pace through the hidden countryside.',
     description:
-      'An immersive motion-seat cinema tucked behind the palms. Seats pitch, ' +
-      'roll and rumble in sync with the film while wind, water-mist and scent ' +
-      'bursts fold the room into the story. Short-format thrills in vivid 3D — ' +
-      'reef dives, jungle chases, deep-space runs — a fifteen-minute escape ' +
-      'after dark for all ages.',
-    // 12D Cinema has no real photo yet → dark placeholder tile (empty image).
-    image: '',
-    hero: '',
-    gallery: [],
-    highlights: [
-      'Motion seats',
-      'Wind & water-mist',
-      'Scent bursts',
-      '3D visuals',
-      'Family-friendly showings',
-    ],
-    icon: 'film',
-    hours: 'Daily · 4pm–10pm',
-    location: 'Palm court, lower level',
-    capacity: '24 motion seats',
-    priceFrom: 18,
+      'Because it’s a perfect antidote to busy jobs, frenetic tourism, ' +
+      'crowded airports, and also a wonderful way to enjoy the countryside! ' +
+      'A hotel boat holiday is great for couples, singles, stressed ' +
+      'executives & minions, seniors, groups, overseas visitors; just about ' +
+      'anyone who enjoys being pampered in pleasant surroundings! You may be ' +
+      'floating at a leisurely pace through the hidden countryside. You could ' +
+      'just treat yourself to a little well earned relaxation with a piece of ' +
+      'home made cake and that favourite book!',
+    image: '/photos/jetski-trail.webp',
+    hero: '/photos/jetski-trail.webp',
+    gallery: ['/photos/jetski-trail.webp', '/photos/jetski-loop.webp'],
+    icon: 'ship',
+    price: 'From GH₵ 50',
     bookable: true,
   },
   {
     id: 'a3',
-    slug: 'horse-riding',
-    name: 'Beach Horse Riding',
-    category: 'Adventure',
-    blurb: 'Guided rides along the shoreline at golden hour.',
+    slug: '12d-cinema',
+    name: '12D Cinema',
+    category: 'Family fun',
+    blurb:
+      '12D Cinema is a unique venue to shed worries and get an adrenaline rush.',
     description:
-      'Guided beach-trail rides at golden hour, led by our stable team on ' +
-      'calm, schooled horses. First-timers start in the arena with a short ' +
-      'lesson before heading to the shoreline; confident riders can push on ' +
-      'along the firm sand as the sun drops. Boots and helmets provided — you ' +
-      'just bring the sense of adventure.',
-    image: '/photos/horse-riding.webp',
-    hero: '/photos/horse-riding.webp',
-    gallery: [
-      '/photos/horse-riding.webp',
-      '/photos/palm-pool-aerial.webp',
-      '/photos/aerial-resort.webp',
-    ],
-    highlights: [
-      'Golden-hour beach trails',
-      'Lessons for first-timers',
-      'Calm, schooled horses',
-      'Arena & shoreline routes',
-      'Helmets & boots provided',
-    ],
-    icon: 'anchor',
-    hours: 'Daily · 6am–9am, 4pm–6pm',
-    location: 'Stables, north shore',
-    capacity: 'Up to 6 riders per ride',
-    priceFrom: 60,
+      '12D Cinema is a unique venue to shed worries and get an adrenaline ' +
+      'rush. Offering the ultimate exclusive experience and HD sound and ' +
+      'visual features, the 12D cinema makes you feel the warmth of the dying ' +
+      'sun in the horizon and the power of roof-destroying storm. Experience ' +
+      'state-of-the-art technology at the 12D Cinema like you’ve never seen ' +
+      'it before. A curated library, 9 comfy seats and latest technologies ' +
+      'are our offer to lovers of extreme experience.',
+    // No cinema photo yet — a neutral resort view stands in.
+    image: '/photos/aerial-resort.webp',
+    imageAlt: 'Aerial view of Treasure Island Ada',
+    hero: '/photos/aerial-resort.webp',
+    gallery: [],
+    icon: 'film',
+    price: 'GH₵ 30 per movie',
     bookable: true,
   },
   {
     id: 'a4',
-    slug: 'jacuzzi',
-    name: 'Jacuzzi & Spa',
-    category: 'Wellness',
-    blurb: 'Warm hydrotherapy pools overlooking the lagoon.',
+    slug: 'taxi-boat',
+    name: 'Taxi Boat',
+    category: 'On the water',
+    blurb:
+      'Board a River Passage Water Taxi at the Hotel Docks located along the riverwalk.',
+    // The official page now 404s; only this opening sentence survives.
     description:
-      'The slow, restorative end of the day. Sink into warm mineral water at ' +
-      'the poolside jacuzzi, with cabana service and cool towels on hand. ' +
-      'Heated jets ease tired muscles while the lagoon glitters just beyond ' +
-      'the deck. Open through the evening, it is the quietest way to close a ' +
-      'day in the sun.',
-    image: '/photos/pool-at-night.webp',
-    hero: '/photos/pool-at-night.webp',
-    gallery: [
-      '/photos/pool-at-night.webp',
-      '/photos/pool-loungers.webp',
-      '/photos/palm-pool-aerial.webp',
-    ],
-    highlights: [
-      'Warm mineral soak',
-      'Poolside cabana service',
-      'Lagoon views',
-      'Open into the evening',
-    ],
-    icon: 'bath',
-    hours: 'Daily · 8am–10pm',
-    location: 'Spa deck, lagoon side',
-    capacity: null,
-    priceFrom: null,
-    bookable: false,
+      'Board a River Passage Water Taxi at the Hotel Docks located along the ' +
+      'riverwalk.',
+    image: '/photos/jetski-loop.webp',
+    hero: '/photos/jetski-loop.webp',
+    gallery: ['/photos/jetski-loop.webp'],
+    icon: 'sailboat',
+    price: 'GH₵ 50 per person',
+    priceNote: 'In or Out of Island',
+    bookable: true,
   },
   {
     id: 'a5',
-    slug: 'boat-cruise',
-    name: 'Boat Cruise & Jet-Ski',
-    category: 'On the water',
-    blurb: 'Sunset cruises and jet-ski hire straight off the jetty.',
+    slug: 'swimming-cabanas',
+    name: 'Swimming & Waterfront Cabanas',
+    category: 'Let’s relax',
+    blurb:
+      'Watch the sun rise or set from the beach front cabanas while sipping on your favorite drinks or just relaxing.',
     description:
-      'Glass-clear lagoon runs and self-drive jet-skis, straight off our ' +
-      'private jetty. Join a sunset cruise for dolphin-spotting sails and a ' +
-      'glass of something cold, or take the wheel of a jet-ski for the ' +
-      'adrenaline half-hour. Life jackets and a safety briefing come as ' +
-      'standard; the open water is all yours.',
-    image: '/photos/jetski-trail.webp',
-    hero: '/photos/jetski-trail.webp',
+      'Relax by the pool in a private cabana! Treasure Island Hotel & ' +
+      'Resorts in Ada, Ghana Poolside & Waterfront Cabanas. Reservations are ' +
+      'available for an hour, half a day or the full day at a minimal fee. ' +
+      'Book a private cabana for your waterfront relaxation. Watch the sun ' +
+      'rise or set from the beach front cabanas while sipping on your ' +
+      'favorite drinks or just relaxing. Relax in the poolside Cabanas ' +
+      'overlooking the beautiful waterslide and pool while taking breaks in ' +
+      'between swims.',
+    image: '/photos/palm-pool-aerial.webp',
+    hero: '/photos/palm-pool-aerial.webp',
     gallery: [
-      '/photos/jetski-trail.webp',
-      '/photos/jetski-loop.webp',
-      '/photos/aerial-resort.webp',
       '/photos/palm-pool-aerial.webp',
+      '/photos/pool-loungers.webp',
+      '/photos/beach-hero.webp',
     ],
-    highlights: [
-      'Sunset dolphin cruises',
-      'Self-drive jet-skis',
-      'Glass-clear lagoon runs',
-      'Life jackets & briefing',
-      'Departs the private jetty',
-    ],
-    icon: 'ship',
-    hours: 'Daily · 9am–6pm',
-    location: 'Private jetty, east point',
-    capacity: 'Up to 12 per cruise',
-    priceFrom: 75,
+    icon: 'waves',
+    // Price-list figure is for the swimming pool; the cabana fee is unpublished.
+    price: 'GH₵ 80 per adult',
+    priceNote: 'In or Out of Island',
     bookable: true,
   },
   {
     id: 'a6',
-    slug: 'swimming-pool',
-    name: 'Swimming Pool',
-    category: 'Leisure',
-    blurb: 'A palm-fringed freshwater pool with shaded loungers.',
+    slug: 'horse-riding',
+    name: 'Horse Riding',
+    category: 'Family fun',
+    blurb: 'Explore Treasure Island from an unforgettable vantage point.',
     description:
-      'A palm-fringed freshwater pool at the heart of the resort, with an ' +
-      'infinity edge that melts into the sea. Shaded loungers, a swim-up ' +
-      'ledge and towel service make it easy to lose an afternoon here. Open ' +
-      'from dawn for lap swimmers and late into the evening for a quiet float ' +
-      'under the stars.',
-    image: '/photos/infinity-lounge.webp',
-    hero: '/photos/infinity-lounge.webp',
-    gallery: [
-      '/photos/infinity-lounge.webp',
-      '/photos/pool-loungers.webp',
-      '/photos/palm-pool-aerial.webp',
-      '/photos/beach-hero.webp',
-    ],
-    highlights: [
-      'Infinity edge',
-      'Shaded loungers',
-      'Swim-up ledge',
-      'Towel service',
-    ],
-    icon: 'bath',
-    hours: 'Daily · 6am–10pm',
-    location: 'Central deck',
-    capacity: null,
-    priceFrom: null,
+      'Explore Treasure Island from an unforgettable vantage point. Ride ' +
+      'horses through canyons, shaded hillsides, past grazing cattle and ' +
+      'babbling brooks. Treasure Island horseback riding vacations start with ' +
+      'our string horses. Wranglers will pair you with a horse suited to your ' +
+      'skill level—everyone from first-time riders to advanced equestrians is ' +
+      'welcome to ride.',
+    image: '/photos/horse-riding.webp',
+    hero: '/photos/horse-riding.webp',
+    gallery: ['/photos/horse-riding.webp'],
+    icon: 'compass',
+    price: 'GH₵ 50 per person',
+    bookable: true,
+  },
+  {
+    id: 'a7',
+    slug: 'gaming',
+    name: 'Gaming (Little Blast Arcade)',
+    category: 'Family fun',
+    blurb:
+      'A Game Room aka Little Blast Arcade, which boasts more than 20 Coin-Op Arcade machines.',
+    description:
+      'Retro and modern consoles in our gaming rooms. A Game Room aka Little ' +
+      'Blast Arcade, which boasts more than 20 Coin-Op Arcade machines. Well, ' +
+      'and a fully stocked bar and the nicest people.',
+    // No arcade photo yet — a neutral resort view stands in.
+    image: '/photos/lantern-terrace.webp',
+    imageAlt: 'Lantern-lit terrace at Treasure Island Ada',
+    hero: '/photos/lantern-terrace.webp',
+    gallery: [],
+    icon: 'gamepad',
+    price: 'GH₵ 10 per game',
+    bookable: false,
+  },
+  {
+    id: 'a8',
+    slug: 'restaurant',
+    name: 'Restaurant & Bar',
+    category: 'Experience',
+    blurb:
+      'The hotel restaurant offers you high quality services and facilities.',
+    description:
+      'The hotel restaurant offers you high quality services and facilities. ' +
+      'For a memorable meal the quality of the service is something that ' +
+      'guests often remember as much as the food and drink served. That makes ' +
+      'our restaurant servers demonstrate extensive knowledge of all types of ' +
+      'cuisine and dishes—especially the ingredients and cooking style of ' +
+      'items on an à la carte menu.',
+    image: '/photos/ocean-deck-dining.webp',
+    hero: '/photos/ocean-deck-dining.webp',
+    gallery: ['/photos/ocean-deck-dining.webp', '/photos/breakfast.webp'],
+    icon: 'utensils',
+    price: null,
     bookable: false,
   },
 ]

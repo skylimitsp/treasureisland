@@ -29,7 +29,7 @@ function ReviewsPage() {
         cell: ({ row }) => (
           <span className="inline-flex items-center gap-1 text-gold">
             <Star size={14} fill="currentColor" strokeWidth={0} aria-hidden />
-            {row.original.rating.toFixed(1)}
+            {row.original.rating?.toFixed(1) ?? '—'}
           </span>
         ),
       },

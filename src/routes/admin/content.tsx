@@ -37,36 +37,21 @@ function ContentPage() {
           <div className="island-shell rounded-md p-6">
             <span className="island-kicker">{about.data.kicker}</span>
             <p className="display-title mt-2 text-2xl text-sea-ink">
-              {about.data.lead}
+              {about.data.title}
+            </p>
+            <p className="mt-1 text-sm text-sea-ink-soft">
+              {about.data.subtitle}
             </p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {about.data.story.map((block, i) => (
-                <p key={i} className="text-sm text-sea-ink-soft">
+              {about.data.paragraphs.map((block) => (
+                <p
+                  key={block.slice(0, 24)}
+                  className="text-sm text-sea-ink-soft"
+                >
                   {block}
                 </p>
               ))}
             </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {about.data.stats.map((stat) => (
-              <div key={stat.label} className="island-shell rounded-md p-5">
-                <span className="island-kicker">{stat.label}</span>
-                <p className="display-title mt-2 text-2xl text-sea-ink">
-                  {stat.value}
-                  {stat.suffix ?? ''}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="island-shell rounded-md p-6">
-            <h2 className="display-title text-lg text-sea-ink">
-              Host — {about.data.host.name}
-            </h2>
-            <p className="mt-2 text-sm italic text-sea-ink-soft">
-              “{about.data.host.quote}”
-            </p>
           </div>
 
           <div className="island-shell rounded-md p-6">

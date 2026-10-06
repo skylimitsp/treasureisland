@@ -4,8 +4,8 @@
  * @author Joseph Nartey
  * @github devjoemedia
  */
-import { SITE } from '#/constants/site'
-import type { Room } from '#/types'
+import { CONTACT, SITE } from '#/constants/site'
+import type { MenuItem, MenuSection, Room } from '#/types'
 
 const CONTEXT = 'https://schema.org'
 
@@ -20,7 +20,8 @@ export function organizationLd() {
     name: SITE.name,
     url: SITE.url,
     logo: abs(SITE.ogImage),
-    sameAs: [`https://twitter.com/${SITE.twitter.replace('@', '')}`],
+    email: CONTACT.email,
+    telephone: CONTACT.phone,
   }
 }
 
@@ -52,6 +53,15 @@ export function lodgingBusinessLd(input?: {
     description: SITE.description,
     url: SITE.url,
     image: abs(SITE.ogImage),
+    telephone: CONTACT.phone,
+    email: CONTACT.email,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: CONTACT.locality,
+      addressRegion: CONTACT.region,
+      addressCountry: 'GH',
+    },
+    openingHours: 'Mo-Su 00:00-23:59',
     priceRange: input?.priceRange ?? '$$$',
     ...(input?.rating && input.reviewCount
       ? {
@@ -130,6 +140,33 @@ export function roomListLd(rooms: Array<Room>) {
       position: i + 1,
       url: abs(`/rooms/${room.slug}`),
       name: room.name,
+    })),
+  }
+}
+
+// The restaurant menu as schema.org Menu, built from the same data the page renders.
+export function menuLd(items: Array<MenuItem>, sections: Array<MenuSection>) {
+  return {
+    '@context': CONTEXT,
+    '@type': 'Menu',
+    name: `${SITE.name} restaurant menu`,
+    url: abs('/menu'),
+    inLanguage: 'en',
+    hasMenuSection: sections.map((section) => ({
+      '@type': 'MenuSection',
+      name: section.title,
+      hasMenuItem: items
+        .filter((i) => i.available && i.category === section.id)
+        .map((i) => ({
+          '@type': 'MenuItem',
+          name: i.name,
+          description: i.description,
+          offers: {
+            '@type': 'Offer',
+            price: i.price,
+            priceCurrency: 'USD',
+          },
+        })),
     })),
   }
 }

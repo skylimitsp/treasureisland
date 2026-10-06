@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
@@ -10,7 +9,7 @@
   --sea-ink: #173a40;
   --sea-ink-soft: #416166;
   --lagoon: #4fb8b2;
-  --lagoon-deep: #328f97;
+  --lagoon-deep: #2d8088;
   --palm: #2f6a4a;
   --sand: #e7f0e8;
   --foam: #ffffff;
@@ -18,7 +17,7 @@
   --surface-strong: #ffffff;
   --line: rgba(23, 58, 64, 0.14);
   --inset-glint: rgba(255, 255, 255, 0.82);
-  --kicker: rgba(47, 106, 74, 0.9);
+  --kicker: #2f6a4a;
   --bg-base: #ffffff;
   --header-bg: rgba(255, 255, 255, 0.94);
   --footer-bg: #173a40;
@@ -31,7 +30,7 @@
   --hero-a: rgba(79, 184, 178, 0.36);
   --hero-b: rgba(47, 106, 74, 0.2);
   --sunset: #d9855b;
-  --sunset-deep: #c06b41;
+  --sunset-deep: #b85a2b;
   --gold: #e6b566;
 
   --background: oklch(1 0 0);
@@ -429,12 +428,12 @@ a {
 }
 
 .btn-warm {
-  background: var(--sunset);
+  background: var(--sunset-deep);
   color: #fff;
   border: 1px solid transparent;
 }
 .btn-warm:hover {
-  background: var(--sunset-deep);
+  background: color-mix(in oklab, var(--sunset-deep) 80%, var(--sea-ink));
   color: #fff;
 }
 
@@ -563,8 +562,8 @@ a {
   background-attachment: fixed;
 }
 
-/* Hero background — small AVIF (LCP) with WebP fallback + legibility scrim.
-   Directional: darker top (nav), bottom, and left (headline) for contrast. */
+/* Legibility scrim over the home hero video. Directional: darker top (nav),
+   bottom, and left (headline) for contrast. */
 .hero-bg {
   background-image:
     linear-gradient(
@@ -574,17 +573,7 @@ a {
       rgba(23, 58, 64, 0.22) 58%,
       rgba(23, 58, 64, 0.58) 100%
     ),
-    linear-gradient(
-      90deg,
-      rgba(23, 58, 64, 0.5) 0%,
-      rgba(23, 58, 64, 0.08) 62%
-    ),
-    image-set(
-      url('/photos/beach-hero.avif') type('image/avif'),
-      url('/photos/beach-hero.webp') type('image/webp')
-    );
-  background-size: cover;
-  background-position: center;
+    linear-gradient(90deg, rgba(23, 58, 64, 0.62) 0%, rgba(23, 58, 64, 0.1) 68%);
 }
 
 @media (prefers-reduced-motion: reduce) {

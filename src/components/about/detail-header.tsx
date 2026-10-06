@@ -1,8 +1,13 @@
 import { Link } from '@tanstack/react-router'
-import { ChevronRight, MapPin, Share2, Star, Palmtree } from 'lucide-react'
+import { ChevronRight, Clock, MapPin, Palmtree } from 'lucide-react'
 
-// Title block mirroring the StayBox detail header: breadcrumb, title, meta row,
-// and View Map / Share pills.
+import { ShareButton } from '#/components/shared/share-button'
+import { CONTACT, SITE } from '#/constants/site'
+
+const MAP_URL =
+  'https://www.google.com/maps/search/?api=1&query=Treasure+Island+Ada+Foah+Ghana'
+
+// Title block: breadcrumb, resort name, official location/hours, map + share.
 export function DetailHeader() {
   return (
     <div className="page-wrap pt-28">
@@ -21,36 +26,32 @@ export function DetailHeader() {
 
       <div className="mt-5 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="display-title text-4xl md:text-5xl">
-            Treasure Island Beach Resort
-          </h1>
+          <h1 className="display-title text-4xl md:text-5xl">{SITE.name}</h1>
           <div className="mt-3 flex flex-wrap items-center gap-5 text-sm text-sea-ink-soft">
             <span className="inline-flex items-center gap-1.5">
-              <Star
-                size={16}
-                className="text-gold"
-                fill="currentColor"
-                strokeWidth={0}
-                aria-hidden
-              />
-              4.9 · 1,284 reviews
+              <MapPin size={16} aria-hidden /> {CONTACT.locality},{' '}
+              {CONTACT.region}, {CONTACT.country}
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <MapPin size={16} aria-hidden /> Treasure Island, Indian Ocean
+              <Clock size={16} aria-hidden /> Open {CONTACT.hours}
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <Palmtree size={16} aria-hidden /> Private-island resort
+              <Palmtree size={16} aria-hidden /> Private island resort
             </span>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <a href="#location" className="btn btn-ghost no-underline">
-            <MapPin size={16} aria-hidden /> View Map
+          <a
+            href={MAP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-ghost no-underline"
+          >
+            <MapPin size={16} aria-hidden /> View map
+            <span className="sr-only"> (opens Google Maps)</span>
           </a>
-          <button type="button" className="btn btn-ghost">
-            <Share2 size={16} aria-hidden /> Share
-          </button>
+          <ShareButton title={SITE.name} />
         </div>
       </div>
     </div>

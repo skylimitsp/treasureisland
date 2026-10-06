@@ -1,3 +1,5 @@
+import { ResponsiveImage } from '#/components/shared/responsive-image'
+
 // Decorative arched photo (the .img-arch motif); alt is empty by default.
 export function ArchPhoto({
   src,
@@ -10,7 +12,7 @@ export function ArchPhoto({
 }) {
   return (
     <div className={`img-arch ${className}`}>
-      <img
+      <ResponsiveImage
         src={src}
         alt={alt}
         loading="lazy"

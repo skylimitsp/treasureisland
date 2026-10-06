@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
+import { ResponsiveImage } from '#/components/shared/responsive-image'
 
 // Mosaic gallery (1 large + thumbs) with a focus-trapped lightbox.
 export function RoomGallery({
@@ -37,7 +38,8 @@ export function RoomGallery({
               : 'col-span-2 md:col-span-1'
           }`}
         >
-          <img
+          <ResponsiveImage
+            sizes="(min-width: 1024px) 66vw, 100vw"
             src={src}
             alt={`${name} — photo ${i + 1}`}
             loading={i === 0 ? 'eager' : 'lazy'}
@@ -64,7 +66,8 @@ export function RoomGallery({
           >
             <X aria-hidden />
           </button>
-          <img
+          <ResponsiveImage
+            sizes="100vw"
             src={images[open]}
             alt={`${name} — photo ${open + 1}`}
             className="max-h-[86vh] max-w-full rounded-md object-contain"

@@ -4,13 +4,16 @@ import { SectionKicker } from '#/components/shared/section-kicker'
 import { ExperienceTile } from '#/components/amenities/experience-tile'
 import { useAmenitiesQuery } from '#/hooks/queries/amenities.query'
 
-// Alternating masonry — 2 1 1 / 1 2 1: wide tiles at the row starts (index 0)
-// and mid-second-row (index 4). Other counts fall back to a first/last-wide
-// pattern that still fills each 4-column row.
-// Wide spans apply only at md+ (4-col). On mobile every tile is one column of a
-// uniform 2-col grid, so there are no half-empty rows.
+// Masonry: 8 tiles → 2 1 1 / 1 2 1 / 2 2; 6 → 2 1 1 / 1 2 1; other counts go
+// first/last-wide. Wide spans are md+ only, so mobile is a uniform 2-col grid.
+const WIDE: Partial<Record<number, Array<number>>> = {
+  6: [0, 4],
+  8: [0, 4, 6, 7],
+}
+
 function tileClass(i: number, n: number): string {
-  if (n === 6) return i === 0 || i === 4 ? 'md:col-span-2' : ''
+  const wide = WIDE[n]
+  if (wide) return wide.includes(i) ? 'md:col-span-2' : ''
   const need = (4 - (n % 4)) % 4
   return i === 0 || (need >= 2 && i === n - 1) ? 'md:col-span-2' : ''
 }
@@ -36,10 +39,10 @@ export function ExperiencesMasonry() {
 
       {amenities.isPending ? (
         <div className={gridCls}>
-          {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={i}
-              className={`animate-pulse rounded-md bg-black/5 ${tileClass(i, 6)}`}
+              className={`animate-pulse rounded-md bg-black/5 ${tileClass(i, 8)}`}
             />
           ))}
         </div>

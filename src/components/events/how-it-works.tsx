@@ -1,11 +1,11 @@
-import { CalendarCheck, FileText, PartyPopper, Send } from 'lucide-react'
+import { CalendarCheck, MessagesSquare, PartyPopper, Send } from 'lucide-react'
 
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { ColorBlockPanel } from '#/components/shared/color-block-panel'
 import type { ColorBlockTone } from '#/components/shared/color-block-panel'
 import type { LucideIcon } from 'lucide-react'
 
-// Four reassuring steps — this is an enquiry, so we set the tone of a conversation.
+// Generic enquiry flow; steps 02–04 quote the official Events & Meetings copy.
 const STEPS: Array<{
   number: string
   icon: LucideIcon
@@ -18,28 +18,28 @@ const STEPS: Array<{
     icon: Send,
     tone: 'blush',
     title: 'Enquire',
-    copy: 'Send your date, guest count and vision.',
+    copy: 'Send us your date, guest count and vision.',
   },
   {
     number: '02',
-    icon: FileText,
+    icon: MessagesSquare,
     tone: 'deep',
-    title: 'We propose',
-    copy: 'A tailored package and quote within 48h.',
+    title: 'We get in touch',
+    copy: 'Specially dedicated event consultants will understand your requirements.',
   },
   {
     number: '03',
     icon: CalendarCheck,
     tone: 'warm',
-    title: 'Confirm',
-    copy: 'Lock the date with a deposit and menu.',
+    title: 'Plan',
+    copy: 'We help you choose the most suitable destination and plan the event to the smallest detail.',
   },
   {
     number: '04',
     icon: PartyPopper,
     tone: 'blush',
     title: 'Celebrate',
-    copy: 'Our team runs the day; you enjoy it.',
+    copy: 'Our warm and friendly staff will make every effort to ensure your event is memorable and successful.',
   },
 ]
 
@@ -56,7 +56,7 @@ export function HowItWorks() {
       <div className="max-w-2xl">
         <SectionKicker>How it works</SectionKicker>
         <h2 className="display-title mt-2 text-3xl md:text-4xl">
-          From first hello to the last dance.
+          From enquiry to the <em>day</em> itself.
         </h2>
       </div>
       <ol className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4">

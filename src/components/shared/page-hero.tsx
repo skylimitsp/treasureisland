@@ -1,20 +1,25 @@
 import type { ReactNode } from 'react'
 
+import { BackgroundVideo } from '#/components/shared/background-video'
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { useGsap } from '#/hooks/use-gsap'
 import { gsap } from '#/lib/gsap'
 import { bgImage } from '#/lib/media'
 
 // Shared inner-page hero: one height (42vh, grows with content), copy straight
-// on the photo over a directional scrim — no panel behind the text.
+// on the photo (or optional muted video loop) over a directional scrim.
 export function PageHero({
   image,
+  video,
+  mobileVideo,
   kicker,
   title,
   body,
   actions,
 }: {
   image: string
+  video?: string
+  mobileVideo?: string
   kicker: string
   title: ReactNode
   body: string
@@ -34,11 +39,25 @@ export function PageHero({
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[42vh] items-center overflow-hidden bg-cover bg-center"
-      style={{
-        backgroundImage: `linear-gradient(180deg, rgba(23,58,64,.45) 0%, rgba(23,58,64,0) 32%), linear-gradient(90deg, rgba(23,58,64,.78) 0%, rgba(23,58,64,.5) 55%, rgba(23,58,64,.3) 100%), ${bgImage(image)}`,
-      }}
+      className="relative isolate flex min-h-[42vh] items-center overflow-hidden bg-cover bg-center"
+      style={{ backgroundImage: bgImage(image) }}
     >
+      {video ? (
+        <BackgroundVideo
+          src={video}
+          mobileSrc={mobileVideo}
+          priority
+          className="absolute inset-0 -z-20 size-full"
+        />
+      ) : null}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          backgroundImage:
+            'linear-gradient(180deg, rgba(23,58,64,.45) 0%, rgba(23,58,64,0) 32%), linear-gradient(90deg, rgba(23,58,64,.78) 0%, rgba(23,58,64,.5) 55%, rgba(23,58,64,.3) 100%)',
+        }}
+        aria-hidden
+      />
       <div className="page-wrap w-full pb-14 pt-32">
         <div className="max-w-2xl text-white">
           <div data-hero>

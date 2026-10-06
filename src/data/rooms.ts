@@ -7,158 +7,179 @@ import type {
   RoomAvailability,
 } from '#/types'
 
-// Mock room inventory — titles/pricing from the resort's own site. Rooms using
-// the official Treasure Island photography are ordered first. The API swap seam:
-// replace these accessors with `httpClient` calls; hooks stay unchanged.
+// Official room list from treasureislandghana.com (USD per night). Every room
+// shares the site's one blurb; the second sentence restates its listed facts.
+const BLURB =
+  'Make yourself comfortable in any of our serene guest rooms and spacious suites.'
+
+const ENSUITE_AMENITIES = [
+  'Free Wifi',
+  'Hot/Cold Shower & Bathtub',
+  '2 pair of slippers',
+  'Bottled Mineral Water',
+]
+
+const KITCHENETTE_AMENITIES = [
+  ...ENSUITE_AMENITIES,
+  'Wine on arrival',
+  'Fireworks',
+  'Dining Area',
+  'Modern Kitchenette',
+]
+
+const STANDING_SHOWER_AMENITIES = [
+  'Private bathroom',
+  'Free Wifi',
+  'Intercom',
+  'Refrigerator',
+]
+
 const ROOMS: Array<Room> = [
   {
     id: 'r1',
-    slug: 'two-bedroom-penthouse',
-    name: '2 Bedroom Penthouse',
+    slug: '2-bedroom-penthouse-big-jacuzzi',
+    name: '2 Bedroom Penthouse for 4 – Big Jacuzzi',
     category: 'double',
-    description:
-      'A top-floor penthouse with two bedrooms, floor-to-ceiling glass, and an ' +
-      'open living space that looks straight out over the lagoon.',
+    description: `${BLURB} A two-bedroom penthouse for up to 4 guests, with a big Jacuzzi.`,
     pricePerNight: 750,
     maxGuests: 4,
-    sizeSqm: 120,
-    beds: '2 king',
-    amenities: [
-      'Ocean view',
-      'Living area',
-      'Coffee & tea',
-      'Air conditioning',
-    ],
-    image: '/rooms/garden-view.webp',
-    oceanView: true,
+    beds: null,
+    view: null,
+    bathroom: 'Big Jacuzzi',
+    amenities: [],
+    image: '/rooms/suite-bedroom.webp',
   },
   {
     id: 'r2',
-    slug: 'two-bedroom-penthouse-suite',
-    name: '2 Bedroom Penthouse Suite',
+    slug: '2-bedroom-penthouse-private-pool',
+    name: '2 Bedroom Penthouse for 4 – Private Pool',
     category: 'double',
-    description:
-      'Our grandest penthouse — two bedrooms, a separate lounge, and a wrap of ' +
-      'windows framing the water on two sides.',
+    description: `${BLURB} A two-bedroom penthouse for up to 4 adults, with a Jacuzzi, a private pool and large balconies.`,
     pricePerNight: 850,
     maxGuests: 4,
-    sizeSqm: 130,
-    beds: '2 king',
-    amenities: ['Ocean view', 'Private lounge', 'Minibar', 'Rain shower'],
+    beds: 'Queen size',
+    view: null,
+    bathroom: 'Jacuzzi',
+    amenities: [
+      'Fitted with upgraded bedding',
+      'Private Pool',
+      'Large Balconies',
+    ],
+    image: '/rooms/garden-view.webp',
+  },
+  {
+    id: 'r3',
+    slug: '3-bedroom-supreme',
+    name: '3 Bedroom Supreme for 6',
+    category: 'family',
+    description: `${BLURB} Three Queen size beds for up to 6 adults, with a beach view, an ensuite shower bath, a dining area and a modern kitchenette.`,
+    pricePerNight: 720,
+    maxGuests: 6,
+    beds: '3 Queen size',
+    view: 'Beach',
+    bathroom: 'Shower bath ensuite',
+    amenities: KITCHENETTE_AMENITIES,
     image: '/rooms/living-area.webp',
-    oceanView: true,
+  },
+  {
+    id: 'r4',
+    slug: '3-bedroom-chalet',
+    name: '3 Bedroom Chalet for 6',
+    category: 'family',
+    description: `${BLURB} Three Queen size beds for up to 6 adults, with a beach view and an ensuite shower bath.`,
+    pricePerNight: 570,
+    maxGuests: 6,
+    beds: '3 Queen size',
+    view: 'Beach',
+    bathroom: 'Shower bath ensuite',
+    amenities: ENSUITE_AMENITIES,
+    image: '/rooms/room-5.webp',
+  },
+  {
+    id: 'r5',
+    slug: '2-bedroom-chalet',
+    name: '2 Bedroom Chalet for 4',
+    category: 'family',
+    description: `${BLURB} Two Queen size beds for up to 4 adults, with a beach view, an ensuite shower bath, a dining area and a modern kitchenette.`,
+    pricePerNight: 420,
+    maxGuests: 4,
+    beds: '2 Queen size',
+    view: 'Beach',
+    bathroom: 'Shower bath ensuite',
+    amenities: KITCHENETTE_AMENITIES,
+    image: '/rooms/kitchenette.webp',
   },
   {
     id: 'r6',
     slug: 'suite-with-balcony',
-    name: 'Suite With Balcony',
+    name: 'Suite with Balcony',
     category: 'double',
-    description:
-      'A bright suite opening onto a private balcony — the easiest place on the ' +
-      'island to watch the sun go down.',
-    pricePerNight: 480,
+    description: `${BLURB} One Queen size bed for up to 2 adults, with a beach view and an ensuite shower bath.`,
+    pricePerNight: 285,
     maxGuests: 2,
-    sizeSqm: 75,
-    beds: '1 king',
-    amenities: ['Private balcony', 'Ocean view', 'Minibar', 'Rain shower'],
-    image: '/rooms/suite-bedroom.webp',
-    oceanView: true,
-  },
-  {
-    id: 'r7',
-    slug: 'deluxe-room-superior',
-    name: 'Deluxe Room Superior',
-    category: 'double',
-    description:
-      'A refined deluxe room with a king bed and a calm, contemporary finish — ' +
-      'comfort for a couple, steps from the sand.',
-    pricePerNight: 225,
-    maxGuests: 2,
-    sizeSqm: 55,
-    beds: '1 king',
-    amenities: ['Ocean view', 'Coffee & tea', 'Air conditioning', 'Wi-Fi'],
-    image: '/rooms/kitchenette.webp',
-    oceanView: true,
-  },
-  {
-    id: 'r3',
-    slug: 'three-bedroom-suite',
-    name: '3 Bedroom Suite',
-    category: 'family',
-    description:
-      'A spacious family suite with three bedrooms and a shared living room — ' +
-      'room to gather, and quiet corners for everyone.',
-    pricePerNight: 720,
-    maxGuests: 6,
-    sizeSqm: 160,
-    beds: '3 queen',
-    amenities: ['Family sized', 'Living room', 'Breakfast', 'Wi-Fi'],
-    image: '/rooms/room-1.webp',
-    oceanView: true,
-  },
-  {
-    id: 'r4',
-    slug: 'three-bedroom-chalet',
-    name: '3 Bedroom Chalet',
-    category: 'family',
-    description:
-      'A garden chalet for larger parties — three bedrooms, natural textures, ' +
-      'and a shaded veranda a short walk from the shore.',
-    pricePerNight: 570,
-    maxGuests: 6,
-    sizeSqm: 150,
-    beds: '3 queen',
-    amenities: ['Private veranda', 'Garden setting', 'Breakfast', 'Wi-Fi'],
+    beds: '1 Queen size',
+    view: 'Beach',
+    bathroom: 'Shower bath ensuite',
+    amenities: ENSUITE_AMENITIES,
     image: '/rooms/room-2.webp',
-    oceanView: false,
   },
   {
-    id: 'r5',
-    slug: 'two-bedroom-chalet',
-    name: '2 Bedroom Chalet',
-    category: 'family',
-    description:
-      'A cosy two-bedroom chalet tucked into the palms, ideal for a small ' +
-      'family or friends travelling together.',
-    pricePerNight: 650,
-    maxGuests: 4,
-    sizeSqm: 110,
-    beds: '2 queen',
-    amenities: ['Garden setting', 'Coffee & tea', 'Air conditioning', 'Wi-Fi'],
-    image: '/rooms/room-3.webp',
-    oceanView: false,
+    // Bed/occupancy as published; they mirror the chalet listing — confirm.
+    id: 'r7',
+    slug: 'deluxe-room-with-balcony',
+    name: 'Deluxe Room with Balcony',
+    category: 'double',
+    description: `${BLURB} Three Queen size beds for up to 6 adults, with a beach view and an ensuite shower bath.`,
+    pricePerNight: 225,
+    maxGuests: 6,
+    beds: '3 Queen size',
+    view: 'Beach',
+    bathroom: 'Shower bath ensuite',
+    amenities: ENSUITE_AMENITIES,
+    image: '/rooms/room-1.webp',
   },
   {
+    // The official listing names both River View and Jungle View.
     id: 'r8',
     slug: 'deluxe-room',
     name: 'Deluxe Room',
     category: 'deluxe',
-    description:
-      'A serene deluxe room — everything you need for a restful stay, warmly ' +
-      'finished and quietly private.',
+    description: `${BLURB} One Queen bed for up to 2 adults, with a river view and a private bathroom with a standing shower.`,
     pricePerNight: 195,
     maxGuests: 2,
-    sizeSqm: 45,
-    beds: '1 queen',
-    amenities: ['Coffee & tea', 'Air conditioning', 'Rain shower', 'Wi-Fi'],
-    image: '/rooms/room-5.webp',
-    oceanView: false,
+    beds: '1 Queen bed',
+    view: 'River',
+    bathroom: 'Standing shower',
+    amenities: STANDING_SHOWER_AMENITIES,
+    image: '/rooms/room-6.webp',
   },
   {
     id: 'r9',
-    slug: 'standard-twin-room',
-    name: 'Standard Twin Room',
-    category: 'deluxe',
-    description:
-      'A comfortable twin room for friends or colleagues — simple, spotless, ' +
-      'and close to everything the island has to offer.',
-    pricePerNight: 165,
+    slug: 'waterfront-room',
+    name: 'Waterfront Room',
+    category: 'double',
+    description: `${BLURB} One double bed for up to 2 adults, with a river view and a private bathroom with a standing shower.`,
+    pricePerNight: 155,
     maxGuests: 2,
-    sizeSqm: 40,
-    beds: '2 twin',
-    amenities: ['Coffee & tea', 'Air conditioning', 'Wi-Fi', 'Daily service'],
-    image: '/rooms/room-6.webp',
-    oceanView: false,
+    beds: '1 double bed',
+    view: 'River',
+    bathroom: 'Standing shower',
+    amenities: STANDING_SHOWER_AMENITIES,
+    image: '/rooms/room-3.webp',
+  },
+  {
+    id: 'r10',
+    slug: 'standard-room',
+    name: 'Standard Room',
+    category: 'double',
+    description: `${BLURB} One double bed for up to 2 adults, with a jungle view and a private bathroom with a standing shower.`,
+    pricePerNight: 105,
+    maxGuests: 2,
+    beds: '1 double bed',
+    view: 'Jungle',
+    bathroom: 'Standing shower',
+    amenities: STANDING_SHOWER_AMENITIES,
+    image: '/rooms/room-3.webp',
   },
 ]
 
@@ -188,9 +209,6 @@ export function updateRoom(
 export function getResortStats(): ResortStats {
   return {
     rooms: ROOMS.length,
-    averageRating: 4.9,
-    reviews: 1284,
-    beachfrontMetres: 800,
   }
 }
 
@@ -235,7 +253,7 @@ function seedBooking(
 const bookings: Array<Booking> = [
   seedBooking(
     'TI-2026-0001',
-    'two-bedroom-penthouse',
+    '2-bedroom-penthouse-big-jacuzzi',
     'Sarah & James Whitmore',
     'sarah.whitmore@example.com',
     '2026-08-20',
@@ -246,7 +264,7 @@ const bookings: Array<Booking> = [
   ),
   seedBooking(
     'TI-2026-0002',
-    'three-bedroom-suite',
+    '3-bedroom-supreme',
     'The Andersson Family',
     'andersson@example.com',
     '2026-08-22',
@@ -257,7 +275,7 @@ const bookings: Array<Booking> = [
   ),
   seedBooking(
     'TI-2026-0003',
-    'two-bedroom-penthouse-suite',
+    '2-bedroom-penthouse-private-pool',
     'Priya & Arjun Kapoor',
     'priya.kapoor@example.com',
     '2026-08-25',
@@ -290,7 +308,7 @@ const bookings: Array<Booking> = [
   ),
   seedBooking(
     'TI-2026-0006',
-    'two-bedroom-chalet',
+    '2-bedroom-chalet',
     'Carlos & Elena Reyes',
     'reyes.family@example.com',
     '2026-08-10',

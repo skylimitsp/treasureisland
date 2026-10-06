@@ -45,17 +45,14 @@ export const Route = createFileRoute('/')({
   },
   head: () => {
     const base = seo({
-      title: 'Luxury Beach Resort',
+      title: 'Private Island Resort in Ada Foah, Ghana',
       description:
-        'Beachfront villas and suites on a private stretch of white sand. ' +
-        'Ocean-view dining, an overwater spa, and barefoot luxury at Treasure Island.',
+        'Treasure Island Ada — a private island resort near the estuary of the ' +
+        'Atlantic Ocean & Volta River. Chalets, penthouses, 12D cinema, boat ' +
+        'cruises, horse riding, weddings and meetings. Open 24 hours.',
       path: '/',
       jsonLd: [
-        lodgingBusinessLd({
-          rating: 4.9,
-          reviewCount: 1284,
-          priceRange: '$$$',
-        }),
+        lodgingBusinessLd({ priceRange: '$105–$850' }),
         faqLd(getFaqs()),
       ],
     })
@@ -66,8 +63,8 @@ export const Route = createFileRoute('/')({
         {
           rel: 'preload',
           as: 'image',
-          href: '/photos/beach-hero.avif',
-          type: 'image/avif',
+          href: '/videos/hero-aerial-day-poster.webp',
+          type: 'image/webp',
           fetchPriority: 'high',
         },
       ],
@@ -95,7 +92,7 @@ function Home() {
       <FeaturedRooms />
       <EditorialBand />
       <FixedDivider
-        image="/photos/aerial-resort.webp"
+        image="/photos/lagoon-sunset.webp"
         kicker="A world away"
         title="Escape to the island."
         ctaLabel="Plan your escape"
@@ -107,9 +104,9 @@ function Home() {
       <Testimonials />
       <Faq />
       <FixedDivider
-        image="/photos/pool-at-night.webp"
+        image="/photos/resort-night.webp"
         title="Reserve your stay."
-        subtitle="Your private stretch of paradise is waiting."
+        subtitle="Visit us any day, Monday through Sunday, 24/7. A warm welcome awaits you."
         ctaLabel="Book Now"
         ctaTo="/rooms"
         variant="warm"

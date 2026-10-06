@@ -1,15 +1,26 @@
 import { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
+import { ResponsiveImage } from '#/components/shared/responsive-image'
 
-const LARGE = '/rooms/room-1.webp'
-const RIGHT = ['/photos/ocean-deck-dining.webp', '/photos/infinity-lounge.webp']
-const THUMBS = [
-  '/events/wedding-carriage.webp',
-  '/photos/aerial-resort.webp',
-  '/rooms/room-5.webp',
-  '/rooms/room-6.webp',
+const PHOTOS = [
+  { src: '/photos/aerial-resort.webp', alt: 'Treasure Island Ada from above' },
+  {
+    src: '/photos/ocean-deck-dining.webp',
+    alt: 'Guests dining on the waterside deck',
+  },
+  {
+    src: '/photos/infinity-lounge.webp',
+    alt: 'Rooftop terrace and suites at dusk',
+  },
+  { src: '/events/wedding-carriage.webp', alt: 'A wedding carriage arrival' },
+  { src: '/rooms/room-1.webp', alt: 'A guest bedroom' },
+  { src: '/rooms/room-5.webp', alt: 'A loft bedroom' },
+  { src: '/rooms/room-6.webp', alt: 'A bedroom with a feature wall' },
 ]
-const ALL = [LARGE, ...RIGHT, ...THUMBS]
+const [LARGE, ...REST] = PHOTOS
+const RIGHT = REST.slice(0, 2)
+const THUMBS = REST.slice(2)
+const ALL = PHOTOS
 
 // Gallery mosaic matching the StayBox layout: one large tile + two stacked on
 // the right, then a row of four thumbnails, with a focus-trapped lightbox.
@@ -28,15 +39,18 @@ export function DetailGallery() {
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
 
-  const tile = (src: string, i: number, extra = '') => (
+  const tile = (photo: (typeof PHOTOS)[number], i: number, extra = '') => (
     <button
       type="button"
+      key={photo.src}
       onClick={() => setOpen(i)}
+      aria-label={`View larger: ${photo.alt}`}
       className={`img-frame group overflow-hidden ${extra}`}
     >
-      <img
-        src={src}
-        alt={`Treasure Island — photo ${i + 1}`}
+      <ResponsiveImage
+        sizes="(min-width: 1024px) 45vw, 100vw"
+        src={photo.src}
+        alt=""
         loading={i === 0 ? 'eager' : 'lazy'}
         fetchPriority={i === 0 ? 'high' : 'auto'}
         decoding="async"
@@ -53,7 +67,7 @@ export function DetailGallery() {
         {tile(RIGHT[1], 2)}
       </div>
       <div className="mt-3 grid grid-cols-4 gap-3">
-        {THUMBS.map((src, i) => tile(src, i + 3, 'aspect-[4/3]'))}
+        {THUMBS.map((photo, i) => tile(photo, i + 3, 'aspect-[4/3]'))}
       </div>
 
       {open !== null ? (
@@ -72,9 +86,10 @@ export function DetailGallery() {
           >
             <X aria-hidden />
           </button>
-          <img
-            src={ALL[open]}
-            alt={`Treasure Island — photo ${open + 1}`}
+          <ResponsiveImage
+            sizes="100vw"
+            src={ALL[open].src}
+            alt={ALL[open].alt}
             className="max-h-[86vh] max-w-full rounded-md object-contain"
             onClick={(e) => e.stopPropagation()}
           />

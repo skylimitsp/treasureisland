@@ -1,26 +1,28 @@
 import { useState } from 'react'
-import { Minus, Plus, SlidersHorizontal, Waves, X } from 'lucide-react'
+import { Minus, Plus, SlidersHorizontal, X } from 'lucide-react'
 
-import type { RoomCategory } from '#/types'
+import type { RoomCategory, RoomView } from '#/types'
 import type { RoomFilters } from '#/lib/rooms-filter'
 import {
   PRICE_BANDS,
+  ROOM_CATEGORY_LABELS,
+  ROOM_VIEWS,
   hasActiveFilters,
   priceBandValue,
 } from '#/lib/rooms-filter'
 
 const CATEGORIES: Array<{ value: RoomCategory | 'all'; label: string }> = [
   { value: 'all', label: 'All' },
-  { value: 'double', label: 'Double' },
-  { value: 'family', label: 'Family' },
-  { value: 'deluxe', label: 'Deluxe' },
+  { value: 'double', label: ROOM_CATEGORY_LABELS.double },
+  { value: 'family', label: ROOM_CATEGORY_LABELS.family },
+  { value: 'deluxe', label: ROOM_CATEGORY_LABELS.deluxe },
 ]
 
 // Count of active refinements (drives the mobile "Filters" badge).
 function activeCount(v: RoomFilters): number {
   return [
     v.guests,
-    v.ocean,
+    v.view,
     v.priceMin || v.priceMax,
     v.sort && v.sort !== 'rec',
   ].filter(Boolean).length
@@ -115,7 +117,7 @@ export function RoomFiltersBar({
             <button
               type="button"
               aria-label="More guests"
-              onClick={() => onChange({ guests: Math.min(8, guests + 1) })}
+              onClick={() => onChange({ guests: Math.min(6, guests + 1) })}
               className="flex size-7 items-center justify-center rounded-full border border-line"
             >
               <Plus size={14} aria-hidden />
@@ -138,18 +140,28 @@ export function RoomFiltersBar({
           </select>
         </label>
 
-        <button
-          type="button"
-          aria-pressed={Boolean(value.ocean)}
-          onClick={() => onChange({ ocean: value.ocean ? undefined : true })}
-          className={`flex w-full items-center gap-2 rounded-md border px-3 py-2.5 text-sm font-semibold md:w-auto md:py-2 ${
-            value.ocean
-              ? 'border-lagoon-deep text-lagoon-deep'
-              : 'border-line text-sea-ink-soft'
-          }`}
-        >
-          <Waves size={15} strokeWidth={1.75} aria-hidden /> Ocean view
-        </button>
+        <label className="flex w-full items-center justify-between gap-2 rounded-md border border-line px-3 py-2.5 md:w-auto md:justify-start md:py-2">
+          <span className="island-kicker">View</span>
+          <select
+            value={value.view ?? 'any'}
+            onChange={(e) =>
+              onChange({
+                view:
+                  e.target.value === 'any'
+                    ? undefined
+                    : (e.target.value as RoomView),
+              })
+            }
+            className="bg-transparent text-sm font-semibold text-sea-ink outline-none"
+          >
+            <option value="any">Any view</option>
+            {ROOM_VIEWS.map((v) => (
+              <option key={v} value={v}>
+                {v} view
+              </option>
+            ))}
+          </select>
+        </label>
 
         <div className="flex w-full items-center gap-3 md:ms-auto md:w-auto">
           <span
