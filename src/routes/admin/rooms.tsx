@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { BedDouble } from 'lucide-react'
 
 import { seo } from '#/lib/seo'
+import { isEnabled } from '#/constants/features'
 import { formatPrice } from '#/lib/format'
 import { ROOM_CATEGORY_LABELS } from '#/lib/rooms-filter'
 import { useRoomsQuery } from '#/hooks/queries/rooms.query'
@@ -14,6 +15,10 @@ import type { ColumnDef } from '#/components/admin/data-table'
 import type { Room } from '#/types'
 
 export const Route = createFileRoute('/admin/rooms')({
+  // Hidden until the `adminRooms` feature flag is switched on.
+  beforeLoad: () => {
+    if (!isEnabled('adminRooms')) throw redirect({ to: '/admin' })
+  },
   head: () => seo({ title: 'Rooms', noindex: true }),
   component: RoomsAdminPage,
 })

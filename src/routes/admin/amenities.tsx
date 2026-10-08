@@ -1,8 +1,9 @@
 import { useMemo } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { CalendarClock } from 'lucide-react'
 
 import { seo } from '#/lib/seo'
+import { isEnabled } from '#/constants/features'
 import { formatStayDate } from '#/lib/format'
 import { useAmenitiesQuery } from '#/hooks/queries/amenities.query'
 import { useSlotRequestsQuery } from '#/hooks/queries/slot-requests.query'
@@ -14,6 +15,10 @@ import type { ColumnDef } from '#/components/admin/data-table'
 import type { Amenity, SlotRequest } from '#/types'
 
 export const Route = createFileRoute('/admin/amenities')({
+  // Hidden until the `adminAmenities` feature flag is switched on.
+  beforeLoad: () => {
+    if (!isEnabled('adminAmenities')) throw redirect({ to: '/admin' })
+  },
   head: () => seo({ title: 'Amenities', noindex: true }),
   component: AmenitiesAdminPage,
 })

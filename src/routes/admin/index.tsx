@@ -57,7 +57,7 @@ function DashboardPage() {
             label="Bookings today"
             value={m ? String(m.bookingsToday) : '—'}
             icon={CalendarCheck}
-            hint="Arrivals checking in today"
+            hint="New requests received today"
           />
           <StatCard
             label="Upcoming"
@@ -69,7 +69,7 @@ function DashboardPage() {
             label="Revenue"
             value={m ? formatPrice(m.revenue) : '—'}
             icon={DollarSign}
-            hint="Active reservations total"
+            hint="Confirmed stays starting this month"
           />
           <StatCard
             label="Occupancy"
@@ -78,10 +78,10 @@ function DashboardPage() {
             hint="Rooms in-house right now"
           />
           <StatCard
-            label="Pending enquiries"
-            value={m ? String(m.pendingEnquiries) : '—'}
+            label="Requests to confirm"
+            value={m ? String(m.pendingBookings) : '—'}
             icon={MessagesSquare}
-            hint="New event leads to action"
+            hint="Online booking requests awaiting staff"
           />
           <StatCard
             label="Subscribers"

@@ -26,10 +26,13 @@ import { Route as AdminStaffRouteImport } from './routes/admin/staff'
 import { Route as AdminSubscribersRouteImport } from './routes/admin/subscribers'
 import { Route as AmenitiesIndexRouteImport } from './routes/amenities/index'
 import { Route as AmenitiesSlugRouteImport } from './routes/amenities/$slug'
+import { Route as AuthInviteRouteImport } from './routes/auth/invite'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AuthResetRouteImport } from './routes/auth/reset'
 import { Route as RoomsIndexRouteImport } from './routes/rooms/index'
 import { Route as RoomsRoomSlugRouteImport } from './routes/rooms/$roomSlug'
 import { Route as AdminBookingsIndexRouteImport } from './routes/admin/bookings/index'
+import { Route as ApiV1SplatRouteImport } from './routes/api/v1/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -116,9 +119,19 @@ const AmenitiesSlugRoute = AmenitiesSlugRouteImport.update({
   path: '/amenities/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthInviteRoute = AuthInviteRouteImport.update({
+  id: '/auth/invite',
+  path: '/auth/invite',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/auth/login',
   path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthResetRoute = AuthResetRouteImport.update({
+  id: '/auth/reset',
+  path: '/auth/reset',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RoomsIndexRoute = RoomsIndexRouteImport.update({
@@ -135,6 +148,11 @@ const AdminBookingsIndexRoute = AdminBookingsIndexRouteImport.update({
   id: '/bookings/',
   path: '/bookings/',
   getParentRoute: () => AdminRouteRoute,
+} as any)
+const ApiV1SplatRoute = ApiV1SplatRouteImport.update({
+  id: '/api/v1/$',
+  path: '/api/v1/$',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -153,11 +171,14 @@ export interface FileRoutesByFullPath {
   '/admin/staff': typeof AdminStaffRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
   '/amenities/$slug': typeof AmenitiesSlugRoute
+  '/auth/invite': typeof AuthInviteRoute
   '/auth/login': typeof AuthLoginRoute
+  '/auth/reset': typeof AuthResetRoute
   '/rooms/$roomSlug': typeof RoomsRoomSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/amenities/': typeof AmenitiesIndexRoute
   '/rooms/': typeof RoomsIndexRoute
+  '/api/v1/$': typeof ApiV1SplatRoute
   '/admin/bookings/': typeof AdminBookingsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -175,11 +196,14 @@ export interface FileRoutesByTo {
   '/admin/staff': typeof AdminStaffRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
   '/amenities/$slug': typeof AmenitiesSlugRoute
+  '/auth/invite': typeof AuthInviteRoute
   '/auth/login': typeof AuthLoginRoute
+  '/auth/reset': typeof AuthResetRoute
   '/rooms/$roomSlug': typeof RoomsRoomSlugRoute
   '/admin': typeof AdminIndexRoute
   '/amenities': typeof AmenitiesIndexRoute
   '/rooms': typeof RoomsIndexRoute
+  '/api/v1/$': typeof ApiV1SplatRoute
   '/admin/bookings': typeof AdminBookingsIndexRoute
 }
 export interface FileRoutesById {
@@ -199,11 +223,14 @@ export interface FileRoutesById {
   '/admin/staff': typeof AdminStaffRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
   '/amenities/$slug': typeof AmenitiesSlugRoute
+  '/auth/invite': typeof AuthInviteRoute
   '/auth/login': typeof AuthLoginRoute
+  '/auth/reset': typeof AuthResetRoute
   '/rooms/$roomSlug': typeof RoomsRoomSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/amenities/': typeof AmenitiesIndexRoute
   '/rooms/': typeof RoomsIndexRoute
+  '/api/v1/$': typeof ApiV1SplatRoute
   '/admin/bookings/': typeof AdminBookingsIndexRoute
 }
 export interface FileRouteTypes {
@@ -224,11 +251,14 @@ export interface FileRouteTypes {
     | '/admin/staff'
     | '/admin/subscribers'
     | '/amenities/$slug'
+    | '/auth/invite'
     | '/auth/login'
+    | '/auth/reset'
     | '/rooms/$roomSlug'
     | '/admin/'
     | '/amenities/'
     | '/rooms/'
+    | '/api/v1/$'
     | '/admin/bookings/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -246,11 +276,14 @@ export interface FileRouteTypes {
     | '/admin/staff'
     | '/admin/subscribers'
     | '/amenities/$slug'
+    | '/auth/invite'
     | '/auth/login'
+    | '/auth/reset'
     | '/rooms/$roomSlug'
     | '/admin'
     | '/amenities'
     | '/rooms'
+    | '/api/v1/$'
     | '/admin/bookings'
   id:
     | '__root__'
@@ -269,11 +302,14 @@ export interface FileRouteTypes {
     | '/admin/staff'
     | '/admin/subscribers'
     | '/amenities/$slug'
+    | '/auth/invite'
     | '/auth/login'
+    | '/auth/reset'
     | '/rooms/$roomSlug'
     | '/admin/'
     | '/amenities/'
     | '/rooms/'
+    | '/api/v1/$'
     | '/admin/bookings/'
   fileRoutesById: FileRoutesById
 }
@@ -284,10 +320,13 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   MenuRoute: typeof MenuRoute
   AmenitiesSlugRoute: typeof AmenitiesSlugRoute
+  AuthInviteRoute: typeof AuthInviteRoute
   AuthLoginRoute: typeof AuthLoginRoute
+  AuthResetRoute: typeof AuthResetRoute
   RoomsRoomSlugRoute: typeof RoomsRoomSlugRoute
   AmenitiesIndexRoute: typeof AmenitiesIndexRoute
   RoomsIndexRoute: typeof RoomsIndexRoute
+  ApiV1SplatRoute: typeof ApiV1SplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -411,11 +450,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AmenitiesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/invite': {
+      id: '/auth/invite'
+      path: '/auth/invite'
+      fullPath: '/auth/invite'
+      preLoaderRoute: typeof AuthInviteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/login': {
       id: '/auth/login'
       path: '/auth/login'
       fullPath: '/auth/login'
       preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/reset': {
+      id: '/auth/reset'
+      path: '/auth/reset'
+      fullPath: '/auth/reset'
+      preLoaderRoute: typeof AuthResetRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rooms/': {
@@ -438,6 +491,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/bookings/'
       preLoaderRoute: typeof AdminBookingsIndexRouteImport
       parentRoute: typeof AdminRouteRoute
+    }
+    '/api/v1/$': {
+      id: '/api/v1/$'
+      path: '/api/v1/$'
+      fullPath: '/api/v1/$'
+      preLoaderRoute: typeof ApiV1SplatRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -481,10 +541,13 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   MenuRoute: MenuRoute,
   AmenitiesSlugRoute: AmenitiesSlugRoute,
+  AuthInviteRoute: AuthInviteRoute,
   AuthLoginRoute: AuthLoginRoute,
+  AuthResetRoute: AuthResetRoute,
   RoomsRoomSlugRoute: RoomsRoomSlugRoute,
   AmenitiesIndexRoute: AmenitiesIndexRoute,
   RoomsIndexRoute: RoomsIndexRoute,
+  ApiV1SplatRoute: ApiV1SplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

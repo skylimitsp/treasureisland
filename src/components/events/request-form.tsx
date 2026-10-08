@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AlertCircle, Minus, Plus } from 'lucide-react'
 
-import { EnquiryConfirmation } from '#/components/events/enquiry-confirmation'
-import { useCreateEventEnquiryMutation } from '#/hooks/mutations/events.mutation'
-import type { EventCategory, EventEnquiry, EventEnquiryInput } from '#/types'
+import { waDate, whatsappUrl } from '#/lib/whatsapp'
+import type { EventCategory, EventEnquiryInput } from '#/types'
 import { DateInput } from '#/components/shared/date-input'
+import { WhatsappButton } from '#/components/shared/whatsapp-button'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const PHONE_RE = /^[+\d][\d\s()-]{6,}$/
-const MAX_SUBMISSIONS = 5
 
 const TYPE_OPTIONS: Array<{ value: EventCategory; label: string }> = [
   { value: 'weddings', label: 'Wedding' },
@@ -21,10 +20,7 @@ const BUDGET_OPTIONS = ['Under $5k', '$5–15k', '$15–40k', '$40k+']
 
 const today = () => new Date().toISOString().slice(0, 10)
 
-interface FormValues extends Omit<EventEnquiryInput, 'guests'> {
-  guests: number
-  website: string // honeypot — must stay empty
-}
+type FormValues = Omit<EventEnquiryInput, 'consent'>
 
 const INITIAL: FormValues = {
   eventType: 'weddings',
@@ -36,8 +32,6 @@ const INITIAL: FormValues = {
   phone: '',
   budget: null,
   message: '',
-  consent: false,
-  website: '',
 }
 
 type Errors = Partial<Record<keyof FormValues, string>>
@@ -66,7 +60,7 @@ const inputClass =
 // Date fields wrap a bare input, so focus styles move to the wrapping box.
 const dateBoxClass = inputClass.replace(/focus:/g, 'focus-within:')
 
-// Celebration enquiry form — an enquiry, not a booking. No payment is taken.
+// Celebration enquiry, sent to the events team as a pre-filled WhatsApp message.
 export function RequestForm({
   defaults,
 }: {
@@ -77,9 +71,6 @@ export function RequestForm({
     Partial<Record<keyof FormValues, boolean>>
   >({})
   const [attempted, setAttempted] = useState(false)
-  const [submitted, setSubmitted] = useState<EventEnquiry | null>(null)
-  const sentCount = useRef(0)
-  const enquiry = useCreateEventEnquiryMutation()
 
   // Prefill the event type when an event card CTA is clicked upstream.
   useEffect(() => {
@@ -101,45 +92,32 @@ export function RequestForm({
     setTouched((t) => ({ ...t, [field]: true }))
   }
 
-  function onSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setAttempted(true)
-    if (!isValid) return
-
-    // Honeypot: pretend to succeed without storing anything.
-    if (values.website.trim()) {
-      setSubmitted({
-        ...toInput(values),
-        id: 'ENQ-0000-0000',
-        status: 'new',
-        createdAt: new Date().toISOString(),
-      })
-      return
-    }
-    if (sentCount.current >= MAX_SUBMISSIONS) return
-
-    enquiry.mutate(toInput(values), {
-      onSuccess: (record) => {
-        sentCount.current += 1
-        setSubmitted(record)
-      },
-    })
-  }
-
-  if (submitted) return <EnquiryConfirmation enquiry={submitted} />
-
-  const rateLimited = sentCount.current >= MAX_SUBMISSIONS
-  const disabled = enquiry.isPending || rateLimited
+  const typeLabel =
+    TYPE_OPTIONS.find((o) => o.value === values.eventType)?.label ??
+    values.eventType
+  const href = whatsappUrl([
+    'Hello Treasure Island Ada, I would like to enquire about an event:',
+    `Event: ${typeLabel}`,
+    values.date &&
+      `Preferred date: ${waDate(values.date)}${values.flexibleDates ? ' (flexible)' : ''}`,
+    `Guests: ${values.guests}`,
+    values.budget && `Budget: ${values.budget}`,
+    `Name: ${values.name.trim()}`,
+    `Phone: ${values.phone.trim()}`,
+    `Email: ${values.email.trim()}`,
+    values.message.trim() && `Details: ${values.message.trim()}`,
+  ])
 
   return (
     <form
-      onSubmit={onSubmit}
+      onSubmit={(e) => e.preventDefault()}
       noValidate
       className="island-shell rounded-md p-6 md:p-8"
     >
       <p className="text-sm text-sea-ink-soft">
         This is an <strong className="text-sea-ink">enquiry</strong>, not an
-        instant booking — our event consultants will get in touch.
+        instant booking. It opens WhatsApp with your details for our event
+        consultants.
       </p>
 
       <div className="mt-6 grid gap-5 md:grid-cols-2">
@@ -153,7 +131,6 @@ export function RequestForm({
           <select
             id="ev-type"
             aria-required
-            disabled={disabled}
             value={values.eventType}
             onChange={(e) => set('eventType', e.target.value as EventCategory)}
             className={`mt-1.5 ${inputClass}`}
@@ -180,7 +157,6 @@ export function RequestForm({
             aria-required
             aria-invalid={Boolean(show('date'))}
             aria-describedby={show('date') ? 'err-date' : undefined}
-            disabled={disabled}
             value={values.date}
             onChange={(e) => set('date', e.target.value)}
             onBlur={() => blur('date')}
@@ -204,7 +180,6 @@ export function RequestForm({
             <button
               type="button"
               aria-label="Decrease guests"
-              disabled={disabled}
               onClick={() => set('guests', Math.max(1, values.guests - 1))}
               className="flex size-11 items-center justify-center rounded-md border border-line disabled:opacity-60"
             >
@@ -217,7 +192,6 @@ export function RequestForm({
               aria-label="Guest count"
               aria-invalid={Boolean(show('guests'))}
               aria-describedby={show('guests') ? 'err-guests' : undefined}
-              disabled={disabled}
               value={values.guests}
               onChange={(e) =>
                 set('guests', Math.floor(Number(e.target.value)) || 0)
@@ -228,7 +202,6 @@ export function RequestForm({
             <button
               type="button"
               aria-label="Increase guests"
-              disabled={disabled}
               onClick={() => set('guests', values.guests + 1)}
               className="flex size-11 items-center justify-center rounded-md border border-line disabled:opacity-60"
             >
@@ -254,7 +227,6 @@ export function RequestForm({
           </label>
           <select
             id="ev-budget"
-            disabled={disabled}
             value={values.budget ?? ''}
             onChange={(e) => set('budget', e.target.value || null)}
             className={`mt-1.5 ${inputClass}`}
@@ -281,7 +253,6 @@ export function RequestForm({
             aria-required
             aria-invalid={Boolean(show('name'))}
             aria-describedby={show('name') ? 'err-name' : undefined}
-            disabled={disabled}
             value={values.name}
             onChange={(e) => set('name', e.target.value)}
             onBlur={() => blur('name')}
@@ -310,7 +281,6 @@ export function RequestForm({
             aria-required
             aria-invalid={Boolean(show('email'))}
             aria-describedby={show('email') ? 'err-email' : undefined}
-            disabled={disabled}
             value={values.email}
             onChange={(e) => set('email', e.target.value)}
             onBlur={() => blur('email')}
@@ -339,7 +309,6 @@ export function RequestForm({
             aria-required
             aria-invalid={Boolean(show('phone'))}
             aria-describedby={show('phone') ? 'err-phone' : undefined}
-            disabled={disabled}
             value={values.phone}
             onChange={(e) => set('phone', e.target.value)}
             onBlur={() => blur('phone')}
@@ -367,7 +336,6 @@ export function RequestForm({
             rows={4}
             aria-invalid={Boolean(show('message'))}
             aria-describedby={show('message') ? 'err-message' : undefined}
-            disabled={disabled}
             value={values.message}
             onChange={(e) => set('message', e.target.value)}
             onBlur={() => blur('message')}
@@ -387,7 +355,6 @@ export function RequestForm({
       <label className="mt-4 flex items-start gap-3 text-sm text-sea-ink">
         <input
           type="checkbox"
-          disabled={disabled}
           checked={values.flexibleDates}
           onChange={(e) => set('flexibleDates', e.target.checked)}
           className="mt-0.5 size-4"
@@ -395,73 +362,28 @@ export function RequestForm({
         My dates are flexible.
       </label>
 
-      <label className="mt-3 flex items-start gap-3 text-sm text-sea-ink">
-        <input
-          type="checkbox"
-          disabled={disabled}
-          checked={values.consent}
-          onChange={(e) => set('consent', e.target.checked)}
-          className="mt-0.5 size-4"
-        />
-        Send me occasional island offers and planning tips.
-      </label>
-
-      {/* Honeypot — visually hidden, off-screen; bots that fill it are ignored. */}
-      <div
-        aria-hidden
-        className="absolute left-[-9999px] h-0 w-0 overflow-hidden"
-      >
-        <label htmlFor="ev-website">Website</label>
-        <input
-          id="ev-website"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          value={values.website}
-          onChange={(e) => set('website', e.target.value)}
-        />
-      </div>
-
-      <button
-        type="submit"
-        disabled={disabled || (attempted && !isValid)}
-        className="btn btn-primary mt-6 w-full disabled:opacity-60"
-      >
-        {enquiry.isPending ? 'Sending…' : 'Send enquiry'}
-      </button>
+      <WhatsappButton
+        href={href}
+        label="Send enquiry via WhatsApp"
+        variant="primary"
+        disabled={!isValid}
+        onBlockedClick={() => setAttempted(true)}
+        className="mt-6"
+      />
 
       <p aria-live="assertive" className="mt-3 min-h-5 text-sm">
-        {enquiry.isError ? (
+        {attempted && !isValid ? (
           <span className="flex items-center gap-1 text-destructive">
-            <AlertCircle size={15} aria-hidden /> {enquiry.error.message}{' '}
-            <button
-              type="button"
-              onClick={() =>
-                enquiry.mutate(toInput(values), { onSuccess: setSubmitted })
-              }
-              className="font-semibold underline"
-            >
-              Retry
-            </button>
-          </span>
-        ) : rateLimited ? (
-          <span className="text-sea-ink-soft">
-            Thanks — you have sent a few enquiries already. Please email us
-            directly for anything further.
+            <AlertCircle size={15} aria-hidden /> Please fix the highlighted
+            fields.
           </span>
         ) : null}
       </p>
 
       <p className="mt-2 text-xs text-sea-ink-soft">
-        No payment is taken here and no date is held — this simply starts the
+        No payment is taken and no date is held — this starts a WhatsApp
         conversation with our event consultants.
       </p>
     </form>
   )
-}
-
-// Strips the honeypot before the value crosses the data seam.
-function toInput(values: FormValues): EventEnquiryInput {
-  const { website: _website, ...input } = values
-  return input
 }

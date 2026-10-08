@@ -1,10 +1,15 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { seo } from '#/lib/seo'
+import { isEnabled } from '#/constants/features'
 import { useAboutContent, useFaqsQuery } from '#/hooks/queries/content.query'
 import { AdminPageHeader } from '#/components/admin/admin-page-header'
 
 export const Route = createFileRoute('/admin/content')({
+  // Hidden until the `adminContent` feature flag is switched on.
+  beforeLoad: () => {
+    if (!isEnabled('adminContent')) throw redirect({ to: '/admin' })
+  },
   head: () => seo({ title: 'Content', noindex: true }),
   component: ContentPage,
 })

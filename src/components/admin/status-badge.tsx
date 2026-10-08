@@ -15,6 +15,7 @@ const STATUS_TONE: Partial<Record<string, BadgeTone>> = {
   confirmed: 'positive',
   subscribed: 'positive',
   checked_in: 'info',
+  checked_out: 'neutral',
   contacted: 'info',
   pending: 'warning',
   new: 'warning',
@@ -24,6 +25,7 @@ const STATUS_TONE: Partial<Record<string, BadgeTone>> = {
 
 const LABELS: Partial<Record<string, string>> = {
   checked_in: 'checked in',
+  checked_out: 'checked out',
 }
 
 interface StatusBadgeProps {

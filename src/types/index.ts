@@ -39,7 +39,8 @@ export interface BookingInput {
   guests: number
 }
 
-export type BookingStatus = 'pending' | 'confirmed' | 'checked_in' | 'cancelled'
+export type BookingStatus =
+  'pending' | 'confirmed' | 'checked_in' | 'checked_out' | 'cancelled'
 
 export interface Booking extends BookingInput {
   id: string
@@ -209,6 +210,7 @@ export interface DashboardMetrics {
   revenue: number
   occupancy: number
   pendingEnquiries: number
+  pendingBookings: number
   subscribers: number
 }
 
@@ -224,11 +226,13 @@ export interface ActivityItem {
 
 export type NewsletterSource = 'footer' | 'home' | 'about' | 'events'
 
+export type SubscriberStatus = 'pending' | 'subscribed' | 'unsubscribed'
+
 export interface NewsletterSignup {
   id: string
   email: string
   source: NewsletterSource
-  status: 'subscribed'
+  status: SubscriberStatus
   createdAt: string
 }
 
@@ -266,4 +270,23 @@ export interface MenuItem {
   category: MenuCategory
   price: number
   available: boolean
+}
+
+// ---- Admin console ----
+
+export type StaffRole = 'admin' | 'concierge'
+
+export interface StaffMember extends User {
+  role: StaffRole
+  active: boolean
+  lastLoginAt: string | null
+}
+
+export interface AdminSettings {
+  currency: 'USD' | 'GHS'
+  taxRatePercent: number
+  pendingHoldHours: number
+  features: Record<string, boolean>
+  contact: Record<string, string>
+  socials: Record<string, string>
 }

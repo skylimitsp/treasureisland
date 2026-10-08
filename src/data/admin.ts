@@ -43,6 +43,7 @@ export function getDashboardMetrics(): DashboardMetrics {
     revenue,
     occupancy,
     pendingEnquiries,
+    pendingBookings: getBookings().filter((b) => b.status === 'pending').length,
     subscribers: getSubscribers().length,
   }
 }

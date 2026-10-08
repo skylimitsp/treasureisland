@@ -1,7 +1,7 @@
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { getReviews } from '#/data/content'
+import { api } from '#/lib/api-client'
 import { DEFAULT_GC_TIME, DEFAULT_STALE_TIME } from '#/constants'
 import type { Review } from '#/types'
 
@@ -11,8 +11,7 @@ export const reviewKeys = {
 }
 
 const fetchReviews = withErrorHandling(async (): Promise<Array<Review>> => {
-  await new Promise((resolve) => setTimeout(resolve, 200))
-  return getReviews() // ← swap for httpClient.get('/admin/reviews')
+  return api.get<Array<Review>>('/admin/reviews')
 }, 'Failed to load reviews')
 
 export const reviewsQueryOptions = () =>

@@ -1,14 +1,14 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { seo } from '#/lib/seo'
-import { hasRole, hydrateSession } from '#/lib/auth'
+import { hasRole } from '#/lib/auth'
 import { SITE } from '#/constants/site'
 import { AdminPageHeader } from '#/components/admin/admin-page-header'
+import { BookingSettingsForm } from '#/components/admin/booking-settings-form'
 
 export const Route = createFileRoute('/admin/settings')({
   beforeLoad: () => {
     if (typeof window === 'undefined') return
-    hydrateSession()
     if (!hasRole('admin')) throw redirect({ to: '/admin' })
   },
   head: () => seo({ title: 'Settings', noindex: true }),
@@ -30,10 +30,16 @@ function SettingsPage() {
     <div>
       <AdminPageHeader
         title="Settings"
-        description="Site identity and SEO defaults. Editing is read-only in v1."
+        description="Booking rules for the online request form, plus the site's identity."
       />
 
-      <div className="island-shell rounded-md p-6">
+      <BookingSettingsForm />
+
+      <div className="island-shell mt-6 rounded-md p-6">
+        <h2 className="display-title text-lg text-sea-ink">Site identity</h2>
+        <p className="mt-1 mb-4 text-sm text-sea-ink-soft">
+          Read-only for now; changed by your developer.
+        </p>
         <dl className="space-y-4">
           {FIELDS.map((field) => (
             <div
@@ -47,17 +53,6 @@ function SettingsPage() {
             </div>
           ))}
         </dl>
-      </div>
-
-      <div className="mt-6 rounded-md border border-red-500/30 bg-red-500/5 p-6">
-        <h2 className="display-title text-lg text-red-600">Danger zone</h2>
-        <p className="mt-1 text-sm text-sea-ink-soft">
-          Resetting demo data will restore the seeded bookings, enquiries, and
-          subscribers. Wired to a real backend endpoint before launch.
-        </p>
-        <button type="button" className="btn btn-warm mt-4" disabled>
-          Reset demo data
-        </button>
       </div>
     </div>
   )

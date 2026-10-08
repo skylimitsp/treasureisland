@@ -1,15 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { unsubscribe } from '#/data/newsletter'
+import { api } from '#/lib/api-client'
 import { subscriberKeys } from '#/hooks/queries/subscribers.query'
 import { dashboardKeys } from '#/hooks/queries/dashboard.query'
 
 const doUnsubscribe = withErrorHandling(
-  async (email: string): Promise<void> => {
-    await new Promise((resolve) => setTimeout(resolve, 300))
-    unsubscribe(email) // ← swap for httpClient.delete(`/admin/subscribers/${email}`)
-  },
+  async (id: string): Promise<void> => api.delete(`/admin/subscribers/${id}`),
   'Unable to unsubscribe this address',
 )
 

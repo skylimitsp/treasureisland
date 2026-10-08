@@ -23,6 +23,7 @@ const STATUS_OPTIONS: Array<BookingStatus | 'all'> = [
   'pending',
   'confirmed',
   'checked_in',
+  'checked_out',
   'cancelled',
 ]
 
@@ -123,7 +124,7 @@ function BookingsPage() {
               >
                 {STATUS_OPTIONS.map((option) => (
                   <option key={option} value={option}>
-                    {option === 'checked_in' ? 'checked in' : option}
+                    {option.replace('_', ' ')}
                   </option>
                 ))}
               </select>

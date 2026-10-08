@@ -1,8 +1,9 @@
 import { useMemo } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { MessageSquareOff } from 'lucide-react'
 
 import { seo } from '#/lib/seo'
+import { isEnabled } from '#/constants/features'
 import { formatStayDate } from '#/lib/format'
 import { useEnquiriesQuery } from '#/hooks/queries/enquiries.query'
 import { AdminPageHeader } from '#/components/admin/admin-page-header'
@@ -14,6 +15,10 @@ import type { ColumnDef } from '#/components/admin/data-table'
 import type { EventEnquiry } from '#/types'
 
 export const Route = createFileRoute('/admin/enquiries')({
+  // Hidden until the `adminEnquiries` feature flag is switched on.
+  beforeLoad: () => {
+    if (!isEnabled('adminEnquiries')) throw redirect({ to: '/admin' })
+  },
   head: () => seo({ title: 'Enquiries', noindex: true }),
   component: EnquiriesPage,
 })

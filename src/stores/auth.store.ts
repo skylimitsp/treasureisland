@@ -1,11 +1,10 @@
 import { Store } from '@tanstack/store'
 import type { User } from '#/types'
 
-export const AUTH_STORAGE_KEY = 'ti-auth'
-
 interface AuthState {
   user: User | null
+  // 'ready' once /auth/me has answered; the HttpOnly cookie itself is unreadable here.
+  status: 'unknown' | 'ready'
 }
 
-// Light client-side session; persisted to localStorage by `lib/auth`.
-export const authStore = new Store<AuthState>({ user: null })
+export const authStore = new Store<AuthState>({ user: null, status: 'unknown' })

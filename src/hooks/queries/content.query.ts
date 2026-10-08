@@ -1,7 +1,8 @@
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { getAboutContent, getFaqs, getTestimonials } from '#/data/content'
+import { getAboutContent, getFaqs } from '#/data/content'
+import { api } from '#/lib/api-client'
 import { DEFAULT_GC_TIME, DEFAULT_STALE_TIME } from '#/constants'
 import type { Faq, Testimonial } from '#/types'
 import type { AboutContent } from '#/types/about'
@@ -15,8 +16,7 @@ export const contentKeys = {
 
 const fetchTestimonials = withErrorHandling(
   async (): Promise<Array<Testimonial>> => {
-    await new Promise((resolve) => setTimeout(resolve, 200))
-    return getTestimonials()
+    return api.get<Array<Testimonial>>('/content/testimonials')
   },
   'Failed to load testimonials',
 )

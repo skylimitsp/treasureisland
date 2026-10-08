@@ -1,32 +1,44 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { updateUserRole } from '#/data/users'
+import { api } from '#/lib/api-client'
 import { userKeys } from '#/hooks/queries/users.query'
-import type { Role, User } from '#/types'
+import type { StaffMember, StaffRole } from '#/types'
 
-interface RoleChange {
+interface StaffChange {
   id: string
-  role: Role
+  patch: { role?: StaffRole; active?: boolean }
 }
 
-const doUpdateRole = withErrorHandling(
-  async ({ id, role }: RoleChange): Promise<User> => {
-    await new Promise((resolve) => setTimeout(resolve, 300))
-    return updateUserRole(id, role) // ← swap for httpClient.patch(...)
-  },
-  'Unable to update this role',
+const doUpdateStaff = withErrorHandling(
+  async ({ id, patch }: StaffChange): Promise<StaffMember> =>
+    api.patch(`/admin/users/${id}`, patch),
+  'Unable to update this staff member',
+)
+
+const doInvite = withErrorHandling(
+  async (input: { email: string; role: StaffRole }) =>
+    api.post<{ email: string; role: StaffRole }>('/admin/users/invite', input),
+  'Unable to send the invite',
 )
 
 /**
- * Changes a staff member's role (admin-only, double-confirmed).
+ * Changes a staff member's role or suspends/reactivates them (admin only).
  * @author Joseph Nartey
  * @github devjoemedia
  */
-export const useUpdateUserRoleMutation = () => {
+export const useUpdateStaffMutation = () => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: doUpdateRole,
+    mutationFn: doUpdateStaff,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: userKeys.all }),
   })
 }
+
+/**
+ * Emails a one-time invite link to a new staff member.
+ * @author Joseph Nartey
+ * @github devjoemedia
+ */
+export const useInviteStaffMutation = () =>
+  useMutation({ mutationFn: doInvite })

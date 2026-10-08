@@ -1,11 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { seo } from '#/lib/seo'
+import { isEnabled } from '#/constants/features'
 import { useRoomAvailabilityQuery } from '#/hooks/queries/availability.query'
 import { AdminPageHeader } from '#/components/admin/admin-page-header'
 import { AvailabilityRow } from '#/components/admin/availability-row'
 
 export const Route = createFileRoute('/admin/availability')({
+  // Hidden until the `adminAvailability` feature flag is switched on.
+  beforeLoad: () => {
+    if (!isEnabled('adminAvailability')) throw redirect({ to: '/admin' })
+  },
   head: () => seo({ title: 'Availability', noindex: true }),
   component: AvailabilityPage,
 })

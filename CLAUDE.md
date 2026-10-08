@@ -31,7 +31,19 @@ pnpm format           # prettier --write + eslint --fix
 pnpm cf-typegen       # regenerate Cloudflare binding types (wrangler types)
 pnpm exec tsc --noEmit # typecheck
 pnpm dlx shadcn@latest add <component>  # add a shadcn primitive
+pnpm test             # API tests (vitest in workerd, real local D1); test:watch to rerun
+pnpm db:generate      # drizzle-kit: schema changes → new SQL migration in drizzle/
+pnpm db:migrate       # apply migrations to local D1 (db:migrate:remote for production)
+pnpm db:seed [--demo] [--remote]  # load src/data content (+ demo bookings) into D1
+ADMIN_PASSWORD=… pnpm db:create-admin <email> "<Name>" [--remote]  # staff admin
+pnpm exec tsx scripts/build-setup-sql.ts <admin-email> <site-url> <out-dir>  # one-paste prod DB setup (D1 console) + invite link
 ```
+
+Production: Worker `treasureislandghana` on the acathy317 Cloudflare account, D1 `treasureislandghana`.
+The Workers Builds deploy command applies migrations first:
+`npx wrangler d1 migrations apply DB --remote && npx wrangler deploy`.
+
+Local secrets/vars live in the git-ignored `.dev.vars` (copy `.dev.vars.example`).
 
 Native build scripts (`esbuild`, `lightningcss`, `unrs-resolver`, `workerd`) are
 approved in `pnpm-workspace.yaml` under `allowBuilds`. If `pnpm install` reports
@@ -114,6 +126,28 @@ const fetchRooms = withErrorHandling(async () => {
 }, 'Failed to load rooms')
 ```
 
+### Backend API (`/api/v1`)
+
+The real API lives in the same Worker (plan: `../docs/api-plan.md`). The hooks
+are **not wired to it yet**; that swap is a separate step.
+
+- `src/routes/api/v1/$.ts` forwards every `/api/v1/*` request to the Hono app in
+  `src/server/app.ts`. Code under `src/server/` is server-only; never import it
+  from components or hooks.
+- Layers: `routes/` (HTTP + validation) → `services/` (business rules) →
+  `db/schema/` (Drizzle on D1). Request bodies are validated with the zod schemas
+  in `src/schemas/`, which client forms can reuse.
+- Responses use `{ data }` / `{ data, page }` and errors use
+  `{ error: { code, message, details? } }`, shaped to match `src/types`.
+- Money is stored in minor units and returned in major units. Bookings,
+  enquiries and slot requests use their reference code (`TI-2026-0001`) as `id`.
+- Staff auth: `HttpOnly` session cookie (`ti_session`). Concierge vs admin is
+  enforced per route; every admin write is recorded in `audit_log`.
+- Tests live in `src/server/test/` and call the app in-process
+  (`helpers.ts`: `call`, `seedRoom`, `signIn`). Add one for every new endpoint or rule.
+- Emails go through Resend when `RESEND_API_KEY` is set, otherwise they're
+  logged. Turnstile is enforced only when `TURNSTILE_SECRET` is set.
+
 ## 7. Styling & design
 
 - **Beach palette, frosted surfaces.** Tokens (`--sea-ink`, `--lagoon`, `--palm`,
@@ -194,7 +228,7 @@ New hook/service files carry a short doc header:
 
 ## 11. Definition of done
 
-- [ ] `pnpm exec tsc --noEmit` and `pnpm lint` pass; `pnpm build` succeeds.
+- [ ] `pnpm exec tsc --noEmit`, `pnpm lint` and `pnpm test` pass; `pnpm build` succeeds.
 - [ ] `pnpm dev` boots and the page renders.
 - [ ] File names kebab-case; one component per file; comments ≤ 2 lines.
 - [ ] Data flows through a hook + `src/data` accessor (no direct mock imports in UI).

@@ -1,15 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { toggleReviewFeatured } from '#/data/content'
+import { api } from '#/lib/api-client'
 import { reviewKeys } from '#/hooks/queries/reviews.query'
+import { contentKeys } from '#/hooks/queries/content.query'
 import type { Review } from '#/types'
 
 const doToggleFeatured = withErrorHandling(
-  async (id: string): Promise<Review> => {
-    await new Promise((resolve) => setTimeout(resolve, 250))
-    return toggleReviewFeatured(id) // ← swap for httpClient.patch(...)
-  },
+  async ({
+    id,
+    featured,
+  }: {
+    id: string
+    featured: boolean
+  }): Promise<Review> =>
+    api.patch<Review>(`/admin/reviews/${id}`, { featured }),
   'Unable to update this review',
 )
 
@@ -22,7 +27,9 @@ export const useToggleReviewFeaturedMutation = () => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: doToggleFeatured,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: reviewKeys.all }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: reviewKeys.all })
+      queryClient.invalidateQueries({ queryKey: contentKeys.testimonials() })
+    },
   })
 }

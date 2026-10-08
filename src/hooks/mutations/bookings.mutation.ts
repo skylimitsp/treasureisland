@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { updateBookingStatus } from '#/data/rooms'
+import { api } from '#/lib/api-client'
 import { bookingKeys } from '#/hooks/queries/bookings.query'
 import { dashboardKeys } from '#/hooks/queries/dashboard.query'
 import { roomKeys } from '#/hooks/queries/rooms.query'
@@ -14,8 +14,7 @@ interface StatusChange {
 
 const doUpdateStatus = withErrorHandling(
   async ({ id, status }: StatusChange): Promise<Booking> => {
-    await new Promise((resolve) => setTimeout(resolve, 300))
-    return updateBookingStatus(id, status) // ← swap for httpClient.patch(...)
+    return api.post<Booking>(`/admin/bookings/${id}/status`, { status })
   },
   'Unable to update this booking',
 )

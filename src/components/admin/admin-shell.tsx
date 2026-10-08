@@ -4,14 +4,14 @@ import { useStore } from '@tanstack/react-store'
 import type { ReactNode } from 'react'
 
 import { authStore } from '#/stores/auth.store'
-import { hydrateSession } from '#/lib/auth'
+import { loadSession } from '#/lib/auth'
 import { AdminSidebar } from '#/components/admin/admin-sidebar'
 import { AdminTopbar } from '#/components/admin/admin-topbar'
 import type { Role } from '#/types'
 
 const ALLOWED: Array<Role> = ['admin', 'concierge']
 
-// Admin console frame: rehydrates the mock session, guards on the client, and
+// Admin console frame: waits for the API session, guards on the client, and
 // wraps every module in the sidebar + topbar chrome.
 export function AdminShell({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false)
@@ -21,8 +21,9 @@ export function AdminShell({ children }: { children: ReactNode }) {
   const allowed = user ? ALLOWED.includes(user.role) : false
 
   useEffect(() => {
-    hydrateSession()
-    setMounted(true)
+    loadSession()
+      .catch(() => null)
+      .finally(() => setMounted(true))
   }, [])
 
   useEffect(() => {

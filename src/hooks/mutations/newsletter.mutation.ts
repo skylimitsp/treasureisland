@@ -1,18 +1,16 @@
 import { useMutation } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { subscribeNewsletter } from '#/data/newsletter'
-import type { NewsletterSignup, NewsletterSource } from '#/types'
+import { api } from '#/lib/api-client'
+import type { NewsletterSource } from '#/types'
 
-// Subscribes an email to the newsletter (deduped by the mock accessor).
+// Subscribes an email; the API sends a confirmation email (double opt-in).
 const doSubscribe = withErrorHandling(
   async (input: {
     email: string
     source: NewsletterSource
-  }): Promise<NewsletterSignup> => {
-    await new Promise((resolve) => setTimeout(resolve, 400))
-    return subscribeNewsletter(input) // ← swap for httpClient.post('/newsletter')
-  },
+  }): Promise<{ email: string; status: string }> =>
+    api.post('/newsletter', input),
   'Unable to subscribe right now',
 )
 

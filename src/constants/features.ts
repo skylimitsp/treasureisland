@@ -4,6 +4,12 @@
 export const FEATURES = {
   /** The online restaurant menu at /menu. Off until the official menu is published. */
   menu: false,
+  // Admin console sections kept for later; when off they leave the nav and redirect to /admin.
+  adminRooms: false,
+  adminAvailability: false,
+  adminEnquiries: false,
+  adminAmenities: false,
+  adminContent: false,
 } as const
 
 export type Feature = keyof typeof FEATURES

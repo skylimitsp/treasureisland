@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from '@tanstack/react-router'
+import { useQueryClient } from '@tanstack/react-query'
 import { ChevronRight, LogOut, Menu, UserRound } from 'lucide-react'
 
 import { signOut } from '#/lib/auth'
@@ -31,8 +32,10 @@ export function AdminTopbar({ user, onMenu }: AdminTopbarProps) {
   const navigate = useNavigate()
   const crumbs = crumbsFrom(pathname)
 
-  const handleSignOut = () => {
-    signOut()
+  const queryClient = useQueryClient()
+  const handleSignOut = async () => {
+    await signOut().catch(() => null)
+    queryClient.clear()
     navigate({ to: '/auth/login' })
   }
 

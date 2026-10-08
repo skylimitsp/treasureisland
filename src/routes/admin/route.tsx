@@ -1,14 +1,14 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
 
 import { seo } from '#/lib/seo'
-import { hasRole, hydrateSession } from '#/lib/auth'
+import { hasRole, loadSession } from '#/lib/auth'
 import { AdminShell } from '#/components/admin/admin-shell'
 
 export const Route = createFileRoute('/admin')({
-  // Client-only mock guard; a real backend must re-check every request.
-  beforeLoad: ({ location }) => {
+  // Client-side redirect for UX only; the API enforces roles on every request.
+  beforeLoad: async ({ location }) => {
     if (typeof window === 'undefined') return
-    hydrateSession()
+    await loadSession()
     if (!hasRole('admin', 'concierge')) {
       throw redirect({
         to: '/auth/login',

@@ -102,7 +102,17 @@ export function BookingDetailDrawer({
               Mark checked-in
             </button>
           ) : null}
-          {booking.status !== 'cancelled' ? (
+          {booking.status === 'checked_in' ? (
+            <button
+              type="button"
+              className="btn btn-primary"
+              disabled={mutation.isPending}
+              onClick={() => setStatus('checked_out')}
+            >
+              Mark checked-out
+            </button>
+          ) : null}
+          {booking.status === 'pending' || booking.status === 'confirmed' ? (
             <button
               type="button"
               className="btn btn-warm"

@@ -1,19 +1,19 @@
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { getUsers } from '#/data/users'
+import { api } from '#/lib/api-client'
 import { DEFAULT_GC_TIME, DEFAULT_STALE_TIME } from '#/constants'
-import type { User } from '#/types'
+import type { StaffMember } from '#/types'
 
 export const userKeys = {
   all: ['users'] as const,
   list: () => ['users', 'list'] as const,
 }
 
-const fetchUsers = withErrorHandling(async (): Promise<Array<User>> => {
-  await new Promise((resolve) => setTimeout(resolve, 180))
-  return getUsers() // ← swap for httpClient.get('/admin/users')
-}, 'Failed to load staff')
+const fetchUsers = withErrorHandling(
+  async (): Promise<Array<StaffMember>> => api.get('/admin/users'),
+  'Failed to load staff',
+)
 
 export const usersQueryOptions = () =>
   queryOptions({
@@ -24,7 +24,7 @@ export const usersQueryOptions = () =>
   })
 
 /**
- * Lists staff users for the admin console.
+ * Lists staff accounts (admin only).
  * @author Joseph Nartey
  * @github devjoemedia
  */

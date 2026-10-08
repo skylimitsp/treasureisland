@@ -18,7 +18,8 @@ export function ReviewFeatureToggle({
       type="button"
       className="btn btn-ghost px-3 py-1.5"
       disabled={mutation.isPending}
-      onClick={() => mutation.mutate(id)}
+      aria-pressed={featured}
+      onClick={() => mutation.mutate({ id, featured: !featured })}
     >
       <Star
         size={15}

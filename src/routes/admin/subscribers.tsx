@@ -9,6 +9,7 @@ import { AdminPageHeader } from '#/components/admin/admin-page-header'
 import { DataTable } from '#/components/admin/data-table'
 import { EmptyState } from '#/components/admin/empty-state'
 import { SubscriberUnsubscribeButton } from '#/components/admin/subscriber-unsubscribe-button'
+import { StatusBadge } from '#/components/admin/status-badge'
 import type { ColumnDef } from '#/components/admin/data-table'
 import type { NewsletterSignup } from '#/types'
 
@@ -16,21 +17,6 @@ export const Route = createFileRoute('/admin/subscribers')({
   head: () => seo({ title: 'Subscribers', noindex: true }),
   component: SubscribersPage,
 })
-
-// Builds and downloads a CSV of the current subscriber list (client-side blob).
-function exportCsv(rows: Array<NewsletterSignup>) {
-  const header = 'email,source,status,createdAt'
-  const body = rows
-    .map((r) => `${r.email},${r.source},${r.status},${r.createdAt}`)
-    .join('\n')
-  const blob = new Blob([`${header}\n${body}`], { type: 'text/csv' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = 'subscribers.csv'
-  link.click()
-  URL.revokeObjectURL(url)
-}
 
 function SubscribersPage() {
   const subscribers = useSubscribersQuery()
@@ -46,6 +32,11 @@ function SubscribersPage() {
         ),
       },
       {
+        accessorKey: 'status',
+        header: 'Status',
+        cell: ({ row }) => <StatusBadge status={row.original.status} />,
+      },
+      {
         accessorKey: 'createdAt',
         header: 'Joined',
         cell: ({ row }) => formatStayDate(row.original.createdAt),
@@ -54,9 +45,13 @@ function SubscribersPage() {
         id: 'actions',
         header: '',
         enableSorting: false,
-        cell: ({ row }) => (
-          <SubscriberUnsubscribeButton email={row.original.email} />
-        ),
+        cell: ({ row }) =>
+          row.original.status === 'unsubscribed' ? null : (
+            <SubscriberUnsubscribeButton
+              id={row.original.id}
+              email={row.original.email}
+            />
+          ),
       },
     ],
     [],
@@ -66,17 +61,16 @@ function SubscribersPage() {
     <div>
       <AdminPageHeader
         title="Subscribers"
-        description="Newsletter list — export to CSV or remove an address."
+        description="Newsletter list. New sign-ups stay pending until they confirm by email; the export includes confirmed subscribers only."
         action={
-          <button
-            type="button"
+          <a
+            href="/api/v1/admin/subscribers/export.csv"
+            download
             className="btn btn-primary"
-            disabled={!subscribers.data?.length}
-            onClick={() => subscribers.data && exportCsv(subscribers.data)}
           >
             <Download size={16} aria-hidden />
             Export CSV
-          </button>
+          </a>
         }
       />
 

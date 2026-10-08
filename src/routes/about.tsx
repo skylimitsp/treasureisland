@@ -14,7 +14,6 @@ import { StayCard } from '#/components/about/stay-card'
 import { AboutThisResort } from '#/components/about/about-this-resort'
 import { AboutServices } from '#/components/about/about-services'
 import { AboutGallery } from '#/components/about/about-gallery'
-import { Newsletter } from '#/components/shared/newsletter'
 import { FixedDivider } from '#/components/shared/fixed-divider'
 
 export const Route = createFileRoute('/about')({
@@ -76,10 +75,6 @@ function AboutPage() {
       <AboutServices services={c.services} />
 
       <AboutGallery images={c.gallery} />
-
-      <section className="page-wrap mt-28">
-        <Newsletter source="about" />
-      </section>
 
       <FixedDivider
         image="/photos/island-shore.webp"

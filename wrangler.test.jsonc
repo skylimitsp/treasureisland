@@ -1,0 +1,21 @@
+// Test-only Worker config for `pnpm test` (no rate limits, local-only bindings).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "treasureisland-test",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "treasureisland-test",
+      "database_id": "00000000-0000-0000-0000-000000000001",
+      "migrations_dir": "drizzle",
+    },
+  ],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "ti-media-test" }],
+  "vars": {
+    "APP_URL": "http://localhost",
+    "MAIL_FROM": "Test <test@localhost.test>",
+    "STAFF_ALERT_EMAILS": "staff@localhost.test",
+  },
+}

@@ -14,6 +14,8 @@ import {
   X,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { isEnabled } from '#/constants/features'
+import type { Feature } from '#/constants/features'
 import type { Role } from '#/types'
 
 interface NavItem {
@@ -21,16 +23,42 @@ interface NavItem {
   label: string
   icon: LucideIcon
   adminOnly?: boolean
+  feature?: Feature
 }
 
 const NAV: Array<NavItem> = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/admin/bookings', label: 'Bookings', icon: CalendarCheck },
-  { to: '/admin/availability', label: 'Availability', icon: CalendarRange },
-  { to: '/admin/rooms', label: 'Rooms', icon: BedDouble },
-  { to: '/admin/enquiries', label: 'Enquiries', icon: MessagesSquare },
-  { to: '/admin/amenities', label: 'Amenities', icon: Sparkles },
-  { to: '/admin/content', label: 'Content', icon: FileText },
+  {
+    to: '/admin/availability',
+    label: 'Availability',
+    icon: CalendarRange,
+    feature: 'adminAvailability',
+  },
+  {
+    to: '/admin/rooms',
+    label: 'Rooms',
+    icon: BedDouble,
+    feature: 'adminRooms',
+  },
+  {
+    to: '/admin/enquiries',
+    label: 'Enquiries',
+    icon: MessagesSquare,
+    feature: 'adminEnquiries',
+  },
+  {
+    to: '/admin/amenities',
+    label: 'Amenities',
+    icon: Sparkles,
+    feature: 'adminAmenities',
+  },
+  {
+    to: '/admin/content',
+    label: 'Content',
+    icon: FileText,
+    feature: 'adminContent',
+  },
   { to: '/admin/reviews', label: 'Reviews', icon: Star },
   { to: '/admin/subscribers', label: 'Subscribers', icon: Mail },
   { to: '/admin/staff', label: 'Staff', icon: Users, adminOnly: true },
@@ -45,7 +73,11 @@ interface AdminSidebarProps {
 
 // Left navigation for the admin console; role-filters admin-only items.
 export function AdminSidebar({ role, open, onClose }: AdminSidebarProps) {
-  const items = NAV.filter((item) => !item.adminOnly || role === 'admin')
+  const items = NAV.filter(
+    (item) =>
+      (!item.adminOnly || role === 'admin') &&
+      (!item.feature || isEnabled(item.feature)),
+  )
 
   return (
     <>

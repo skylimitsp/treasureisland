@@ -37,12 +37,13 @@ function amenityLd(amenity: Amenity, path: string) {
 export const Route = createFileRoute('/amenities/$slug')({
   loader: async ({ context, params }) => {
     try {
-      const amenity = await context.queryClient.ensureQueryData(
-        amenityQueryOptions(params.slug),
-      )
-      void context.queryClient.ensureQueryData(
-        relatedAmenitiesQueryOptions(params.slug),
-      )
+      // Await related too, so the server HTML matches the client (no hydration mismatch).
+      const [amenity] = await Promise.all([
+        context.queryClient.ensureQueryData(amenityQueryOptions(params.slug)),
+        context.queryClient.ensureQueryData(
+          relatedAmenitiesQueryOptions(params.slug),
+        ),
+      ])
       return { amenity }
     } catch {
       throw notFound()

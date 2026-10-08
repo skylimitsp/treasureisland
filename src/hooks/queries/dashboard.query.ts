@@ -1,7 +1,7 @@
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { getDashboardMetrics, getRecentActivity } from '#/data/admin'
+import { api } from '#/lib/api-client'
 import { DEFAULT_GC_TIME, DEFAULT_STALE_TIME } from '#/constants'
 import type { ActivityItem, DashboardMetrics } from '#/types'
 
@@ -12,14 +12,12 @@ export const dashboardKeys = {
 }
 
 const fetchMetrics = withErrorHandling(async (): Promise<DashboardMetrics> => {
-  await new Promise((resolve) => setTimeout(resolve, 200))
-  return getDashboardMetrics() // ← swap for httpClient.get('/admin/metrics')
+  return api.get<DashboardMetrics>('/admin/metrics')
 }, 'Failed to load dashboard metrics')
 
 const fetchActivity = withErrorHandling(
   async (): Promise<Array<ActivityItem>> => {
-    await new Promise((resolve) => setTimeout(resolve, 200))
-    return getRecentActivity() // ← swap for httpClient.get('/admin/activity')
+    return api.get<Array<ActivityItem>>('/admin/activity?limit=10')
   },
   'Failed to load recent activity',
 )

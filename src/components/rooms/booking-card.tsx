@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { CheckCircle2, Minus, Plus } from 'lucide-react'
 
 import { formatPrice } from '#/lib/format'
+import { waDate, whatsappUrl } from '#/lib/whatsapp'
 import { useCreateBookingMutation } from '#/hooks/mutations/rooms.mutation'
 import type { Room } from '#/types'
 import { DateInput } from '#/components/shared/date-input'
+import { WhatsappButton } from '#/components/shared/whatsapp-button'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -14,7 +16,7 @@ function nights(checkIn: string, checkOut: string): number {
   return ms > 0 ? Math.round(ms / 86400000) : 0
 }
 
-// Sticky reserve card — computes nights × rate and creates a booking.
+// Sticky reserve card: Reserve sends a request to staff, or hand off to WhatsApp.
 export function BookingCard({
   room,
   initialCheckIn = '',
@@ -38,6 +40,17 @@ export function BookingCard({
   const total = n * room.pricePerNight
   const emailOk = EMAIL_RE.test(email)
   const valid = n > 0 && guestName.trim() && emailOk
+  const [waTouched, setWaTouched] = useState(false)
+  const waHref = whatsappUrl([
+    'Hello Treasure Island Ada, I would like to book a stay:',
+    `Room: ${room.name}`,
+    n > 0 && `Check-in: ${waDate(checkIn)}`,
+    n > 0 && `Check-out: ${waDate(checkOut)}`,
+    `Guests: ${guests}`,
+    n > 0 && `Nights: ${n} (estimated ${formatPrice(total)})`,
+    guestName.trim() && `Name: ${guestName.trim()}`,
+    emailOk && `Email: ${email}`,
+  ])
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -58,10 +71,10 @@ export function BookingCard({
     return (
       <div className="island-shell rounded-md p-6">
         <CheckCircle2 className="text-palm" aria-hidden />
-        <h3 className="display-title mt-3 text-xl">Booking confirmed</h3>
+        <h3 className="display-title mt-3 text-xl">Request received</h3>
         <p className="mt-1 text-sm text-sea-ink-soft">
-          Reference <strong>{b.id}</strong> — a confirmation has been sent to{' '}
-          {b.email}.
+          Reference <strong>{b.id}</strong>. Our reservations team will confirm
+          your stay by email at {b.email}.
         </p>
         <dl className="mt-4 space-y-1 text-sm">
           <div className="flex justify-between">
@@ -176,13 +189,23 @@ export function BookingCard({
         disabled={booking.isPending}
         className="btn btn-primary mt-4 w-full disabled:opacity-60"
       >
-        {booking.isPending ? 'Reserving…' : 'Reserve'}
+        {booking.isPending ? 'Sending request…' : 'Reserve'}
       </button>
+      <WhatsappButton
+        href={waHref}
+        disabled={n === 0}
+        onBlockedClick={() => setWaTouched(true)}
+        className="mt-2"
+      />
 
       <p aria-live="polite" className="mt-2 min-h-5 text-sm">
         {touched && !valid ? (
           <span className="text-destructive">
             Add valid dates, your name, and a valid email.
+          </span>
+        ) : waTouched && n === 0 ? (
+          <span className="text-destructive">
+            Choose your dates to send them on WhatsApp.
           </span>
         ) : booking.isError ? (
           <span className="text-destructive">{booking.error.message}</span>

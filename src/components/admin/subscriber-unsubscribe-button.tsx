@@ -4,7 +4,13 @@ import { useUnsubscribeMutation } from '#/hooks/mutations/subscribers.mutation'
 import { ConfirmDialog } from '#/components/admin/confirm-dialog'
 
 // Row action: unsubscribes an address after confirmation.
-export function SubscriberUnsubscribeButton({ email }: { email: string }) {
+export function SubscriberUnsubscribeButton({
+  id,
+  email,
+}: {
+  id: string
+  email: string
+}) {
   const mutation = useUnsubscribeMutation()
   const [open, setOpen] = useState(false)
 
@@ -25,7 +31,7 @@ export function SubscriberUnsubscribeButton({ email }: { email: string }) {
         destructive
         busy={mutation.isPending}
         onConfirm={() =>
-          mutation.mutate(email, { onSuccess: () => setOpen(false) })
+          mutation.mutate(id, { onSuccess: () => setOpen(false) })
         }
         onCancel={() => setOpen(false)}
       />

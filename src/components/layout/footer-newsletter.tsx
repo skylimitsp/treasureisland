@@ -65,7 +65,9 @@ export function FooterNewsletter() {
         {invalid ? (
           <span className="text-sunset">Enter a valid email address.</span>
         ) : subscribe.isSuccess ? (
-          <span className="text-white">You’re on the list — thank you!</span>
+          <span className="text-white">
+            Almost there — check your email to confirm.
+          </span>
         ) : subscribe.isError ? (
           <span className="text-sunset">{subscribe.error.message}</span>
         ) : null}

@@ -73,7 +73,7 @@ export function Newsletter({
           <span className="text-destructive">Enter a valid email address.</span>
         ) : subscribe.isSuccess ? (
           <span className={dark ? 'text-white' : 'text-palm'}>
-            You’re on the list — thank you!
+            Almost there — check your email to confirm.
           </span>
         ) : subscribe.isError ? (
           <span className="text-destructive">{subscribe.error.message}</span>

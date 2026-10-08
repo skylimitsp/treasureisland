@@ -1,7 +1,7 @@
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { getBookings } from '#/data/rooms'
+import { api } from '#/lib/api-client'
 import { DEFAULT_GC_TIME, DEFAULT_STALE_TIME } from '#/constants'
 import type { Booking } from '#/types'
 
@@ -11,8 +11,7 @@ export const bookingKeys = {
 }
 
 const fetchBookings = withErrorHandling(async (): Promise<Array<Booking>> => {
-  await new Promise((resolve) => setTimeout(resolve, 220))
-  return getBookings() // ← swap for httpClient.get('/admin/bookings')
+  return api.get<Array<Booking>>('/admin/bookings?limit=100')
 }, 'Failed to load bookings')
 
 export const bookingsQueryOptions = () =>
