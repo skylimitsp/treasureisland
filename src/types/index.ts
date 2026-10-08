@@ -34,6 +34,7 @@ export interface BookingInput {
   roomSlug: string
   guestName: string
   email: string
+  phone: string
   checkIn: string
   checkOut: string
   guests: number
@@ -42,7 +43,9 @@ export interface BookingInput {
 export type BookingStatus =
   'pending' | 'confirmed' | 'checked_in' | 'checked_out' | 'cancelled'
 
-export interface Booking extends BookingInput {
+// Stored bookings may lack a phone (older or staff-entered ones); new requests require it.
+export interface Booking extends Omit<BookingInput, 'phone'> {
+  phone: string | null
   id: string
   roomName: string
   nights: number
@@ -300,3 +303,49 @@ export interface AdminSettings {
   contact: Record<string, string>
   socials: Record<string, string>
 }
+
+export type CampaignStatus = 'draft' | 'sending' | 'sent' | 'failed'
+
+export interface Campaign {
+  id: string
+  subject: string
+  preheader: string
+  body: string
+  ctaLabel: string | null
+  ctaUrl: string | null
+  audience: 'all' | 'selected'
+  selectedIds: Array<string>
+  status: CampaignStatus
+  recipientCount: number
+  sentCount: number
+  failedCount: number
+  sentAt: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CampaignRecipient {
+  subscriberId: string
+  email: string
+  status: 'queued' | 'sent' | 'failed'
+  error: string | null
+  sentAt: string | null
+}
+
+export interface CampaignDetail extends Campaign {
+  sentByName: string | null
+  recipients: Array<CampaignRecipient>
+}
+
+export type CampaignDraft = Partial<
+  Pick<
+    Campaign,
+    | 'subject'
+    | 'preheader'
+    | 'body'
+    | 'ctaLabel'
+    | 'ctaUrl'
+    | 'audience'
+    | 'selectedIds'
+  >
+>

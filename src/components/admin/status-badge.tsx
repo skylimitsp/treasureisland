@@ -20,6 +20,10 @@ const STATUS_TONE: Partial<Record<string, BadgeTone>> = {
   pending: 'warning',
   new: 'warning',
   cancelled: 'danger',
+  sent: 'positive',
+  sending: 'info',
+  draft: 'neutral',
+  failed: 'danger',
   closed: 'neutral',
 }
 

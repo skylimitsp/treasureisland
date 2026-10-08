@@ -1,7 +1,7 @@
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { getEventEnquiries } from '#/data/events'
+import { api } from '#/lib/api-client'
 import { DEFAULT_GC_TIME, DEFAULT_STALE_TIME } from '#/constants'
 import type { EventEnquiry } from '#/types'
 
@@ -12,8 +12,7 @@ export const enquiryKeys = {
 
 const fetchEnquiries = withErrorHandling(
   async (): Promise<Array<EventEnquiry>> => {
-    await new Promise((resolve) => setTimeout(resolve, 220))
-    return getEventEnquiries() // ← swap for httpClient.get('/admin/enquiries')
+    return api.get<Array<EventEnquiry>>('/admin/enquiries?limit=100')
   },
   'Failed to load enquiries',
 )

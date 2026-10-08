@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 
 import { useSubscribeNewsletterMutation } from '#/hooks/mutations/newsletter.mutation'
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+import { EMAIL_RE } from '#/lib/validation'
 
 // Centered newsletter band atop the footer; the button sits inside the field.
 export function FooterNewsletter() {

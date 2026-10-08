@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { createEventEnquiry } from '#/data/events'
+import { api } from '#/lib/api-client'
 import { eventKeys } from '#/hooks/queries/events.query'
 import type { EventEnquiry, EventEnquiryInput } from '#/types'
 
-// Submits a celebration enquiry — no payment, staff follow up personally.
+// Saves an enquiry for the events team; the key stops a double-click sending it twice.
 const submitEnquiry = withErrorHandling(
-  async (input: EventEnquiryInput): Promise<EventEnquiry> => {
-    await new Promise((resolve) => setTimeout(resolve, 250))
-    return createEventEnquiry(input) // ← swap for httpClient.post('/event-enquiries')
-  },
+  async (input: EventEnquiryInput): Promise<EventEnquiry> =>
+    api.post<EventEnquiry>('/event-enquiries', input, {
+      'idempotency-key': crypto.randomUUID(),
+    }),
   'Failed to submit your enquiry',
 )
 

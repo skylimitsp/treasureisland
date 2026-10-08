@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import { AlertCircle, Minus, Plus } from 'lucide-react'
 
 import { waDate, whatsappUrl } from '#/lib/whatsapp'
+import { useCreateEventEnquiryMutation } from '#/hooks/mutations/events.mutation'
+import { EnquiryConfirmation } from '#/components/events/enquiry-confirmation'
 import type { EventCategory, EventEnquiryInput } from '#/types'
 import { DateInput } from '#/components/shared/date-input'
 import { WhatsappButton } from '#/components/shared/whatsapp-button'
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const PHONE_RE = /^[+\d][\d\s()-]{6,}$/
+import { EMAIL_RE, PHONE_RE } from '#/lib/validation'
 
 const TYPE_OPTIONS: Array<{ value: EventCategory; label: string }> = [
   { value: 'weddings', label: 'Wedding' },
@@ -71,6 +71,7 @@ export function RequestForm({
     Partial<Record<keyof FormValues, boolean>>
   >({})
   const [attempted, setAttempted] = useState(false)
+  const enquiry = useCreateEventEnquiryMutation()
 
   // Prefill the event type when an event card CTA is clicked upstream.
   useEffect(() => {
@@ -108,16 +109,30 @@ export function RequestForm({
     values.message.trim() && `Details: ${values.message.trim()}`,
   ])
 
+  if (enquiry.isSuccess) return <EnquiryConfirmation enquiry={enquiry.data} />
+
   return (
     <form
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={(e) => {
+        e.preventDefault()
+        setAttempted(true)
+        if (!isValid || enquiry.isPending) return
+        enquiry.mutate({
+          ...values,
+          name: values.name.trim(),
+          email: values.email.trim(),
+          phone: values.phone.trim(),
+          message: values.message.trim(),
+          consent: false,
+        })
+      }}
       noValidate
       className="island-shell rounded-md p-6 md:p-8"
     >
       <p className="text-sm text-sea-ink-soft">
         This is an <strong className="text-sea-ink">enquiry</strong>, not an
-        instant booking. It opens WhatsApp with your details for our event
-        consultants.
+        instant booking. Send it to our event consultants here, or on WhatsApp
+        if you prefer.
       </p>
 
       <div className="mt-6 grid gap-5 md:grid-cols-2">
@@ -362,14 +377,21 @@ export function RequestForm({
         My dates are flexible.
       </label>
 
-      <WhatsappButton
-        href={href}
-        label="Send enquiry via WhatsApp"
-        variant="primary"
-        disabled={!isValid}
-        onBlockedClick={() => setAttempted(true)}
-        className="mt-6"
-      />
+      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <button
+          type="submit"
+          disabled={enquiry.isPending}
+          className="btn btn-primary w-full disabled:opacity-60"
+        >
+          {enquiry.isPending ? 'Sending…' : 'Send enquiry'}
+        </button>
+        <WhatsappButton
+          href={href}
+          label="Send via WhatsApp"
+          disabled={!isValid}
+          onBlockedClick={() => setAttempted(true)}
+        />
+      </div>
 
       <p aria-live="assertive" className="mt-3 min-h-5 text-sm">
         {attempted && !isValid ? (
@@ -377,12 +399,17 @@ export function RequestForm({
             <AlertCircle size={15} aria-hidden /> Please fix the highlighted
             fields.
           </span>
+        ) : enquiry.isError ? (
+          <span className="flex items-center gap-1 text-destructive">
+            <AlertCircle size={15} aria-hidden /> {enquiry.error.message} You
+            can also send it on WhatsApp.
+          </span>
         ) : null}
       </p>
 
       <p className="mt-2 text-xs text-sea-ink-soft">
-        No payment is taken and no date is held — this starts a WhatsApp
-        conversation with our event consultants.
+        No payment is taken and no date is held — our event consultants will get
+        in touch.
       </p>
     </form>
   )

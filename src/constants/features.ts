@@ -7,7 +7,7 @@ export const FEATURES = {
   // Admin console sections kept for later; when off they leave the nav and redirect to /admin.
   adminRooms: false,
   adminAvailability: false,
-  adminEnquiries: false,
+  adminEnquiries: true,
   adminAmenities: false,
   adminContent: false,
 } as const

@@ -239,6 +239,7 @@ function seedBooking(
     roomName: room?.name ?? roomSlug,
     guestName,
     email,
+    phone: null,
     checkIn,
     checkOut,
     guests,

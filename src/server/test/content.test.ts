@@ -240,6 +240,7 @@ describe('calendar feed', () => {
         roomSlug: room.slug,
         guestName: 'Esi Owusu',
         email: `esi-${uid()}@example.com`,
+        phone: '+233 20 000 0000',
         checkIn: daysAhead(15),
         checkOut: daysAhead(17),
         guests: 1,

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { withErrorHandling } from '#/lib/errors'
-import { updateEnquiryStatus } from '#/data/events'
+import { api } from '#/lib/api-client'
 import { enquiryKeys } from '#/hooks/queries/enquiries.query'
 import { dashboardKeys } from '#/hooks/queries/dashboard.query'
 import type { EnquiryStatus, EventEnquiry } from '#/types'
@@ -13,8 +13,7 @@ interface StatusChange {
 
 const doUpdateStatus = withErrorHandling(
   async ({ id, status }: StatusChange): Promise<EventEnquiry> => {
-    await new Promise((resolve) => setTimeout(resolve, 300))
-    return updateEnquiryStatus(id, status) // ← swap for httpClient.patch(...)
+    return api.post<EventEnquiry>(`/admin/enquiries/${id}/status`, { status })
   },
   'Unable to update this enquiry',
 )

@@ -3,8 +3,7 @@ import { useState } from 'react'
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { useSubscribeNewsletterMutation } from '#/hooks/mutations/newsletter.mutation'
 import type { NewsletterSource } from '#/types'
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+import { EMAIL_RE } from '#/lib/validation'
 
 // Email capture with inline + footer variants. Submits via the mock mutation.
 export function Newsletter({

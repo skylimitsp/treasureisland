@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
-import { Download, MailX } from 'lucide-react'
+import { Link, createFileRoute } from '@tanstack/react-router'
+import { Download, MailX, Megaphone } from 'lucide-react'
 
 import { seo } from '#/lib/seo'
 import { formatStayDate } from '#/lib/format'
@@ -63,14 +63,20 @@ function SubscribersPage() {
         title="Subscribers"
         description="Newsletter list. New sign-ups stay pending until they confirm by email; the export includes confirmed subscribers only."
         action={
-          <a
-            href="/api/v1/admin/subscribers/export.csv"
-            download
-            className="btn btn-primary"
-          >
-            <Download size={16} aria-hidden />
-            Export CSV
-          </a>
+          <div className="flex flex-wrap gap-2">
+            <Link to="/admin/campaigns" className="btn btn-primary">
+              <Megaphone size={16} aria-hidden />
+              Email subscribers
+            </Link>
+            <a
+              href="/api/v1/admin/subscribers/export.csv"
+              download
+              className="btn btn-ghost"
+            >
+              <Download size={16} aria-hidden />
+              Export CSV
+            </a>
+          </div>
         }
       />
 

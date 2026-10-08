@@ -5,8 +5,8 @@ import { waDate, whatsappUrl } from '#/lib/whatsapp'
 import type { Amenity } from '#/types'
 import { DateInput } from '#/components/shared/date-input'
 import { WhatsappButton } from '#/components/shared/whatsapp-button'
+import { EMAIL_RE, isPhone } from '#/lib/validation'
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const today = () => new Date().toISOString().slice(0, 10)
 
 // Cabana durations come from the official text; others ask a time of day.
@@ -38,17 +38,21 @@ export function SlotRequestCard({ amenity }: { amenity: Amenity }) {
   const [partySize, setPartySize] = useState(2)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [note, setNote] = useState('')
   const [touched, setTouched] = useState(false)
 
   const emailOk = !email || EMAIL_RE.test(email)
-  const valid = Boolean(date) && Boolean(slot) && name.trim() && emailOk
+  const phoneOk = isPhone(phone)
+  const valid =
+    Boolean(date) && Boolean(slot) && name.trim() && phoneOk && emailOk
   const href = whatsappUrl([
     `Hello Treasure Island Ada, I would like to reserve ${amenity.name}:`,
     date && `Date: ${waDate(date)}`,
     slot && `${slotField.label}: ${slot}`,
     `Party size: ${partySize}`,
     name.trim() && `Name: ${name.trim()}`,
+    phoneOk && `Phone: ${phone.trim()}`,
     email && `Email: ${email}`,
     note.trim() && `Note: ${note.trim()}`,
   ])
@@ -133,6 +137,20 @@ export function SlotRequestCard({ amenity }: { amenity: Amenity }) {
       </label>
 
       <label className="mt-3 block text-sm font-semibold text-sea-ink">
+        Phone *
+        <input
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="+233 24 123 4567"
+          aria-invalid={touched && !phoneOk}
+          className={`mt-1.5 font-normal ${inputClass}`}
+        />
+      </label>
+
+      <label className="mt-3 block text-sm font-semibold text-sea-ink">
         Email <span className="font-normal text-sea-ink-soft">(optional)</span>
         <input
           type="email"
@@ -167,8 +185,8 @@ export function SlotRequestCard({ amenity }: { amenity: Amenity }) {
       <p aria-live="assertive" className="mt-2 min-h-5 text-sm">
         {touched && !valid ? (
           <span className="text-destructive">
-            Add a date, {slotField.label.toLowerCase()} and your name
-            {email && !emailOk ? ', and check your email' : ''}.
+            Add a date, {slotField.label.toLowerCase()}, your name and a phone
+            number{email && !emailOk ? ', and check your email' : ''}.
           </span>
         ) : null}
       </p>

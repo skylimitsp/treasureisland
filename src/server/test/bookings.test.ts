@@ -15,6 +15,7 @@ const guest = (roomSlug: string, from: number, to: number, extra = {}) => ({
   roomSlug,
   guestName: 'Ama Mensah',
   email: `ama-${uid()}@example.com`,
+  phone: '+233 24 123 4567',
   checkIn: daysAhead(from),
   checkOut: daysAhead(to),
   guests: 2,
@@ -75,6 +76,24 @@ describe('creating bookings', () => {
       status: 'pending',
       nights: 2,
       total: 200,
+      phone: '+233 24 123 4567',
+    })
+  })
+
+  it('requires a valid phone number', async () => {
+    const room = await seedRoom()
+    const { phone: _phone, ...noPhone } = guest(room.slug, 24, 25)
+    const missing = await call('POST', '/bookings', { body: noPhone })
+    expect(missing.status).toBe(400)
+    expect(
+      missing.json.error.details.map((d: { path: string }) => d.path),
+    ).toContain('phone')
+    const bad = await call('POST', '/bookings', {
+      body: guest(room.slug, 24, 25, { phone: 'call me' }),
+    })
+    expect(bad.json.error.details[0]).toMatchObject({
+      path: 'phone',
+      message: 'Enter a valid phone number',
     })
   })
 
@@ -147,6 +166,7 @@ describe('creating bookings', () => {
         roomSlug: 'x',
         guestName: 'A',
         email: 'nope',
+        phone: '12',
         checkIn: daysAhead(5),
         checkOut: daysAhead(4),
         guests: 1,
@@ -155,7 +175,7 @@ describe('creating bookings', () => {
     expect(res.status).toBe(400)
     const paths = res.json.error.details.map((d: { path: string }) => d.path)
     expect(paths).toEqual(
-      expect.arrayContaining(['guestName', 'email', 'checkOut']),
+      expect.arrayContaining(['guestName', 'email', 'phone', 'checkOut']),
     )
   })
 

@@ -63,6 +63,21 @@ export function BookingDetailDrawer({
               <dd className="text-right font-medium text-sea-ink">{value}</dd>
             </div>
           ))}
+          <div className="flex items-start justify-between gap-4">
+            <dt className="text-sea-ink-soft">Phone</dt>
+            <dd className="text-right font-medium text-sea-ink">
+              {booking.phone ? (
+                <a
+                  href={`tel:${booking.phone.replace(/[^\d+]/g, '')}`}
+                  className="text-lagoon-deep underline"
+                >
+                  {booking.phone}
+                </a>
+              ) : (
+                <span className="text-sea-ink-soft">Not given</span>
+              )}
+            </dd>
+          </div>
         </dl>
 
         <div className="rounded-md border border-line p-4">

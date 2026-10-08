@@ -6,6 +6,7 @@ import {
   FileText,
   LayoutDashboard,
   Mail,
+  Megaphone,
   MessagesSquare,
   Settings,
   Sparkles,
@@ -61,6 +62,12 @@ const NAV: Array<NavItem> = [
   },
   { to: '/admin/reviews', label: 'Reviews', icon: Star },
   { to: '/admin/subscribers', label: 'Subscribers', icon: Mail },
+  {
+    to: '/admin/campaigns',
+    label: 'Campaigns',
+    icon: Megaphone,
+    adminOnly: true,
+  },
   { to: '/admin/staff', label: 'Staff', icon: Users, adminOnly: true },
   { to: '/admin/settings', label: 'Settings', icon: Settings, adminOnly: true },
 ]

@@ -12,7 +12,7 @@ export const subscriberKeys = {
 
 const fetchSubscribers = withErrorHandling(
   async (): Promise<Array<NewsletterSignup>> => {
-    return api.get<Array<NewsletterSignup>>('/admin/subscribers?limit=100')
+    return api.get<Array<NewsletterSignup>>('/admin/subscribers?limit=1000')
   },
   'Failed to load subscribers',
 )

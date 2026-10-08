@@ -7,8 +7,7 @@ import { useCreateBookingMutation } from '#/hooks/mutations/rooms.mutation'
 import type { Room } from '#/types'
 import { DateInput } from '#/components/shared/date-input'
 import { WhatsappButton } from '#/components/shared/whatsapp-button'
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+import { EMAIL_RE, isPhone } from '#/lib/validation'
 
 function nights(checkIn: string, checkOut: string): number {
   if (!checkIn || !checkOut) return 0
@@ -33,13 +32,17 @@ export function BookingCard({
   const [guests, setGuests] = useState(Math.min(initialGuests, room.maxGuests))
   const [guestName, setGuestName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [touched, setTouched] = useState(false)
   const booking = useCreateBookingMutation()
 
   const n = nights(checkIn, checkOut)
   const total = n * room.pricePerNight
   const emailOk = EMAIL_RE.test(email)
-  const valid = n > 0 && guestName.trim() && emailOk
+  const phoneOk = isPhone(phone)
+  const valid = n > 0 && guestName.trim() && emailOk && phoneOk
+  // WhatsApp needs dates and a phone; name and email are optional there.
+  const waReady = n > 0 && phoneOk
   const [waTouched, setWaTouched] = useState(false)
   const waHref = whatsappUrl([
     'Hello Treasure Island Ada, I would like to book a stay:',
@@ -49,6 +52,7 @@ export function BookingCard({
     `Guests: ${guests}`,
     n > 0 && `Nights: ${n} (estimated ${formatPrice(total)})`,
     guestName.trim() && `Name: ${guestName.trim()}`,
+    phoneOk && `Phone: ${phone.trim()}`,
     emailOk && `Email: ${email}`,
   ])
 
@@ -60,6 +64,7 @@ export function BookingCard({
       roomSlug: room.slug,
       guestName,
       email,
+      phone: phone.trim(),
       checkIn,
       checkOut,
       guests,
@@ -167,6 +172,17 @@ export function BookingCard({
         aria-invalid={touched && !emailOk}
         className="mt-2 w-full rounded-md border border-line bg-foam/80 px-3 py-2 outline-none focus:border-lagoon-deep focus:ring-2 focus:ring-lagoon/30"
       />
+      <input
+        type="tel"
+        inputMode="tel"
+        autoComplete="tel"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        placeholder="Phone, e.g. +233 24 123 4567"
+        aria-label="Phone number"
+        aria-invalid={(touched || waTouched) && !phoneOk}
+        className="mt-2 w-full rounded-md border border-line bg-foam/80 px-3 py-2 outline-none focus:border-lagoon-deep focus:ring-2 focus:ring-lagoon/30"
+      />
 
       {n > 0 ? (
         <dl className="mt-4 border-t border-line pt-4 text-sm">
@@ -193,7 +209,7 @@ export function BookingCard({
       </button>
       <WhatsappButton
         href={waHref}
-        disabled={n === 0}
+        disabled={!waReady}
         onBlockedClick={() => setWaTouched(true)}
         className="mt-2"
       />
@@ -201,11 +217,13 @@ export function BookingCard({
       <p aria-live="polite" className="mt-2 min-h-5 text-sm">
         {touched && !valid ? (
           <span className="text-destructive">
-            Add valid dates, your name, and a valid email.
+            Add valid dates, your name, a valid email and a phone number.
           </span>
-        ) : waTouched && n === 0 ? (
+        ) : waTouched && !waReady ? (
           <span className="text-destructive">
-            Choose your dates to send them on WhatsApp.
+            {n === 0
+              ? 'Choose your dates to send them on WhatsApp.'
+              : 'Add a phone number so we can reach you.'}
           </span>
         ) : booking.isError ? (
           <span className="text-destructive">{booking.error.message}</span>

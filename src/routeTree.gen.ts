@@ -32,6 +32,8 @@ import { Route as AuthResetRouteImport } from './routes/auth/reset'
 import { Route as RoomsIndexRouteImport } from './routes/rooms/index'
 import { Route as RoomsRoomSlugRouteImport } from './routes/rooms/$roomSlug'
 import { Route as AdminBookingsIndexRouteImport } from './routes/admin/bookings/index'
+import { Route as AdminCampaignsIndexRouteImport } from './routes/admin/campaigns/index'
+import { Route as AdminCampaignsCampaignIdRouteImport } from './routes/admin/campaigns/$campaignId'
 import { Route as ApiV1SplatRouteImport } from './routes/api/v1/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -149,6 +151,17 @@ const AdminBookingsIndexRoute = AdminBookingsIndexRouteImport.update({
   path: '/bookings/',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminCampaignsIndexRoute = AdminCampaignsIndexRouteImport.update({
+  id: '/campaigns/',
+  path: '/campaigns/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminCampaignsCampaignIdRoute =
+  AdminCampaignsCampaignIdRouteImport.update({
+    id: '/campaigns/$campaignId',
+    path: '/campaigns/$campaignId',
+    getParentRoute: () => AdminRouteRoute,
+  } as any)
 const ApiV1SplatRoute = ApiV1SplatRouteImport.update({
   id: '/api/v1/$',
   path: '/api/v1/$',
@@ -178,8 +191,10 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/amenities/': typeof AmenitiesIndexRoute
   '/rooms/': typeof RoomsIndexRoute
+  '/admin/campaigns/$campaignId': typeof AdminCampaignsCampaignIdRoute
   '/api/v1/$': typeof ApiV1SplatRoute
   '/admin/bookings/': typeof AdminBookingsIndexRoute
+  '/admin/campaigns/': typeof AdminCampaignsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -203,8 +218,10 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/amenities': typeof AmenitiesIndexRoute
   '/rooms': typeof RoomsIndexRoute
+  '/admin/campaigns/$campaignId': typeof AdminCampaignsCampaignIdRoute
   '/api/v1/$': typeof ApiV1SplatRoute
   '/admin/bookings': typeof AdminBookingsIndexRoute
+  '/admin/campaigns': typeof AdminCampaignsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -230,8 +247,10 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/amenities/': typeof AmenitiesIndexRoute
   '/rooms/': typeof RoomsIndexRoute
+  '/admin/campaigns/$campaignId': typeof AdminCampaignsCampaignIdRoute
   '/api/v1/$': typeof ApiV1SplatRoute
   '/admin/bookings/': typeof AdminBookingsIndexRoute
+  '/admin/campaigns/': typeof AdminCampaignsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -258,8 +277,10 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/amenities/'
     | '/rooms/'
+    | '/admin/campaigns/$campaignId'
     | '/api/v1/$'
     | '/admin/bookings/'
+    | '/admin/campaigns/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -283,8 +304,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/amenities'
     | '/rooms'
+    | '/admin/campaigns/$campaignId'
     | '/api/v1/$'
     | '/admin/bookings'
+    | '/admin/campaigns'
   id:
     | '__root__'
     | '/'
@@ -309,8 +332,10 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/amenities/'
     | '/rooms/'
+    | '/admin/campaigns/$campaignId'
     | '/api/v1/$'
     | '/admin/bookings/'
+    | '/admin/campaigns/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -492,6 +517,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBookingsIndexRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/admin/campaigns/': {
+      id: '/admin/campaigns/'
+      path: '/campaigns'
+      fullPath: '/admin/campaigns/'
+      preLoaderRoute: typeof AdminCampaignsIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/admin/campaigns/$campaignId': {
+      id: '/admin/campaigns/$campaignId'
+      path: '/campaigns/$campaignId'
+      fullPath: '/admin/campaigns/$campaignId'
+      preLoaderRoute: typeof AdminCampaignsCampaignIdRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/api/v1/$': {
       id: '/api/v1/$'
       path: '/api/v1/$'
@@ -513,7 +552,9 @@ interface AdminRouteRouteChildren {
   AdminStaffRoute: typeof AdminStaffRoute
   AdminSubscribersRoute: typeof AdminSubscribersRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminCampaignsCampaignIdRoute: typeof AdminCampaignsCampaignIdRoute
   AdminBookingsIndexRoute: typeof AdminBookingsIndexRoute
+  AdminCampaignsIndexRoute: typeof AdminCampaignsIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
@@ -527,7 +568,9 @@ const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminStaffRoute: AdminStaffRoute,
   AdminSubscribersRoute: AdminSubscribersRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminCampaignsCampaignIdRoute: AdminCampaignsCampaignIdRoute,
   AdminBookingsIndexRoute: AdminBookingsIndexRoute,
+  AdminCampaignsIndexRoute: AdminCampaignsIndexRoute,
 }
 
 const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(

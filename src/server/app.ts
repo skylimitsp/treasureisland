@@ -11,6 +11,7 @@ import { authRoutes } from '#/server/routes/public/auth.route'
 import { operationsRoutes } from '#/server/routes/admin/operations.route'
 import { catalogueAdminRoutes } from '#/server/routes/admin/catalogue.route'
 import { peopleRoutes } from '#/server/routes/admin/people.route'
+import { campaignRoutes } from '#/server/routes/admin/campaigns.route'
 import type { AppEnv } from '#/server/env'
 
 // REST API for the site and dashboard; mounted by src/routes/api/v1/$.ts.
@@ -44,6 +45,7 @@ app.route('/auth', authRoutes)
 app.use('/admin/*', requireStaff)
 // Admin-only areas (each path and its sub-paths); everything else under /admin is staff.
 const ADMIN_ONLY = [
+  'campaigns',
   'users',
   'subscribers',
   'media',
@@ -58,6 +60,7 @@ for (const area of ADMIN_ONLY) {
 app.route('/admin', operationsRoutes)
 app.route('/admin', catalogueAdminRoutes)
 app.route('/admin', peopleRoutes)
+app.route('/admin', campaignRoutes)
 
 app.notFound((c) =>
   c.json(

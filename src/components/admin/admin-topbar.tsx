@@ -18,10 +18,15 @@ const SEGMENT_LABELS: Record<string, string> = {
 // Turns the pathname into a readable breadcrumb trail.
 function crumbsFrom(pathname: string): Array<string> {
   const parts = pathname.replace(/^\/+|\/+$/g, '').split('/')
+  // IDs (UUIDs, references like TI-2026-0001) read as "Details" rather than raw codes.
+  const isId = (p: string) =>
+    /^[0-9a-f-]{20,}$/i.test(p) || /\d{4}-\d{4}$/.test(p)
   return parts.map((part) =>
     SEGMENT_LABELS[part]
       ? SEGMENT_LABELS[part]
-      : part.charAt(0).toUpperCase() + part.slice(1),
+      : isId(part)
+        ? 'Details'
+        : part.charAt(0).toUpperCase() + part.slice(1),
   )
 }
 

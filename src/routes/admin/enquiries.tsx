@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { MessageSquareOff } from 'lucide-react'
 
@@ -11,6 +11,7 @@ import { DataTable } from '#/components/admin/data-table'
 import { StatusBadge } from '#/components/admin/status-badge'
 import { EmptyState } from '#/components/admin/empty-state'
 import { EnquiryStatusSelect } from '#/components/admin/enquiry-status-select'
+import { EnquiryDetailDrawer } from '#/components/admin/enquiry-detail-drawer'
 import type { ColumnDef } from '#/components/admin/data-table'
 import type { EventEnquiry } from '#/types'
 
@@ -25,6 +26,9 @@ export const Route = createFileRoute('/admin/enquiries')({
 
 function EnquiriesPage() {
   const enquiries = useEnquiriesQuery()
+  const [openId, setOpenId] = useState<string | null>(null)
+  // Look up by id so the drawer reflects status changes after refetch.
+  const open = enquiries.data?.find((e) => e.id === openId) ?? null
 
   const columns = useMemo<Array<ColumnDef<EventEnquiry>>>(
     () => [
@@ -58,10 +62,19 @@ function EnquiriesPage() {
         header: '',
         enableSorting: false,
         cell: ({ row }) => (
-          <EnquiryStatusSelect
-            id={row.original.id}
-            status={row.original.status}
-          />
+          <div className="flex items-center justify-end gap-2">
+            <EnquiryStatusSelect
+              id={row.original.id}
+              status={row.original.status}
+            />
+            <button
+              type="button"
+              className="btn btn-ghost px-3 py-1.5"
+              onClick={() => setOpenId(row.original.id)}
+            >
+              View
+            </button>
+          </div>
         ),
       },
     ],
@@ -72,8 +85,9 @@ function EnquiriesPage() {
     <div>
       <AdminPageHeader
         title="Enquiries"
-        description="Celebration and event leads — move each from new to contacted to closed."
+        description="Event enquiries sent from the website. Open one to see the message and contact the guest, then move it from new to contacted to closed."
       />
+      <EnquiryDetailDrawer enquiry={open} onClose={() => setOpenId(null)} />
 
       {enquiries.isPending ? (
         <p className="text-sm text-sea-ink-soft">Loading enquiries…</p>

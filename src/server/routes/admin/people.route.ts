@@ -107,9 +107,14 @@ const subscriberQuery = z.object({
   q: z.string().trim().max(100).optional(),
 })
 
+// Larger pages here so the campaign audience picker can list everyone at once.
+const subscriberPage = pageQuery.extend({
+  limit: z.coerce.number().int().min(1).max(1000).default(25),
+})
+
 peopleRoutes.get('/subscribers', async (c) => {
   const filters = parse(subscriberQuery, c.req.query())
-  const page = parse(pageQuery, c.req.query())
+  const page = parse(subscriberPage, c.req.query())
   const result = toPage(await listSubscribers(c.get('db'), filters, page), page)
   return c.json({ ...result, data: result.data.map(toSignup) })
 })

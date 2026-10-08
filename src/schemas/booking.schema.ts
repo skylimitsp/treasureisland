@@ -21,13 +21,13 @@ const stay = z
 
 export const quoteQuerySchema = stay
 
-// Mirrors `BookingInput` (+ optional phone and bot token).
+// Mirrors `BookingInput` (+ bot token). Phone is required so staff can call to confirm.
 export const bookingInputSchema = z
   .object({
     roomSlug: z.string().min(1),
     guestName: personName,
     email,
-    phone: phone.optional(),
+    phone,
     checkIn: isoDate,
     checkOut: isoDate,
     guests: z.number().int().min(1).max(20),
