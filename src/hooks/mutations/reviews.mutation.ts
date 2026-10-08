@@ -33,3 +33,51 @@ export const useToggleReviewFeaturedMutation = () => {
     },
   })
 }
+
+export interface ReviewInput {
+  name: string
+  origin: string
+  quote: string
+  rating: number | null
+  featured: boolean
+}
+
+const doCreate = withErrorHandling(
+  async (input: ReviewInput): Promise<Review> =>
+    api.post<Review>('/admin/reviews', input),
+  'Unable to add this review',
+)
+
+const doDelete = withErrorHandling(
+  async (id: string): Promise<void> => api.delete(`/admin/reviews/${id}`),
+  'Unable to delete this review',
+)
+
+// Featured reviews feed the public testimonials, so refresh both lists.
+function useReviewInvalidation() {
+  const queryClient = useQueryClient()
+  return () => {
+    queryClient.invalidateQueries({ queryKey: reviewKeys.all })
+    queryClient.invalidateQueries({ queryKey: contentKeys.testimonials() })
+  }
+}
+
+/**
+ * Adds a review typed in by an admin (e.g. from Google, TripAdvisor or a guest book).
+ * @author Joseph Nartey
+ * @github devjoemedia
+ */
+export const useCreateReviewMutation = () => {
+  const invalidate = useReviewInvalidation()
+  return useMutation({ mutationFn: doCreate, onSuccess: invalidate })
+}
+
+/**
+ * Permanently removes a review.
+ * @author Joseph Nartey
+ * @github devjoemedia
+ */
+export const useDeleteReviewMutation = () => {
+  const invalidate = useReviewInvalidation()
+  return useMutation({ mutationFn: doDelete, onSuccess: invalidate })
+}

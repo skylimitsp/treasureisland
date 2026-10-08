@@ -29,7 +29,8 @@ export const sessions = sqliteTable(
   (t) => [index('sessions_user_idx').on(t.userId)],
 )
 
-// One-time tokens for staff invites and password resets (hashed like sessions).
+// One-time tokens for staff invites and password resets (looked up by hash, like sessions).
+// `linkToken` keeps a pending invite's raw token so admins can copy the link; wiped once used.
 export const authTokens = sqliteTable('auth_tokens', {
   id: text('id').primaryKey(),
   kind: text('kind', { enum: ['invite', 'reset'] }).notNull(),
@@ -39,5 +40,6 @@ export const authTokens = sqliteTable('auth_tokens', {
   createdBy: text('created_by'),
   expiresAt: text('expires_at').notNull(),
   usedAt: text('used_at'),
+  linkToken: text('link_token'),
   createdAt: createdAt(),
 })

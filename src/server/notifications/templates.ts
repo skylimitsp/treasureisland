@@ -240,7 +240,7 @@ export const templates = {
     layout(
       'You have been invited to the Treasure Island dashboard',
       [['Role', role]],
-      'Set your name and password to activate your staff account. This link expires in 72 hours.',
+      'Set your name and password to activate your staff account. This link expires in 7 days and works once.',
       { label: 'Accept invite', url: acceptUrl },
     ),
 

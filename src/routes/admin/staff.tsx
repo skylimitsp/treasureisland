@@ -12,6 +12,7 @@ import { EmptyState } from '#/components/admin/empty-state'
 import { StaffRoleSelect } from '#/components/admin/staff-role-select'
 import { StaffStatusToggle } from '#/components/admin/staff-status-toggle'
 import { StaffInviteForm } from '#/components/admin/staff-invite-form'
+import { PendingInvites } from '#/components/admin/pending-invites'
 import { formatStayDate } from '#/lib/format'
 import type { ColumnDef } from '#/components/admin/data-table'
 import type { StaffMember } from '#/types'
@@ -91,6 +92,7 @@ function StaffPage() {
         description="Invite staff, change roles, or suspend access. Changes take effect immediately."
       />
       <StaffInviteForm />
+      <PendingInvites />
 
       {users.isPending ? (
         <p className="text-sm text-sea-ink-soft">Loading staff…</p>

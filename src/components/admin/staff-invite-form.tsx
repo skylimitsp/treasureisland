@@ -4,7 +4,7 @@ import { MailPlus } from 'lucide-react'
 import { useInviteStaffMutation } from '#/hooks/mutations/users.mutation'
 import type { StaffRole } from '#/types'
 
-// Sends a 72-hour invite link; the new member sets their own name and password.
+// Creates a 7-day invite link; the new member sets their own name and password.
 export function StaffInviteForm() {
   const invite = useInviteStaffMutation()
   const [email, setEmail] = useState('')
@@ -55,13 +55,14 @@ export function StaffInviteForm() {
           className="btn btn-primary disabled:opacity-60"
         >
           <MailPlus size={16} aria-hidden />
-          {invite.isPending ? 'Sending…' : 'Send invite'}
+          {invite.isPending ? 'Creating…' : 'Create invite'}
         </button>
       </div>
       <p aria-live="polite" className="mt-2 min-h-5 text-sm">
         {invite.isSuccess ? (
           <span className="text-palm">
-            Invite sent to {invite.data.email}. The link expires in 72 hours.
+            Invite created for {invite.data.email}. Copy their link from Pending
+            invites below and send it to them.
           </span>
         ) : invite.isError ? (
           <span className="text-destructive">{invite.error.message}</span>

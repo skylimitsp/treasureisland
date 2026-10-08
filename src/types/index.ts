@@ -282,6 +282,16 @@ export interface StaffMember extends User {
   lastLoginAt: string | null
 }
 
+export interface PendingInvite {
+  id: string
+  email: string
+  role: StaffRole
+  link: string | null // null for invites created outside the dashboard
+  invitedBy: string | null
+  createdAt: string
+  expiresAt: string
+}
+
 export interface AdminSettings {
   currency: 'USD' | 'GHS'
   taxRatePercent: number

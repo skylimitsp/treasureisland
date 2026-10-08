@@ -292,3 +292,79 @@ describe('audit log', () => {
     )
   })
 })
+
+describe('manually added reviews', () => {
+  it('lets admins add a rated review that shows on the site when featured', async () => {
+    const admin = await signIn('admin')
+    const res = await call('POST', '/admin/reviews', {
+      cookie: admin.cookie,
+      body: {
+        name: 'Kojo Asare',
+        origin: 'Google review',
+        quote: 'Lovely staff and views.',
+        rating: 5,
+        featured: true,
+      },
+    })
+    expect(res.status).toBe(201)
+    expect(res.json.data).toMatchObject({
+      name: 'Kojo Asare',
+      rating: 5,
+      featured: true,
+    })
+    const site = await call('GET', '/content/testimonials')
+    expect(site.json.data.map((t: { id: string }) => t.id)).toContain(
+      res.json.data.id,
+    )
+  })
+
+  it('rejects a review without a name or text, field by field', async () => {
+    const admin = await signIn('admin')
+    const res = await call('POST', '/admin/reviews', {
+      cookie: admin.cookie,
+      body: { name: '', quote: '', rating: 7 },
+    })
+    expect(res.status).toBe(400)
+    const paths = res.json.error.details.map((d: { path: string }) => d.path)
+    expect(paths).toEqual(expect.arrayContaining(['name', 'quote', 'rating']))
+  })
+
+  it('deletes a review from the dashboard and the site', async () => {
+    const admin = await signIn('admin')
+    const { json } = await call('POST', '/admin/reviews', {
+      cookie: admin.cookie,
+      body: { name: 'Delete Me', quote: 'Temporary review', featured: true },
+    })
+    expect(
+      (
+        await call('DELETE', `/admin/reviews/${json.data.id}`, {
+          cookie: admin.cookie,
+        })
+      ).status,
+    ).toBe(204)
+    const site = await call('GET', '/content/testimonials')
+    expect(site.json.data.map((t: { id: string }) => t.id)).not.toContain(
+      json.data.id,
+    )
+    expect(
+      (
+        await call('DELETE', `/admin/reviews/${json.data.id}`, {
+          cookie: admin.cookie,
+        })
+      ).status,
+    ).toBe(404)
+  })
+
+  it('keeps adding and deleting admin-only', async () => {
+    const concierge = await signIn('concierge')
+    const add = await call('POST', '/admin/reviews', {
+      cookie: concierge.cookie,
+      body: { name: 'Not Allowed', quote: 'Nope' },
+    })
+    expect(add.status).toBe(403)
+    expect(
+      (await call('GET', '/admin/reviews', { cookie: concierge.cookie }))
+        .status,
+    ).toBe(200)
+  })
+})

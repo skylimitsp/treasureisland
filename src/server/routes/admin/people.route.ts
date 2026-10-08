@@ -9,7 +9,11 @@ import { pageQuery, toPage } from '#/server/lib/pagination'
 import { inviteSchema, updateUserSchema } from '#/schemas/auth.schema'
 import { settingsPatchSchema } from '#/schemas/admin.schema'
 import { currentUser } from '#/server/middleware/require-role'
-import { createInvite } from '#/server/services/auth.service'
+import {
+  createInvite,
+  listPendingInvites,
+  revokeInvite,
+} from '#/server/services/auth.service'
 import { listUsers, toUser, updateUser } from '#/server/services/users.service'
 import {
   listSubscribers,
@@ -28,6 +32,7 @@ import { adminLink, notify } from '#/server/notifications/notify'
 import { templates } from '#/server/notifications/templates'
 import { ApiError } from '#/server/lib/errors'
 import { rotateCalendarToken } from '#/server/services/calendar.service'
+import type { Context } from 'hono'
 import type { AppEnv } from '#/server/env'
 
 // Admin-only: staff, subscribers, media, settings and the audit trail.
@@ -53,20 +58,17 @@ peopleRoutes.patch('/users/:id', async (c) => {
   return c.json({ data: toUser(row) })
 })
 
+const inviteLink = (c: Context<AppEnv>, token: string) =>
+  adminLink(c.env, `/auth/invite?token=${token}`)
+
+// Returns the link so admins can share it directly while email isn't set up.
 peopleRoutes.post('/users/invite', async (c) => {
   const db = c.get('db')
   const user = currentUser(c)
   const { email, role } = parse(inviteSchema, await readJson(c.req.raw))
   const token = await createInvite(db, email, role, user.id)
-  notify(c.env, [
-    {
-      to: email,
-      ...templates.staffInvite(
-        role,
-        adminLink(c.env, `/auth/invite?token=${token}`),
-      ),
-    },
-  ])
+  const link = inviteLink(c, token)
+  notify(c.env, [{ to: email, ...templates.staffInvite(role, link) }])
   await audit(db, {
     actorId: user.id,
     action: 'user.invite',
@@ -74,7 +76,30 @@ peopleRoutes.post('/users/invite', async (c) => {
     entityId: email,
     diff: { role },
   })
-  return c.json({ data: { email, role, status: 'invited' } }, 201)
+  return c.json({ data: { email, role, status: 'invited', link } }, 201)
+})
+
+peopleRoutes.get('/users/invites', async (c) => {
+  c.header('cache-control', 'no-store')
+  const rows = await listPendingInvites(c.get('db'))
+  return c.json({
+    data: rows.map(({ linkToken, ...invite }) => ({
+      ...invite,
+      link: linkToken ? inviteLink(c, linkToken) : null,
+    })),
+  })
+})
+
+peopleRoutes.delete('/users/invites/:id', async (c) => {
+  const db = c.get('db')
+  const row = await revokeInvite(db, c.req.param('id'))
+  await audit(db, {
+    actorId: currentUser(c).id,
+    action: 'user.invite_revoke',
+    entity: 'user',
+    entityId: row.email,
+  })
+  return c.body(null, 204)
 })
 
 const subscriberQuery = z.object({

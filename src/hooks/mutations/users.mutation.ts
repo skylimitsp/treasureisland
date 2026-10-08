@@ -18,8 +18,16 @@ const doUpdateStaff = withErrorHandling(
 
 const doInvite = withErrorHandling(
   async (input: { email: string; role: StaffRole }) =>
-    api.post<{ email: string; role: StaffRole }>('/admin/users/invite', input),
-  'Unable to send the invite',
+    api.post<{ email: string; role: StaffRole; link: string }>(
+      '/admin/users/invite',
+      input,
+    ),
+  'Unable to create the invite',
+)
+
+const doRevoke = withErrorHandling(
+  async (id: string): Promise<void> => api.delete(`/admin/users/invites/${id}`),
+  'Unable to revoke the invite',
 )
 
 /**
@@ -36,9 +44,29 @@ export const useUpdateStaffMutation = () => {
 }
 
 /**
- * Emails a one-time invite link to a new staff member.
+ * Creates a one-time invite; the link is returned to share (and emailed when set up).
  * @author Joseph Nartey
  * @github devjoemedia
  */
-export const useInviteStaffMutation = () =>
-  useMutation({ mutationFn: doInvite })
+export const useInviteStaffMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: doInvite,
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: userKeys.invites() }),
+  })
+}
+
+/**
+ * Revokes a pending invite so its link stops working.
+ * @author Joseph Nartey
+ * @github devjoemedia
+ */
+export const useRevokeInviteMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: doRevoke,
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: userKeys.invites() }),
+  })
+}

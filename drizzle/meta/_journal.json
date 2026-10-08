@@ -15,6 +15,13 @@
       "when": 1791455506857,
       "tag": "0001_amenity_slots",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791463663683,
+      "tag": "0002_invite_links",
+      "breakpoints": true
     }
   ]
 }

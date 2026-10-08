@@ -3,10 +3,11 @@
  * @author Joseph Nartey
  * @github devjoemedia
  */
-import { and, eq, gt, isNull } from 'drizzle-orm'
+import { and, desc, eq, gt, isNull } from 'drizzle-orm'
 
 import { authTokens, sessions, users } from '#/server/db/schema'
-import { ApiError } from '#/server/lib/errors'
+import { ApiError, notFound } from '#/server/lib/errors'
+import { first } from '#/server/lib/rows'
 import { addDays, addHours } from '#/server/lib/dates'
 import {
   hashPassword,
@@ -122,23 +123,27 @@ async function consumeToken(
   token: string,
   kind: 'invite' | 'reset',
 ) {
-  const id = await sha256(token)
-  const row = await db.query.authTokens.findFirst({
-    where: and(
-      eq(authTokens.id, id),
-      eq(authTokens.kind, kind),
-      isNull(authTokens.usedAt),
-      gt(authTokens.expiresAt, new Date().toISOString()),
-    ),
-  })
+  // One conditional update, so two clicks on the same link can't both succeed.
+  const row = first(
+    await db
+      .update(authTokens)
+      .set({ usedAt: new Date().toISOString(), linkToken: null })
+      .where(
+        and(
+          eq(authTokens.id, await sha256(token)),
+          eq(authTokens.kind, kind),
+          isNull(authTokens.usedAt),
+          gt(authTokens.expiresAt, new Date().toISOString()),
+        ),
+      )
+      .returning(),
+  )
   if (!row)
     throw new ApiError('VALIDATION', 'This link is invalid or has expired')
-  await db
-    .update(authTokens)
-    .set({ usedAt: new Date().toISOString() })
-    .where(eq(authTokens.id, id))
   return row
 }
+
+export const INVITE_HOURS = 7 * 24
 
 export async function createInvite(
   db: Database,
@@ -155,7 +160,67 @@ export async function createInvite(
       'A staff account with this email already exists',
     )
   }
-  return issueToken(db, { kind: 'invite', email, role, createdBy }, 72)
+  // A fresh invite replaces any pending one, so only one live link exists per person.
+  await db
+    .delete(authTokens)
+    .where(
+      and(
+        eq(authTokens.kind, 'invite'),
+        eq(authTokens.email, email),
+        isNull(authTokens.usedAt),
+      ),
+    )
+  const token = randomToken()
+  await db.insert(authTokens).values({
+    id: await sha256(token),
+    kind: 'invite',
+    email,
+    role,
+    createdBy,
+    linkToken: token,
+    expiresAt: addHours(INVITE_HOURS),
+  })
+  return token
+}
+
+export async function listPendingInvites(db: Database) {
+  return db
+    .select({
+      id: authTokens.id,
+      email: authTokens.email,
+      role: authTokens.role,
+      linkToken: authTokens.linkToken,
+      expiresAt: authTokens.expiresAt,
+      createdAt: authTokens.createdAt,
+      invitedBy: users.name,
+    })
+    .from(authTokens)
+    .leftJoin(users, eq(users.id, authTokens.createdBy))
+    .where(
+      and(
+        eq(authTokens.kind, 'invite'),
+        isNull(authTokens.usedAt),
+        gt(authTokens.expiresAt, new Date().toISOString()),
+      ),
+    )
+    .orderBy(desc(authTokens.createdAt))
+}
+
+export async function revokeInvite(db: Database, id: string) {
+  const row = first(
+    await db
+      .delete(authTokens)
+      .where(
+        and(
+          eq(authTokens.id, id),
+          eq(authTokens.kind, 'invite'),
+          isNull(authTokens.usedAt),
+        ),
+      )
+      .returning(),
+  )
+  if (!row) throw notFound('Invite')
+  return row
 }
 
 export async function acceptInvite(

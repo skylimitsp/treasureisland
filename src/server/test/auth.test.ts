@@ -159,3 +159,129 @@ describe('invites and password reset', () => {
     expect(res.status).toBe(202)
   })
 })
+
+describe('invite links (shared by hand while email is off)', () => {
+  const tokenFrom = (link: string) =>
+    new URL(link).searchParams.get('token') ?? ''
+
+  it('returns a copyable link and lists it while pending', async () => {
+    const admin = await signIn('admin')
+    const email = `link-${uid()}@localhost.test`
+    const res = await call('POST', '/admin/users/invite', {
+      cookie: admin.cookie,
+      body: { email, role: 'concierge' },
+    })
+    expect(res.json.data.link).toMatch(/\/auth\/invite\?token=[0-9a-f]{64}$/)
+    const list = await call('GET', '/admin/users/invites', {
+      cookie: admin.cookie,
+    })
+    const row = list.json.data.find((i: { email: string }) => i.email === email)
+    expect(row).toMatchObject({ role: 'concierge', link: res.json.data.link })
+    expect(row.invitedBy).toBe('Test admin')
+  })
+
+  it('drops the invite from the list once it is accepted', async () => {
+    const admin = await signIn('admin')
+    const email = `accept-${uid()}@localhost.test`
+    const { json } = await call('POST', '/admin/users/invite', {
+      cookie: admin.cookie,
+      body: { email, role: 'concierge' },
+    })
+    const accepted = await call('POST', '/auth/invites/accept', {
+      body: {
+        token: tokenFrom(json.data.link),
+        name: 'New Person',
+        password: 'a-strong-password',
+      },
+    })
+    expect(accepted.status).toBe(201)
+    const list = await call('GET', '/admin/users/invites', {
+      cookie: admin.cookie,
+    })
+    expect(list.json.data.map((i: { email: string }) => i.email)).not.toContain(
+      email,
+    )
+  })
+
+  it('replaces the old link when the same person is invited again', async () => {
+    const admin = await signIn('admin')
+    const email = `again-${uid()}@localhost.test`
+    const first = await call('POST', '/admin/users/invite', {
+      cookie: admin.cookie,
+      body: { email, role: 'concierge' },
+    })
+    await call('POST', '/admin/users/invite', {
+      cookie: admin.cookie,
+      body: { email, role: 'admin' },
+    })
+    const list = await call('GET', '/admin/users/invites', {
+      cookie: admin.cookie,
+    })
+    expect(
+      list.json.data.filter((i: { email: string }) => i.email === email),
+    ).toHaveLength(1)
+    const old = await call('POST', '/auth/invites/accept', {
+      body: {
+        token: tokenFrom(first.json.data.link),
+        name: 'Old Link',
+        password: 'a-strong-password',
+      },
+    })
+    expect(old.status).toBe(400)
+  })
+
+  it('revokes an invite so its link stops working', async () => {
+    const admin = await signIn('admin')
+    const email = `revoke-${uid()}@localhost.test`
+    const { json } = await call('POST', '/admin/users/invite', {
+      cookie: admin.cookie,
+      body: { email, role: 'concierge' },
+    })
+    const list = await call('GET', '/admin/users/invites', {
+      cookie: admin.cookie,
+    })
+    const id = list.json.data.find(
+      (i: { email: string }) => i.email === email,
+    ).id
+    expect(
+      (
+        await call('DELETE', `/admin/users/invites/${id}`, {
+          cookie: admin.cookie,
+        })
+      ).status,
+    ).toBe(204)
+    const res = await call('POST', '/auth/invites/accept', {
+      body: {
+        token: tokenFrom(json.data.link),
+        name: 'Too Late',
+        password: 'a-strong-password',
+      },
+    })
+    expect(res.status).toBe(400)
+  })
+
+  it('accepts a link only once, even with simultaneous clicks', async () => {
+    const admin = await signIn('admin')
+    const { json } = await call('POST', '/admin/users/invite', {
+      cookie: admin.cookie,
+      body: { email: `race-${uid()}@localhost.test`, role: 'concierge' },
+    })
+    const body = {
+      token: tokenFrom(json.data.link),
+      name: 'Racer',
+      password: 'a-strong-password',
+    }
+    const results = await Promise.all(
+      [1, 2, 3].map(() => call('POST', '/auth/invites/accept', { body })),
+    )
+    expect(results.filter((r) => r.status === 201)).toHaveLength(1)
+  })
+
+  it('keeps invite links admin-only', async () => {
+    const concierge = await signIn('concierge')
+    expect(
+      (await call('GET', '/admin/users/invites', { cookie: concierge.cookie }))
+        .status,
+    ).toBe(403)
+  })
+})
