@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { Menu, X } from 'lucide-react'
 
+import { isEnabled } from '#/constants/features'
 import { useGsap } from '#/hooks/use-gsap'
 import { headerShrink } from '#/lib/animations'
 
@@ -9,7 +10,7 @@ const NAV = [
   { to: '/', label: 'Home' },
   { to: '/rooms', label: 'Rooms' },
   { to: '/amenities', label: 'Amenities' },
-  { to: '/menu', label: 'Menu' },
+  ...(isEnabled('menu') ? [{ to: '/menu', label: 'Menu' } as const] : []),
   { to: '/events', label: 'Events' },
   { to: '/about', label: 'About' },
 ] as const

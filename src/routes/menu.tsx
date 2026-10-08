@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
+import { isEnabled } from '#/constants/features'
 import { seo } from '#/lib/seo'
 import { menuLd } from '#/lib/structured-data'
 import { matchesQuery } from '#/lib/menu-search'
@@ -23,6 +24,16 @@ import type { MenuGroup } from '#/types'
 export const Route = createFileRoute('/menu')({
   validateSearch: (search: Record<string, unknown>): { tab?: MenuGroup } =>
     search.tab === 'food' || search.tab === 'drinks' ? { tab: search.tab } : {},
+  // While the menu flag is off, send visitors to the restaurant amenity instead.
+  beforeLoad: () => {
+    if (!isEnabled('menu')) {
+      throw redirect({
+        to: '/amenities/$slug',
+        params: { slug: 'restaurant' },
+        replace: true,
+      })
+    }
+  },
   loader: ({ context }) =>
     Promise.all([
       context.queryClient.ensureQueryData(menuQueryOptions()),

@@ -5,13 +5,14 @@ import { FooterLinkColumn } from '#/components/layout/footer-link-column'
 import type { FooterLink } from '#/components/layout/footer-link-column'
 import { FooterNewsletter } from '#/components/layout/footer-newsletter'
 import { FooterWordmark } from '#/components/layout/footer-wordmark'
+import { isEnabled } from '#/constants/features'
 import { CONTACT, SITE } from '#/constants/site'
 
 const EXPLORE: ReadonlyArray<FooterLink> = [
   { label: 'Home', to: '/' },
   { label: 'Rooms & suites', to: '/rooms' },
   { label: 'Amenities', to: '/amenities' },
-  { label: 'Restaurant', to: '/menu' },
+  ...(isEnabled('menu') ? [{ label: 'Restaurant', to: '/menu' } as const] : []),
   { label: 'About us', to: '/about' },
 ]
 

@@ -68,11 +68,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <!-- /menu is behind the `menu` feature flag (src/constants/features.ts); restore when enabled.
   <url>
     <loc>https://treasureisland.example/menu</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  -->
   <url>
     <loc>https://treasureisland.example/about</loc>
     <changefreq>monthly</changefreq>

@@ -1,13 +1,14 @@
+import { useState } from 'react'
 import {
   ArrowRight,
   Cake,
   Check,
-  ChevronDown,
   Heart,
   Presentation,
   Users,
 } from 'lucide-react'
 
+import { EventTypeDialog } from '#/components/events/event-type-dialog'
 import { FacilityChip } from '#/components/shared/facility-chip'
 import type { LucideIcon } from 'lucide-react'
 import type { EventCategory, EventType } from '#/types'
@@ -20,7 +21,7 @@ const ICONS: Record<string, LucideIcon> = {
   Presentation,
 }
 
-// One official event type: icon, excerpt, the full official copy on demand, CTA.
+// One official event type: icon, excerpt, and a modal with the full official copy.
 export function EventTypeCard({
   type,
   onEnquire,
@@ -28,6 +29,7 @@ export function EventTypeCard({
   type: EventType
   onEnquire: (category: EventCategory) => void
 }) {
+  const [open, setOpen] = useState(false)
   const Icon = ICONS[type.icon] ?? Heart
   const inclusions = type.inclusions ?? []
 
@@ -51,22 +53,6 @@ export function EventTypeCard({
       <h3 className="display-title mt-4 text-2xl">{type.title}</h3>
       <p className="mt-2 text-sea-ink-soft">{type.blurb}</p>
 
-      <details className="group mt-3">
-        <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1 text-sm font-semibold text-sea-ink">
-          Read more
-          <ChevronDown
-            size={16}
-            className="transition-transform group-open:rotate-180"
-            aria-hidden
-          />
-        </summary>
-        <div className="space-y-3 text-sm text-sea-ink-soft">
-          {type.description.map((paragraph) => (
-            <p key={paragraph.slice(0, 32)}>{paragraph}</p>
-          ))}
-        </div>
-      </details>
-
       {inclusions.length > 0 ? (
         <ul className="mt-4 flex flex-wrap gap-2">
           {inclusions.map((item) => (
@@ -80,13 +66,21 @@ export function EventTypeCard({
       <div className="mt-6 flex flex-1 items-end">
         <button
           type="button"
-          onClick={() => onEnquire(type.category)}
+          onClick={() => setOpen(true)}
+          aria-haspopup="dialog"
           className="inline-flex min-h-11 items-center gap-1 font-semibold text-lagoon-deep"
         >
-          Enquire
+          Read more
           <ArrowRight size={16} strokeWidth={2} aria-hidden />
         </button>
       </div>
+
+      <EventTypeDialog
+        type={type}
+        open={open}
+        onClose={() => setOpen(false)}
+        onEnquire={onEnquire}
+      />
     </article>
   )
 }
