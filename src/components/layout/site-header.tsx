@@ -65,7 +65,7 @@ export function SiteHeader() {
           </Link>
 
           <nav
-            className="hidden items-center gap-7 md:flex"
+            className="hidden items-center gap-20 md:flex ml-20"
             aria-label="Primary"
           >
             {NAV.map((item) => (
@@ -81,7 +81,7 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ml-auto">
             <Link
               to="/rooms"
               className="btn btn-primary hidden no-underline sm:inline-flex"

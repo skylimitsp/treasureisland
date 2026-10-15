@@ -59,7 +59,7 @@ export function Hero() {
             </a>
             <Link
               to="/rooms"
-              className="btn btn-ghost !border-white/70 !text-white no-underline"
+              className="btn btn-ghost !border-white/70 !text-white hover:text-teal-500! no-underline"
             >
               Explore Rooms
             </Link>
