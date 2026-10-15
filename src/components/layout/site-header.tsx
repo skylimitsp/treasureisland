@@ -79,15 +79,15 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-          </nav>
-
-          <div className="flex items-center gap-2 ml-auto">
             <Link
               to="/rooms"
-              className="btn btn-primary hidden no-underline sm:inline-flex"
+              className="btn btn-primary hidden no-underline sm:inline-flex ml-12"
             >
               Book Now
             </Link>
+          </nav>
+
+          <div className="flex items-center gap-2 ml-auto">
             <button
               ref={menuBtnRef}
               type="button"
