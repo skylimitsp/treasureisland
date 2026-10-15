@@ -51,20 +51,26 @@ export function AmenityGallery({
   }, [open, images.length])
 
   if (images.length < 2) return null
+  // A pair sits side by side; three or more lead with one large tile.
+  const pair = images.length === 2
 
   return (
     <section ref={ref} data-reveal>
       <SectionKicker>Gallery</SectionKicker>
       <h2 className="display-title mt-2 text-2xl md:text-3xl">A closer look</h2>
 
-      <div className="mt-6 grid auto-rows-[minmax(0,1fr)] gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        className={`mt-6 grid auto-rows-[minmax(0,1fr)] gap-4 sm:grid-cols-2 ${
+          pair ? '' : 'lg:grid-cols-3'
+        }`}
+      >
         {images.map((src, i) => (
           <button
             key={src + i}
             type="button"
             onClick={() => setOpen(i)}
             className={`img-frame group relative overflow-hidden rounded-md border border-line ${
-              i === 0 ? 'sm:col-span-2 sm:row-span-2' : ''
+              i === 0 && !pair ? 'sm:col-span-2 sm:row-span-2' : ''
             }`}
           >
             <ResponsiveImage
@@ -74,7 +80,11 @@ export function AmenityGallery({
               loading="lazy"
               decoding="async"
               className={`h-full w-full object-cover ${
-                i === 0 ? 'aspect-[4/3] sm:h-full' : 'aspect-[4/3]'
+                pair
+                  ? 'aspect-[4/5]'
+                  : i === 0
+                    ? 'aspect-[4/3] sm:h-full'
+                    : 'aspect-[4/3]'
               }`}
             />
           </button>

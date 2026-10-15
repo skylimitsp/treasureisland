@@ -23,7 +23,13 @@ const CLIPS = [
     name: 'Padel at golden hour',
     body: 'Rally on the blue court as the evening cools.',
     start: 20.1,
-    end: 32.1,
+    end: 31.3,
+  },
+  {
+    name: 'Fishing trips',
+    body: 'Head out by boat and bring back the catch of the day.',
+    start: 31.3,
+    end: 39.5,
   },
 ]
 

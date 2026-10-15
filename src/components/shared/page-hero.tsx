@@ -5,6 +5,7 @@ import { SectionKicker } from '#/components/shared/section-kicker'
 import { useGsap } from '#/hooks/use-gsap'
 import { gsap } from '#/lib/gsap'
 import { bgImage } from '#/lib/media'
+import { cn } from '#/lib/utils'
 
 // Shared inner-page hero: one height (42vh, grows with content), copy straight
 // on the photo (or optional muted video loop) over a directional scrim.
@@ -16,6 +17,7 @@ export function PageHero({
   title,
   body,
   actions,
+  className,
 }: {
   image: string
   video?: string
@@ -24,6 +26,7 @@ export function PageHero({
   title: ReactNode
   body: string
   actions?: ReactNode
+  className?: string // e.g. a taller min-h for one page
 }) {
   const ref = useGsap<HTMLElement>((self) => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -39,7 +42,10 @@ export function PageHero({
   return (
     <section
       ref={ref}
-      className="relative isolate flex min-h-[42vh] items-center overflow-hidden bg-cover bg-center"
+      className={cn(
+        'relative isolate flex min-h-[42vh] items-center overflow-hidden bg-cover bg-center',
+        className,
+      )}
       style={{ backgroundImage: bgImage(image) }}
     >
       {video ? (

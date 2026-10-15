@@ -39,6 +39,12 @@ export const IMAGE_MANIFEST: Record<string, ImageMeta | undefined> = {
   '/photos/breakfast.webp': { w: 1066, h: 1600, avif: true, sm: true },
   '/photos/conference-hall.webp': { w: 1620, h: 1080, avif: true, sm: true },
   '/photos/horse-riding.webp': { w: 2000, h: 1367, avif: true, sm: true },
+  '/photos/horse-riding-main.webp': {
+    w: 1500,
+    h: 2000,
+    avif: false,
+    sm: true,
+  },
   '/photos/infinity-lounge.webp': { w: 1440, h: 1080, avif: true, sm: true },
   '/photos/island-shore.webp': { w: 1920, h: 1080, avif: true, sm: true },
   '/photos/jetski-loop.webp': { w: 864, h: 1080, avif: true, sm: false },

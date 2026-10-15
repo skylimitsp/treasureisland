@@ -130,9 +130,12 @@ const AMENITIES: Array<Amenity> = [
       'our string horses. Wranglers will pair you with a horse suited to your ' +
       'skill level—everyone from first-time riders to advanced equestrians is ' +
       'welcome to ride.',
-    image: '/photos/horse-riding.webp',
-    hero: '/photos/horse-riding.webp',
-    gallery: ['/photos/horse-riding.webp'],
+    image: '/photos/horse-riding-main.webp',
+    hero: '/photos/horse-riding-main.webp',
+    gallery: [
+      '/photos/horse-riding-main.webp',
+      '/photos/horse-riding-path.webp',
+    ],
     icon: 'compass',
     price: 'GH₵ 50 per person',
     bookable: true,

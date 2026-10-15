@@ -1,6 +1,5 @@
 import { Link } from '@tanstack/react-router'
 
-import { SectionKicker } from '#/components/shared/section-kicker'
 import { PhotoCollage } from '#/components/shared/photo-collage'
 
 // Official resort introduction beside a bento photo layout.
@@ -9,8 +8,9 @@ export function EditorialBand() {
     <section className="page-wrap mt-28 grid items-center gap-12 md:grid-cols-2">
       <PhotoCollage />
       <div data-reveal>
-        <SectionKicker>
-          Definition of luxury, hospitality and <em>serendipity</em>.</SectionKicker>
+        <h3 className='uppercase island-kicker'>
+          The Definition of luxury, hospitality and serendipity.
+        </h3>
         <h2 className="display-title mt-3 text-3xl leading-tight md:text-4xl italic">
         SS. Treasure Island Ada
         </h2>

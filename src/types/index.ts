@@ -78,6 +78,7 @@ export interface Amenity {
   image: string
   imageAlt?: string // set when the photo is a stand-in, not the amenity itself
   hero: string
+  heroVideo?: string // /videos base path; phones get the `-720` encode
   gallery: Array<string>
   highlights?: Array<string>
   icon: AmenityIcon

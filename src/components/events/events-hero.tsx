@@ -9,6 +9,7 @@ function scrollToId(id: string) {
 export function EventsHero() {
   return (
     <PageHero
+      className="min-h-[62vh]"
       image="/photos/infinity-lounge.webp"
       video="/videos/hero-aerial-night"
       mobileVideo="/videos/hero-aerial-night-720"

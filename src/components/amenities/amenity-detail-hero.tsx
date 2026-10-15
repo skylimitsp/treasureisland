@@ -2,11 +2,12 @@ import { Link } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
 
 import { AmenityGlyph } from '#/components/amenities/amenity-icon'
+import { BackgroundVideo } from '#/components/shared/background-video'
 import type { Amenity } from '#/types'
 import { ResponsiveImage } from '#/components/shared/responsive-image'
 
-// Full-bleed detail hero — image (or dark placeholder), scrim, breadcrumb,
-// kicker, Playfair title, and one-line blurb.
+// Full-bleed detail hero — optional video loop over the image (or a dark
+// placeholder), scrim, breadcrumb, kicker, Playfair title and blurb.
 export function AmenityDetailHero({ amenity }: { amenity: Amenity }) {
   return (
     <section className="relative flex min-h-[62vh] items-end overflow-hidden">
@@ -28,6 +29,14 @@ export function AmenityDetailHero({ amenity }: { amenity: Amenity }) {
           <AmenityGlyph icon={amenity.icon} size={72} />
         </div>
       )}
+      {amenity.heroVideo ? (
+        <BackgroundVideo
+          src={amenity.heroVideo}
+          mobileSrc={`${amenity.heroVideo}-720`}
+          priority
+          className="absolute inset-0 size-full"
+        />
+      ) : null}
       <div
         className="absolute inset-0"
         style={{

@@ -15,6 +15,8 @@ import { EventsHero } from '#/components/events/events-hero'
 import { EventTypes } from '#/components/events/event-types'
 import { HowItWorks } from '#/components/events/how-it-works'
 import { VenueShowcase } from '#/components/events/venue-showcase'
+import { CateringShowcase } from '#/components/events/catering-showcase'
+import { EventFilm } from '#/components/events/event-film'
 import { TailoredPackages } from '#/components/events/tailored-packages'
 import { EventGallery } from '#/components/events/event-gallery'
 import { EnquirySection } from '#/components/events/enquiry-section'
@@ -67,12 +69,14 @@ function EventsPage() {
   return (
     <main ref={ref}>
       <EventsHero />
-      <GalleryMarquee className="mt-4" />
+      {/* <GalleryMarquee className="mt-4" /> */}
       <EventTypes onEnquire={(eventType) => goToEnquire({ eventType })} />
       <ActivitiesReel className="mt-24" />
       <HowItWorks />
       <VenueShowcase />
+      <CateringShowcase />
       <TailoredPackages onEnquire={() => goToEnquire({})} />
+      <EventFilm />
       <EventGallery />
       <EnquirySection defaults={defaults} />
       <Testimonials />
