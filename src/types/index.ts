@@ -78,6 +78,7 @@ export interface Amenity {
   image: string
   imageAlt?: string // set when the photo is a stand-in, not the amenity itself
   hero: string
+  heroPosition?: string // CSS object-position for the hero crop, e.g. 'center 78%'
   heroVideo?: string // /videos base path; phones get the `-720` encode
   gallery: Array<string>
   highlights?: Array<string>
@@ -352,3 +353,16 @@ export type CampaignDraft = Partial<
     | 'selectedIds'
   >
 >
+
+export type GalleryKind = 'photo' | 'video'
+
+export interface GalleryItem {
+  id: string
+  kind: GalleryKind
+  src: string // full photo, or the video file
+  thumb: string // tile image (photo thumbnail or video poster)
+  w: number
+  h: number
+  alt: string // photo description or video title
+  duration?: number // seconds, videos only
+}

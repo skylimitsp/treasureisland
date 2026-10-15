@@ -19,6 +19,7 @@ export function AmenityDetailHero({ amenity }: { amenity: Amenity }) {
           loading="eager"
           fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: amenity.heroPosition }}
         />
       ) : (
         // No photo → dark placeholder background.

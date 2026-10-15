@@ -45,8 +45,8 @@ const TILES: Array<{
     alt: 'The resort, pool and beach from above',
   },
   {
-    image: '/photos/lantern-terrace.webp',
-    alt: 'The lantern-lit garden terrace',
+    image: '/gallery/g-sunset-deck.webp',
+    alt: 'Sunset over the water from the lounge deck',
   },
 ]
 

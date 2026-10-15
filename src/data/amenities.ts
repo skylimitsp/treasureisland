@@ -104,8 +104,9 @@ const AMENITIES: Array<Amenity> = [
       'favorite drinks or just relaxing. Relax in the poolside Cabanas ' +
       'overlooking the beautiful waterslide and pool while taking breaks in ' +
       'between swims.',
-    image: '/photos/palm-pool-aerial.webp',
-    hero: '/photos/palm-pool-aerial.webp',
+    image: '/photos/swimming-pool-waterfall.webp',
+    hero: '/photos/swimming-pool-waterfall.webp',
+    heroPosition: 'center 68%', // frame the guests in the pool, not the rocks
     gallery: [
       '/photos/palm-pool-aerial.webp',
       '/photos/pool-loungers.webp',
@@ -152,9 +153,9 @@ const AMENITIES: Array<Amenity> = [
   //     'Blast Arcade, which boasts more than 20 Coin-Op Arcade machines. Well, ' +
   //     'and a fully stocked bar and the nicest people.',
   //   // No arcade photo yet — a neutral resort view stands in.
-  //   image: '/photos/lantern-terrace.webp',
-  //   imageAlt: 'Lantern-lit terrace at Treasure Island Ada',
-  //   hero: '/photos/lantern-terrace.webp',
+  //   image: '/photos/resort-night.webp',
+  //   imageAlt: 'Treasure Island Ada at night',
+  //   hero: '/photos/resort-night.webp',
   //   gallery: [],
   //   icon: 'gamepad',
   //   price: 'GH₵ 10 per game',

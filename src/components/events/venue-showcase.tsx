@@ -7,7 +7,7 @@ const SPACES = [
     name: 'Indoor & outdoor banquet rooms',
     caption:
       'A wedding at Treasure Island Resort ensures gorgeous choices for indoor and outdoor banquet rooms.',
-    image: '/photos/lantern-terrace.webp',
+    image: '/events/catering-02.webp',
     speed: '0.85',
   },
   {

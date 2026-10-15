@@ -12,12 +12,19 @@ const NAV = [
   { to: '/amenities', label: 'Amenities' },
   ...(isEnabled('menu') ? [{ to: '/menu', label: 'Menu' } as const] : []),
   { to: '/events', label: 'Events' },
+  { to: '/gallery', label: 'Gallery' },
   { to: '/about', label: 'About' },
 ] as const
 
 // Routes whose top is a dark full-bleed hero — the chrome stays transparent
 // there and frosts on scroll; every other route gets the solid chrome at once.
-const HERO_ROUTES: Array<string> = ['/', '/rooms', '/events', '/amenities']
+const HERO_ROUTES: Array<string> = [
+  '/',
+  '/rooms',
+  '/events',
+  '/amenities',
+  '/gallery',
+]
 
 // Global site header: fixed overlay that frosts on scroll (header-shrink), with
 // a right-side mobile drawer.

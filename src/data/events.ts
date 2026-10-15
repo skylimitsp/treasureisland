@@ -38,7 +38,7 @@ const EVENT_TEASERS: Array<EventTeaser> = [
     name: 'Birthday Parties',
     blurb:
       'Our warm and friendly staff will make every effort to ensure your event is memorable and successful.',
-    image: '/photos/lantern-terrace.webp',
+    image: '/events/gallery/event-05.webp',
     video: '/videos/event-beach-drummers',
     tag: 'Ada Foah',
     kicker: 'Events & Meetings',
@@ -80,9 +80,9 @@ const EVENT_TYPES: Array<EventType> = [
       'Our warm and friendly staff will make every effort to ensure your event is memorable and successful.',
     description: MEETING_COPY,
     icon: 'Cake',
-    image: '/photos/lantern-terrace.webp',
+    image: '/events/gallery/event-05.webp',
     video: '/videos/event-beach-drummers',
-    gallery: ['/photos/lantern-terrace.webp', '/photos/pool-loungers.webp'],
+    gallery: ['/events/gallery/event-05.webp', '/events/gallery/event-10.webp'],
   },
   {
     slug: 'meetings',
@@ -98,7 +98,7 @@ const EVENT_TYPES: Array<EventType> = [
     gallery: [
       '/photos/conference-hall.webp',
       '/photos/ocean-deck-dining.webp',
-      '/photos/lantern-terrace.webp',
+      '/events/catering-02.webp',
     ],
   },
   {

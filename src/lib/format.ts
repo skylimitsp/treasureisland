@@ -35,3 +35,11 @@ export function formatCount(value: number): string {
   if (value < 1000) return `${value}`
   return `${(value / 1000).toFixed(1).replace(/\.0$/, '')}k`
 }
+
+// 75 → "1:15" for video length badges.
+export function formatDuration(seconds: number): string {
+  const total = Math.round(seconds)
+  const mins = Math.floor(total / 60)
+  const secs = String(total % 60).padStart(2, '0')
+  return `${mins}:${secs}`
+}

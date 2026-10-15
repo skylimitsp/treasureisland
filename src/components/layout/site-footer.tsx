@@ -33,6 +33,7 @@ const EXPERIENCES: ReadonlyArray<FooterLink> = [
     params: { slug: 'boat-cruise' },
   },
   { label: 'Events & meetings', to: '/events' },
+  { label: 'Gallery', to: '/gallery' },
 ]
 
 // Full-bleed footer: newsletter band, link grid, legal bar, bleeding wordmark.
