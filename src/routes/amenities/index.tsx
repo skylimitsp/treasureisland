@@ -13,6 +13,7 @@ import {
 import { AmenitiesHero } from '#/components/amenities/amenities-hero'
 import { AmenityShowcase } from '#/components/amenities/amenity-showcase'
 import { AmenityStats } from '#/components/amenities/amenity-stats'
+import { ActivitiesReel } from '#/components/shared/activities-reel'
 import { FixedDivider } from '#/components/shared/fixed-divider'
 
 export const Route = createFileRoute('/amenities/')({
@@ -46,6 +47,7 @@ function AmenitiesPage() {
   return (
     <main ref={ref}>
       <AmenitiesHero />
+      <ActivitiesReel className="mt-24" />
       <AmenityShowcase />
       <AmenityStats />
       <FixedDivider

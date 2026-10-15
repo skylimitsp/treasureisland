@@ -137,26 +137,26 @@ const AMENITIES: Array<Amenity> = [
     price: 'GH₵ 50 per person',
     bookable: true,
   },
-  {
-    id: 'a7',
-    slug: 'gaming',
-    name: 'Gaming (Little Blast Arcade)',
-    category: 'Family fun',
-    blurb:
-      'A Game Room aka Little Blast Arcade, which boasts more than 20 Coin-Op Arcade machines.',
-    description:
-      'Retro and modern consoles in our gaming rooms. A Game Room aka Little ' +
-      'Blast Arcade, which boasts more than 20 Coin-Op Arcade machines. Well, ' +
-      'and a fully stocked bar and the nicest people.',
-    // No arcade photo yet — a neutral resort view stands in.
-    image: '/photos/lantern-terrace.webp',
-    imageAlt: 'Lantern-lit terrace at Treasure Island Ada',
-    hero: '/photos/lantern-terrace.webp',
-    gallery: [],
-    icon: 'gamepad',
-    price: 'GH₵ 10 per game',
-    bookable: false,
-  },
+  // {
+  //   id: 'a7',
+  //   slug: 'gaming',
+  //   name: 'Gaming (Little Blast Arcade)',
+  //   category: 'Family fun',
+  //   blurb:
+  //     'A Game Room aka Little Blast Arcade, which boasts more than 20 Coin-Op Arcade machines.',
+  //   description:
+  //     'Retro and modern consoles in our gaming rooms. A Game Room aka Little ' +
+  //     'Blast Arcade, which boasts more than 20 Coin-Op Arcade machines. Well, ' +
+  //     'and a fully stocked bar and the nicest people.',
+  //   // No arcade photo yet — a neutral resort view stands in.
+  //   image: '/photos/lantern-terrace.webp',
+  //   imageAlt: 'Lantern-lit terrace at Treasure Island Ada',
+  //   hero: '/photos/lantern-terrace.webp',
+  //   gallery: [],
+  //   icon: 'gamepad',
+  //   price: 'GH₵ 10 per game',
+  //   bookable: false,
+  // },
   {
     id: 'a8',
     slug: 'restaurant',

@@ -29,7 +29,7 @@ export function EventTypes({
           Event details are on their way — send us an enquiry below.
         </p>
       ) : (
-        <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {types.data.map((type) => (
             <EventTypeCard key={type.slug} type={type} onEnquire={onEnquire} />
           ))}

@@ -10,8 +10,8 @@ export function PhotoCollage() {
       >
         <ResponsiveImage
           sizes="(min-width: 768px) 25vw, 50vw"
-          src="/photos/infinity-lounge.webp"
-          alt="Rooftop terrace and suites at dusk"
+          src="/photos/luxury-first-dance.webp"
+          alt="A couple’s first dance beneath a chandelier canopy"
           loading="lazy"
           decoding="async"
           className="h-full w-full object-cover"
@@ -20,8 +20,8 @@ export function PhotoCollage() {
       <figure data-reveal className="img-frame overflow-hidden">
         <ResponsiveImage
           sizes="(min-width: 768px) 25vw, 50vw"
-          src="/photos/palm-pool-aerial.webp"
-          alt="The pool and water slide from above"
+          src="/photos/luxury-cake-cutting.webp"
+          alt="A wedding party gathered for the cake cutting"
           loading="lazy"
           decoding="async"
           className="h-full w-full object-cover"
@@ -30,8 +30,8 @@ export function PhotoCollage() {
       <figure data-reveal className="img-frame overflow-hidden">
         <ResponsiveImage
           sizes="(min-width: 768px) 25vw, 50vw"
-          src="/photos/ocean-deck-dining.webp"
-          alt="Group dining on the lagoon-side deck"
+          src="/photos/luxury-pool-loungers.webp"
+          alt="Guests relaxing on in-pool loungers"
           loading="lazy"
           decoding="async"
           className="h-full w-full object-cover"

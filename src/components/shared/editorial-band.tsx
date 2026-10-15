@@ -9,9 +9,10 @@ export function EditorialBand() {
     <section className="page-wrap mt-28 grid items-center gap-12 md:grid-cols-2">
       <PhotoCollage />
       <div data-reveal>
-        <SectionKicker>Treasure Island Ada</SectionKicker>
-        <h2 className="display-title mt-3 text-3xl leading-tight md:text-4xl">
-          Definition of luxury, hospitality and <em>serendipity</em>.
+        <SectionKicker>
+          Definition of luxury, hospitality and <em>serendipity</em>.</SectionKicker>
+        <h2 className="display-title mt-3 text-3xl leading-tight md:text-4xl italic">
+        SS. Treasure Island Ada
         </h2>
         <p className="mt-5 max-w-prose text-sea-ink-soft">
           A private island resort in its remarkable natural environment situated

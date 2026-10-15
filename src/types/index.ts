@@ -147,6 +147,8 @@ export interface EventType {
   blurb: string // official excerpt
   description: Array<string> // official paragraphs
   icon: string // lucide icon name
+  image?: string // card cover photo
+  video?: string // card loop base path in /videos, no extension
   inclusions?: Array<string> // "what's included" chips
   capacityMin?: number
   capacityMax?: number

@@ -19,10 +19,12 @@ import { TailoredPackages } from '#/components/events/tailored-packages'
 import { EventGallery } from '#/components/events/event-gallery'
 import { EnquirySection } from '#/components/events/enquiry-section'
 import { Testimonials } from '#/components/shared/testimonials'
+import { ActivitiesReel } from '#/components/shared/activities-reel'
 import { EventsFaq } from '#/components/events/events-faq'
 import { FixedDivider } from '#/components/shared/fixed-divider'
 import { Newsletter } from '#/components/shared/newsletter'
 import type { EventCategory } from '#/types'
+import { GalleryMarquee } from '#/components/events/gallery-marquee'
 
 export const Route = createFileRoute('/events')({
   // Server-render event types and testimonials so the content is crawlable.
@@ -65,7 +67,9 @@ function EventsPage() {
   return (
     <main ref={ref}>
       <EventsHero />
+      <GalleryMarquee className="mt-4" />
       <EventTypes onEnquire={(eventType) => goToEnquire({ eventType })} />
+      <ActivitiesReel className="mt-24" />
       <HowItWorks />
       <VenueShowcase />
       <TailoredPackages onEnquire={() => goToEnquire({})} />

@@ -27,6 +27,7 @@ import { EditorialBand } from '#/components/shared/editorial-band'
 import { FixedDivider } from '#/components/shared/fixed-divider'
 import { ExperiencesMasonry } from '#/components/amenities/experiences-masonry'
 import { EventsTeaser } from '#/components/events/events-teaser'
+// import { EventsVideoBand } from '#/components/events/events-video-band'
 import { StaySteps } from '#/components/shared/stay-steps'
 import { Testimonials } from '#/components/shared/testimonials'
 import { Faq } from '#/components/shared/faq'
@@ -63,7 +64,7 @@ export const Route = createFileRoute('/')({
         {
           rel: 'preload',
           as: 'image',
-          href: '/videos/hero-aerial-day-poster.webp',
+          href: '/videos/hero-home-poster.webp',
           type: 'image/webp',
           fetchPriority: 'high',
         },
@@ -91,6 +92,8 @@ function Home() {
       <Hero />
       <FeaturedRooms />
       <EditorialBand />
+      {/* <EventsVideoBand /> */}
+      <ExperiencesMasonry />
       <FixedDivider
         image="/photos/lagoon-sunset.webp"
         kicker="A world away"
@@ -98,7 +101,6 @@ function Home() {
         ctaLabel="Plan your escape"
         ctaTo="/rooms"
       />
-      <ExperiencesMasonry />
       <StaySteps />
       <EventsTeaser />
       <Testimonials />

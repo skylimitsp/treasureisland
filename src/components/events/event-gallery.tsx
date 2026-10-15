@@ -3,11 +3,22 @@ import { GalleryTile } from '#/components/events/gallery-tile'
 import { useGsap } from '#/hooks/use-gsap'
 import { gsap, ScrollTrigger } from '#/lib/gsap'
 
-// Curated photo grid with a clip-path image-reveal per tile.
-const TILES = [
+// Curated photo + video grid with a clip-path reveal per tile.
+const TILES: Array<{
+  image: string
+  video?: string
+  alt: string
+  featured?: boolean
+}> = [
   {
     image: '/events/wedding-carriage.webp',
     alt: 'Newlyweds in a horse-drawn carriage',
+    featured: true,
+  },
+  {
+    image: '/videos/event-wedding-poster.webp',
+    video: '/videos/event-wedding',
+    alt: 'Wedding day film at Treasure Island',
     featured: true,
   },
   {
@@ -17,6 +28,12 @@ const TILES = [
   {
     image: '/photos/pool-loungers.webp',
     alt: 'The pool and loungers from above',
+  },
+  {
+    image: '/videos/event-beach-drummers-poster.webp',
+    video: '/videos/event-beach-drummers',
+    alt: 'Cultural drummers and dancers performing on the beach',
+    featured: true,
   },
   {
     image: '/events/wedding-carriage-wide.webp',
@@ -56,22 +73,25 @@ export function EventGallery() {
   })
 
   return (
-    <section ref={ref} className="page-wrap--wide mt-24">
-      <div className="max-w-2xl">
-        <SectionKicker>Gallery</SectionKicker>
-        <h2 className="display-title mt-2 text-3xl md:text-4xl">
-          Treasure Island <em>Ada</em>.
-        </h2>
-      </div>
-      <div className="mt-10 grid auto-rows-[minmax(0,1fr)] gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {TILES.map((tile) => (
-          <GalleryTile
-            key={tile.image}
-            image={tile.image}
-            alt={tile.alt}
-            featured={tile.featured}
-          />
-        ))}
+    <section ref={ref} className="mt-24">
+      <div className="page-wrap--wide">
+        <div className="max-w-2xl">
+          <SectionKicker>Gallery</SectionKicker>
+          <h2 className="display-title mt-2 text-3xl md:text-4xl">
+            Treasure Island <em>Ada</em>.
+          </h2>
+        </div>
+        <div className="mt-10 grid grid-flow-dense auto-rows-[minmax(0,1fr)] gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {TILES.map((tile) => (
+            <GalleryTile
+              key={tile.image}
+              image={tile.image}
+              video={tile.video}
+              alt={tile.alt}
+              featured={tile.featured}
+            />
+          ))}
+        </div>
       </div>
     </section>
   )

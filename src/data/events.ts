@@ -67,6 +67,8 @@ const EVENT_TYPES: Array<EventType> = [
       'From the engagement to the joyous day and all the important milestones in between, Treasure Island can handle any wedding function with flawless aplomb.',
     description: WEDDING_COPY,
     icon: 'Heart',
+    image: '/events/wedding-carriage.webp',
+    video: '/videos/event-wedding',
     gallery: ['/events/wedding-carriage.webp', '/photos/pool-at-night.webp'],
   },
   {
@@ -78,18 +80,9 @@ const EVENT_TYPES: Array<EventType> = [
       'Our warm and friendly staff will make every effort to ensure your event is memorable and successful.',
     description: MEETING_COPY,
     icon: 'Cake',
+    image: '/photos/lantern-terrace.webp',
+    video: '/videos/event-beach-drummers',
     gallery: ['/photos/lantern-terrace.webp', '/photos/pool-loungers.webp'],
-  },
-  {
-    slug: 'family',
-    category: 'family',
-    name: 'Family Parties',
-    title: 'Host a Family Party',
-    blurb:
-      'When you host a party or family reunion, the special celebrations let you strengthen bonds with those you hold most dear.',
-    description: FAMILY_COPY,
-    icon: 'Users',
-    gallery: ['/photos/pool-loungers.webp', '/photos/breakfast.webp'],
   },
   {
     slug: 'meetings',
@@ -100,11 +93,25 @@ const EVENT_TYPES: Array<EventType> = [
       'Treasure Island Resort offers an environment perfectly designed for successful events.',
     description: MEETING_COPY,
     icon: 'Presentation',
+    image: '/photos/conference-hall.webp',
+    video: '/videos/event-conference',
     gallery: [
       '/photos/conference-hall.webp',
       '/photos/ocean-deck-dining.webp',
       '/photos/lantern-terrace.webp',
     ],
+  },
+  {
+    slug: 'family',
+    category: 'family',
+    name: 'Family Parties',
+    title: 'Host a Family Party',
+    blurb:
+      'When you host a party or family reunion, the special celebrations let you strengthen bonds with those you hold most dear.',
+    description: FAMILY_COPY,
+    icon: 'Users',
+    image: '/photos/pool-loungers.webp',
+    gallery: ['/photos/pool-loungers.webp', '/photos/breakfast.webp'],
   },
 ]
 

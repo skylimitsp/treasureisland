@@ -12,11 +12,13 @@ export function BackgroundVideo({
   mobileSrc,
   priority = false,
   className,
+  onTimeUpdate,
 }: {
   src: string
   mobileSrc?: string
   priority?: boolean
   className?: string
+  onTimeUpdate?: (time: number) => void
 }) {
   const ref = useBackgroundVideo()
 
@@ -31,6 +33,11 @@ export function BackgroundVideo({
       poster={`${src}-poster.webp`}
       aria-hidden
       tabIndex={-1}
+      onTimeUpdate={
+        onTimeUpdate
+          ? (e) => onTimeUpdate(e.currentTarget.currentTime)
+          : undefined
+      }
       className={cn('pointer-events-none object-cover', className)}
     >
       {mobileSrc ? (

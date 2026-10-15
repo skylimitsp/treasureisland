@@ -1,14 +1,13 @@
 import { Link } from '@tanstack/react-router'
 import { Clock, Phone } from 'lucide-react'
 
-import { SectionKicker } from '#/components/shared/section-kicker'
 import { HeroSearch } from '#/components/rooms/hero-search'
 import { BackgroundVideo } from '#/components/shared/background-video'
 import { useGsap } from '#/hooks/use-gsap'
 import { gsap } from '#/lib/gsap'
 import { CONTACT } from '#/constants/site'
 
-// Full-bleed hero over a looping aerial video, headline, CTAs, search, social proof.
+// Full-bleed hero over the night → day aerial loop, headline, CTAs, search, social proof.
 export function Hero() {
   const ref = useGsap<HTMLElement>((self) => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -28,8 +27,8 @@ export function Hero() {
       className="relative isolate flex min-h-[100vh] items-center overflow-hidden bg-footer"
     >
       <BackgroundVideo
-        src="/videos/hero-aerial-day"
-        mobileSrc="/videos/hero-aerial-day-720"
+        src="/videos/hero-home"
+        mobileSrc="/videos/hero-home-720"
         priority
         className="absolute inset-0 -z-20 size-full"
       />
