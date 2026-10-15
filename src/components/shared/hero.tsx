@@ -25,7 +25,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative isolate flex min-h-[92vh] items-center overflow-hidden bg-footer"
+      className="relative isolate flex min-h-[100vh] items-center overflow-hidden bg-footer"
     >
       <BackgroundVideo
         src="/videos/hero-aerial-day"
@@ -37,18 +37,18 @@ export function Hero() {
       <div className="page-wrap w-full py-28">
         <div className="max-w-2xl">
           <div data-hero>
-            <SectionKicker className="!text-white/85">
-              Treasure Island Ada · Ada Foah, Ghana
-            </SectionKicker>
+            <h3 className="!text-white/85 text-3xl">
+              The best <em style={{ color: 'var(--gold)' }}>place</em> to be.
+            </h3>
           </div>
           <h1
             data-hero
             className="display-title mt-4 text-5xl leading-[1.03] text-white [text-shadow:0_2px_24px_rgba(23,58,64,.35)] md:text-7xl"
-          >
-            The best <em style={{ color: 'var(--gold)' }}>place</em> to be.
+            >
+            SS.Treasure Island Ada, Ghana
           </h1>
           <p data-hero className="mt-5 max-w-xl text-lg text-white/90">
-            A private island resort near the estuary of the Atlantic Ocean &
+            A Private Island Resort near the estuary of the Atlantic Ocean &
             Volta River. Book early.
           </p>
           <div data-hero className="mt-8 flex flex-wrap gap-3">
