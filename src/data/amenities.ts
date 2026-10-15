@@ -171,9 +171,19 @@ const AMENITIES: Array<Amenity> = [
       'our restaurant servers demonstrate extensive knowledge of all types of ' +
       'cuisine and dishes—especially the ingredients and cooking style of ' +
       'items on an à la carte menu.',
-    image: '/photos/ocean-deck-dining.webp',
-    hero: '/photos/ocean-deck-dining.webp',
-    gallery: ['/photos/ocean-deck-dining.webp', '/photos/breakfast.webp'],
+    image: '/photos/restaurant-main.webp',
+    hero: '/photos/restaurant-main.webp',
+    gallery: [
+      '/photos/restaurant-waterfront-plate.webp',
+      '/photos/restaurant-bar-cocktails.webp',
+      '/photos/restaurant-coconuts.webp',
+      '/photos/restaurant-frozen-cocktails.webp',
+      '/photos/restaurant-salmon.webp',
+      '/photos/restaurant-steak.webp',
+      '/photos/restaurant-burger.webp',
+      '/photos/restaurant-cheeseburger.webp',
+      '/photos/restaurant-main.webp',
+    ],
     icon: 'utensils',
     price: null,
     bookable: false,
