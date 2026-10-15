@@ -65,7 +65,7 @@ export function PageHero({
           </div>
           <h1
             data-hero
-            className="display-title mt-3 text-4xl text-white [text-shadow:0_2px_24px_rgba(23,58,64,.35)] md:text-6xl"
+            className="display-title mt-3 text-4xl text-white [text-shadow:0_2px_24px_rgba(23,58,64,.35)] md:text-5xl italic"
           >
             {title}
           </h1>
