@@ -17,7 +17,11 @@ const AMENITIES: Array<Amenity> = [
       'hot water and allow the jets and bubbles to soothe your troubles away.',
     image: '/photos/pool-at-night.webp',
     hero: '/photos/pool-at-night.webp',
-    gallery: ['/photos/pool-at-night.webp'],
+    gallery: [
+      '/photos/jacuzzi-night-tubs.webp',
+      '/photos/jacuzzi-night-terrace.webp',
+      '/photos/jacuzzi-night-aerial.webp',
+    ],
     icon: 'bath',
     price: 'GH₵ 290 per hour',
     bookable: true,
@@ -38,9 +42,9 @@ const AMENITIES: Array<Amenity> = [
       'floating at a leisurely pace through the hidden countryside. You could ' +
       'just treat yourself to a little well earned relaxation with a piece of ' +
       'home made cake and that favourite book!',
-    image: '/photos/jetski-trail.webp',
-    hero: '/photos/jetski-trail.webp',
-    gallery: ['/photos/jetski-trail.webp', '/photos/jetski-loop.webp'],
+    image: '/photos/jetski-loop.webp',
+    hero: '/photos/jetski-loop.webp',
+    gallery: ['/photos/jetski-loop.webp', '/photos/jetski-trail.webp'],
     icon: 'ship',
     price: 'From GH₵ 50',
     bookable: true,
@@ -64,7 +68,12 @@ const AMENITIES: Array<Amenity> = [
     image: '/photos/aerial-resort.webp',
     imageAlt: 'Aerial view of Treasure Island Ada',
     hero: '/photos/aerial-resort.webp',
-    gallery: [],
+    // Resort views until cinema photos arrive.
+    gallery: [
+      '/photos/resort-night.webp',
+      '/photos/island-shore.webp',
+      '/photos/lagoon-sunset.webp',
+    ],
     icon: 'film',
     price: 'GH₵ 30 per movie',
     bookable: true,
@@ -82,10 +91,14 @@ const AMENITIES: Array<Amenity> = [
       'riverwalk.',
     image: '/photos/jetski-loop.webp',
     hero: '/photos/jetski-loop.webp',
-    gallery: ['/photos/jetski-loop.webp'],
+    gallery: [
+      '/photos/taxi-boat-pontoon.webp',
+      '/photos/taxi-boat-arrival.webp',
+      '/photos/taxi-boat-shore.webp',
+    ],
     icon: 'sailboat',
-    price: 'GH₵ 50 per person',
-    priceNote: 'In or Out of Island',
+    // The resort asked for no crossing price on the site.
+    price: null,
     bookable: true,
   },
   {

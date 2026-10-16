@@ -12,7 +12,7 @@ import {
 } from '#/lib/animations'
 import { AmenitiesHero } from '#/components/amenities/amenities-hero'
 import { AmenityShowcase } from '#/components/amenities/amenity-showcase'
-import { AmenityStats } from '#/components/amenities/amenity-stats'
+import { AmenityOverview } from '#/components/amenities/amenity-overview'
 import { ActivitiesReel } from '#/components/shared/activities-reel'
 import { FixedDivider } from '#/components/shared/fixed-divider'
 
@@ -49,7 +49,7 @@ function AmenitiesPage() {
       <AmenitiesHero />
       <ActivitiesReel className="mt-24" />
       <AmenityShowcase />
-      <AmenityStats />
+      <AmenityOverview />
       <FixedDivider
         image="/photos/beach-hero.webp"
         kicker="Treasure Island Ada"

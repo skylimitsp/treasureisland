@@ -34,7 +34,7 @@ export function campaignEmail(
 <h1 style="color:#173a40;font-size:24px;line-height:1.3;margin:8px 0 20px">${esc(c.subject)}</h1>
 ${campaignBodyHtml(c.body)}${button}
 <hr style="border:none;border-top:1px solid #dbe5e3;margin:32px 0 16px" />
-<p style="color:#4f6b70;font-size:12px;line-height:1.5;margin:0">Treasure Island Ada · Ada Foah, Volta Region, Ghana · (+233) 055 270 1946<br />
+<p style="color:#4f6b70;font-size:12px;line-height:1.5;margin:0">Treasure Island Ada · Ada Foah, Greater Accra Region, Ghana · (+233) 055 270 1946<br />
 You are receiving this because you subscribed at <a href="${esc(siteUrl)}" style="color:#4f6b70">${esc(siteUrl.replace(/^https?:\/\//, ''))}</a>.
 <a href="${esc(unsubscribeUrl)}" style="color:#4f6b70">Unsubscribe</a></p>
 </div></body></html>`

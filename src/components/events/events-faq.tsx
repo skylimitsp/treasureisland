@@ -7,7 +7,7 @@ import { CONTACT } from '#/constants/site'
 const FAQS = [
   {
     q: 'How do I enquire about an event?',
-    a: `Call us on ${CONTACT.phone}, message us on WhatsApp at ${CONTACT.whatsapp} or email ${CONTACT.email} — or use the enquiry form on this page.`,
+    a: `Call or WhatsApp us on ${CONTACT.phone}, email ${CONTACT.email} — or use the enquiry form on this page.`,
   },
   {
     q: 'Do you offer group rates?',
@@ -19,7 +19,7 @@ const FAQS = [
   },
   {
     q: 'Where is Treasure Island?',
-    a: 'Ada Foah, Volta Region, Ghana — on a private island near the estuary of the Atlantic Ocean & Volta River.',
+    a: 'Ada Foah, Greater Accra Region, Ghana — on a private island near the estuary of the Atlantic Ocean & Volta River.',
   },
   {
     q: 'How do we get there?',

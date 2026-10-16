@@ -16,7 +16,7 @@ import { BookingCard } from '#/components/rooms/booking-card'
 import { SimilarRooms } from '#/components/rooms/similar-rooms'
 import { bgImage } from '#/lib/media'
 
-const LOCATION = 'Ada Foah, Volta Region, Ghana'
+const LOCATION = 'Ada Foah, Greater Accra Region, Ghana'
 
 export const Route = createFileRoute('/rooms/$roomSlug')({
   loader: async ({ context, params }) => {

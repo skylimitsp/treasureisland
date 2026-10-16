@@ -50,7 +50,7 @@ const FAQS: Array<Faq> = [
   },
   {
     q: 'How do I make a booking?',
-    a: 'Call (+233)-055-270-1946, WhatsApp (+233)-30-291-8140 or email reservations@treasureislandghana.com. Mobile Money payments: (+233)-24-842-3724.',
+    a: 'Call or WhatsApp (+233)-055-270-1946, or email reservations@treasureislandghana.com.',
   },
 ]
 

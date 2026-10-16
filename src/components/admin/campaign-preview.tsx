@@ -36,8 +36,8 @@ export function CampaignPreview({ draft }: { draft: CampaignDraft }) {
           </span>
         ) : null}
         <p className="mt-8 border-t border-line pt-4 text-[11px] leading-relaxed text-sea-ink-soft">
-          Treasure Island Ada · Ada Foah, Volta Region, Ghana · (+233) 055 270
-          1946
+          Treasure Island Ada · Ada Foah, Greater Accra Region, Ghana · (+233)
+          055 270 1946
           <br />
           You are receiving this because you subscribed.{' '}
           <span className="underline">Unsubscribe</span>

@@ -114,9 +114,6 @@ export function SiteFooter() {
           <p className="text-sm text-white/70">
             © {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
-          <p className="text-sm text-white/70">
-            Mobile Money: {CONTACT.mobileMoney}
-          </p>
         </div>
       </div>
 

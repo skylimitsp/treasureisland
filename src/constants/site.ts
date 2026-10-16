@@ -18,12 +18,12 @@ export const SITE = {
 export const CONTACT = {
   phone: '(+233)-055-270-1946',
   phoneHref: 'tel:+233552701946',
-  whatsapp: '(+233)-30-291-8140',
-  whatsappHref: 'https://wa.me/233302918140',
-  mobileMoney: '(+233)-24-842-3724',
+  // WhatsApp runs on the same cell number as the phone line.
+  whatsapp: '(+233)-055-270-1946',
+  whatsappHref: 'https://wa.me/233552701946',
   email: 'reservations@treasureislandghana.com',
   locality: 'Ada Foah',
-  region: 'Volta Region',
+  region: 'Greater Accra Region',
   country: 'Ghana',
   hours: '24 Hours',
 } as const
