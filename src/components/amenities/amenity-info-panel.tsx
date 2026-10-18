@@ -1,4 +1,4 @@
-import { Clock, MapPin, Tag, Users } from 'lucide-react'
+import { Clock, MapPin, Users } from 'lucide-react'
 
 import type { Amenity } from '#/types'
 
@@ -8,13 +8,6 @@ export function AmenityInfoPanel({ amenity }: { amenity: Amenity }) {
     { icon: Clock, label: 'Hours', value: amenity.hours },
     { icon: MapPin, label: 'Location', value: amenity.location },
     { icon: Users, label: 'Capacity', value: amenity.capacity },
-    {
-      icon: Tag,
-      label: 'Price',
-      value: amenity.price
-        ? [amenity.price, amenity.priceNote].filter(Boolean).join(' · ')
-        : undefined,
-    },
   ].filter((row) => Boolean(row.value))
 
   if (rows.length === 0) return null

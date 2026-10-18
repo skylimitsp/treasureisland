@@ -26,8 +26,8 @@ const TILES: Array<{
     alt: 'A couple at their wedding ceremony',
   },
   {
-    image: '/photos/pool-loungers.webp',
-    alt: 'The pool and loungers from above',
+    image: '/events/gallery/event-06.webp',
+    alt: 'A waterfront deck set for guests',
   },
   {
     image: '/videos/event-beach-drummers-poster.webp',
@@ -46,7 +46,7 @@ const TILES: Array<{
   },
   {
     image: '/gallery/g-sunset-deck.webp',
-    alt: 'Sunset over the water from the lounge deck',
+    alt: 'The Golden Hour',
   },
 ]
 

@@ -6,7 +6,7 @@ import { FacilityChip } from '#/components/shared/facility-chip'
 import type { Amenity } from '#/types'
 import { ResponsiveImage } from '#/components/shared/responsive-image'
 
-// Editorial showcase row — icon, kicker, linked title, blurb, price badge,
+// Editorial showcase row — icon, kicker, linked title, blurb,
 // and an arched photo that alternates side by row index.
 export function AmenityRow({
   amenity,
@@ -88,14 +88,6 @@ export function AmenityRow({
           >
             Learn more <ArrowRight size={16} aria-hidden />
           </Link>
-          {amenity.price ? (
-            <span className="price-badge">{amenity.price}</span>
-          ) : null}
-          {amenity.priceNote ? (
-            <span className="text-sm text-sea-ink-soft">
-              {amenity.priceNote}
-            </span>
-          ) : null}
         </div>
       </div>
     </article>

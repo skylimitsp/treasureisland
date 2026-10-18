@@ -8,6 +8,8 @@ export interface ImageMeta {
 }
 
 export const IMAGE_MANIFEST: Record<string, ImageMeta | undefined> = {
+  '/events/gallery/event-06.webp': { w: 960, h: 640, avif: false, sm: false },
+  '/events/gallery/event-09.webp': { w: 960, h: 640, avif: false, sm: false },
   '/events/wedding-carriage-wide.webp': {
     w: 1024,
     h: 768,

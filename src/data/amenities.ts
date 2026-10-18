@@ -23,7 +23,7 @@ const AMENITIES: Array<Amenity> = [
       '/photos/jacuzzi-night-aerial.webp',
     ],
     icon: 'bath',
-    price: 'GH₵ 290 per hour',
+    price: null,
     bookable: true,
   },
   {
@@ -46,7 +46,7 @@ const AMENITIES: Array<Amenity> = [
     hero: '/photos/jetski-loop.webp',
     gallery: ['/photos/jetski-loop.webp', '/photos/jetski-trail.webp'],
     icon: 'ship',
-    price: 'From GH₵ 50',
+    price: null,
     bookable: true,
   },
   {
@@ -75,7 +75,7 @@ const AMENITIES: Array<Amenity> = [
       '/photos/lagoon-sunset.webp',
     ],
     icon: 'film',
-    price: 'GH₵ 30 per movie',
+    price: null,
     bookable: true,
   },
   {
@@ -97,7 +97,7 @@ const AMENITIES: Array<Amenity> = [
       '/photos/taxi-boat-shore.webp',
     ],
     icon: 'sailboat',
-    // The resort asked for no crossing price on the site.
+    // The resort no longer publishes prices on the site.
     price: null,
     bookable: true,
   },
@@ -127,8 +127,7 @@ const AMENITIES: Array<Amenity> = [
     ],
     icon: 'waves',
     // Price-list figure is for the swimming pool; the cabana fee is unpublished.
-    price: 'GH₵ 80 per adult',
-    priceNote: 'In or Out of Island',
+    price: null,
     bookable: true,
   },
   {
@@ -151,7 +150,7 @@ const AMENITIES: Array<Amenity> = [
       '/photos/horse-riding-path.webp',
     ],
     icon: 'compass',
-    price: 'GH₵ 50 per person',
+    price: null,
     bookable: true,
   },
   // {
@@ -171,7 +170,7 @@ const AMENITIES: Array<Amenity> = [
   //   hero: '/photos/resort-night.webp',
   //   gallery: [],
   //   icon: 'gamepad',
-  //   price: 'GH₵ 10 per game',
+  //   price: null,
   //   bookable: false,
   // },
   {

@@ -31,7 +31,7 @@ export function PhotoCollage() {
         <ResponsiveImage
           sizes="(min-width: 768px) 25vw, 50vw"
           src="/photos/luxury-pool-loungers.webp"
-          alt="Guests relaxing on in-pool loungers"
+          alt="Guests relaxing in the pool."
           loading="lazy"
           decoding="async"
           className="h-full w-full object-cover"

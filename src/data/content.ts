@@ -34,7 +34,7 @@ const FAQS: Array<Faq> = [
   },
   {
     q: 'How do I get to Treasure Island from Accra?',
-    a: 'Ada Foah is roughly 100 km from Accra, about 2 hours by road. Tro-tros (shared minibuses) run from major stations including Accra’s Tema Station, and taxis or private cars offer direct routes. The resort sits on an island in the Volta River, so the final stretch is a river crossing by boat.',
+    a: 'By road from Accra it is about 100 km (65 miles), an estimated 2 hours. Tro-tros (shared minibuses) run from major stations including Accra’s Tema Station; taxis or private cars offer direct routes. The resort is on an island near the Volta River and Atlantic Ocean, so the journey involves crossing the river by water taxi pontoon, which departs from our dedicated secured parking at a small cost but is free for overnight stays.',
   },
   {
     q: 'When are you open?',
@@ -101,8 +101,8 @@ const ABOUT: AboutContent = {
       alt: 'The pool and jacuzzis lit up at night',
     },
     {
-      src: '/photos/palm-pool-aerial.webp',
-      alt: 'The pool and water slide from above',
+      src: '/photos/swimming-pool-waterfall.webp',
+      alt: 'Guests swimming by the waterfall pool',
     },
     { src: '/rooms/suite-bedroom.webp', alt: 'A suite bedroom' },
     { src: '/events/wedding-ceremony.webp', alt: 'A wedding celebration' },

@@ -28,7 +28,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-img-2038-poster.webp',
     w: 720,
     h: 1280,
-    alt: 'The newlyweds’ first dance',
+    alt: 'Father and daughter dance',
     duration: 17,
   },
   {
@@ -38,7 +38,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-sunset-deck-720.webp',
     w: 1200,
     h: 1600,
-    alt: 'Sunset over the water from the lounge deck',
+    alt: 'The Golden Hour',
   },
   {
     id: 'wedding-carriage',
@@ -66,7 +66,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-team-palms-720.webp',
     w: 1200,
     h: 1600,
-    alt: 'The Treasure Island team in red beneath the palms',
+    alt: 'When we celebrate Christmas, we really do in style. Happy Holidays to you.',
   },
   {
     id: 'pool-at-night',
@@ -84,7 +84,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-activity-showcase-poster.webp',
     w: 696,
     h: 1280,
-    alt: 'Paddleboarding by the overwater bungalow',
+    alt: 'Waterbikes are a good way to workout',
     duration: 60,
   },
   {
@@ -168,7 +168,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/videos/event-beach-drummers-poster.webp',
     w: 720,
     h: 1280,
-    alt: 'Drummers and dancers on the beach',
+    alt: 'A traditional welcome awaits you',
     duration: 18,
   },
   {
@@ -178,7 +178,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-honeymoon-suite-720.webp',
     w: 810,
     h: 1080,
-    alt: 'A suite dressed with red heart balloons and rose petals',
+    alt: 'Make that special someone feel very special',
   },
   {
     id: 'g-fishing-group',
@@ -187,7 +187,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-fishing-group-720.webp',
     w: 1600,
     h: 1200,
-    alt: 'Anglers with their catch under the Welcome to Treasure Island sign',
+    alt: 'Make sure to bring your fishing rod. You never know what size fish you’ll catch.',
   },
   {
     id: 'v-video-2026-04-07-04-33-03',
@@ -215,7 +215,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-wedding-carriage-720.webp',
     w: 1600,
     h: 1200,
-    alt: 'A horse-drawn carriage beside the water slides',
+    alt: 'All white horse and carriage to pick up the bride and maid of honor.',
   },
   {
     id: 'v-birthday',
@@ -243,7 +243,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-waterfront-bar-720.webp',
     w: 1200,
     h: 1600,
-    alt: 'A waiter at a drinks table set by the water',
+    alt: 'Ready to serve you!',
   },
   {
     id: 'v-img-8474',
@@ -252,7 +252,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-img-8474-poster.webp',
     w: 960,
     h: 1280,
-    alt: 'Jet skis and boats at the shore',
+    alt: 'Come and enjoy our jet skis and water taxis that feel like a boat ride.',
     duration: 40,
   },
   {
@@ -271,7 +271,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-beach-heart-720.webp',
     w: 958,
     h: 1327,
-    alt: 'A heart drawn in the sand at the water’s edge',
+    alt: '❤️ Treasure Island Ada.',
   },
   {
     id: 'event-film',
@@ -280,17 +280,8 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/videos/event-film-poster.webp',
     w: 352,
     h: 640,
-    alt: 'A night on the island',
+    alt: 'No event is too big for us. Make sure to hold your next events at Treasure Island Ada.',
     duration: 90,
-  },
-  {
-    id: 'event-02',
-    kind: 'photo',
-    src: '/events/gallery/event-02.webp',
-    thumb: '/events/gallery/event-02.webp',
-    w: 960,
-    h: 640,
-    alt: 'A gold dessert table with white florals',
   },
   {
     id: 'g-all-white-gathering',
@@ -299,7 +290,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-all-white-gathering-720.webp',
     w: 1200,
     h: 1600,
-    alt: 'Guests in white at a waterfront gathering',
+    alt: 'All white party.',
   },
   {
     id: 'v-video-2026-04-07-04-53-49',
@@ -355,7 +346,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-pool-loungers-guests-720.webp',
     w: 810,
     h: 1080,
-    alt: 'Guests relaxing on in-pool loungers',
+    alt: 'Guests relaxing in the pool.',
   },
   {
     id: 'v-boat-ride',
@@ -383,7 +374,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-red-carpet-720.webp',
     w: 1200,
     h: 1600,
-    alt: 'Guests on the red carpet under a waterfront cabana',
+    alt: 'Guests at the Waterfront red carpet',
   },
   {
     id: 'v-img-1940',
@@ -392,7 +383,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-img-1940-poster.webp',
     w: 720,
     h: 1280,
-    alt: 'Setting up a waterfront banquet',
+    alt: 'Make your Special Day as special as you.',
     duration: 60,
   },
   {
@@ -411,7 +402,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-evening-walkway-720.webp',
     w: 1200,
     h: 1600,
-    alt: 'A guest on the lantern-lit walkway at night',
+    alt: 'It’s beginning to look a lot like Christmas',
   },
   {
     id: 'event-wedding',
@@ -428,8 +419,8 @@ const GALLERY: Array<GalleryItem> = [
     kind: 'photo',
     src: '/photos/restaurant-coconuts.webp',
     thumb: '/photos/restaurant-coconuts.webp',
-    w: 1200,
-    h: 1600,
+    w: 810,
+    h: 1080,
     alt: 'Fresh coconuts on the terrace',
   },
   {
@@ -448,7 +439,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-rpreplay-final1724966252-poster.webp',
     w: 668,
     h: 1080,
-    alt: 'Stepping off the pontoon boat',
+    alt: 'A big AKWAABA!!',
     duration: 6,
   },
   {
@@ -458,7 +449,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/events/gallery/event-09.webp',
     w: 960,
     h: 640,
-    alt: 'A group in matching white and gold',
+    alt: 'It’s a family affair.',
   },
   {
     id: 'g-fishing-boat',
@@ -476,7 +467,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-img-1971-poster.webp',
     w: 960,
     h: 1280,
-    alt: 'Long tables laid for a celebration',
+    alt: 'Buffet setup',
     duration: 24,
   },
   {
@@ -486,7 +477,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/photos/horse-riding-path.webp',
     w: 1125,
     h: 1337,
-    alt: 'A horse and rider on the palm path',
+    alt: 'Happy Independence Day Ghana.',
   },
   {
     id: 'g-white-party',
@@ -504,7 +495,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-music-session-poster.webp',
     w: 720,
     h: 1280,
-    alt: 'A live music session',
+    alt: 'Groomsmen are over the moon',
     duration: 22,
   },
   {
@@ -523,7 +514,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/g-buffet-night-team-720.webp',
     w: 1200,
     h: 1600,
-    alt: 'Hosts beside an evening buffet',
+    alt: 'Welcome coconuts to refresh you.',
   },
   {
     id: 'v-events-activity-gallery',
@@ -532,7 +523,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-events-activity-gallery-poster.webp',
     w: 960,
     h: 1280,
-    alt: 'An evening event on the terrace',
+    alt: 'Book your rooms and party with us.',
     duration: 42,
   },
   {
@@ -551,7 +542,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-video-2026-04-07-04-32-57-poster.webp',
     w: 480,
     h: 848,
-    alt: 'The pool at night',
+    alt: 'Nowhere but Treasure Island Ada, book our new extension and enjoy the best jacuzzis and pool, anytime!',
     duration: 60,
   },
   {
@@ -561,7 +552,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/events/gallery/event-05.webp',
     w: 971,
     h: 640,
-    alt: 'A birthday photo wall with a balloon arch',
+    alt: 'Plan and host your birthday party at Treasure Island Ada.',
   },
   {
     id: 'resort-night',
@@ -579,7 +570,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-img-8605-poster.webp',
     w: 720,
     h: 1280,
-    alt: 'Boats at the shoreline',
+    alt: 'A must have photo by the treasure chest. Welcome to Treasure Island Ada.',
     duration: 8,
   },
   {
@@ -589,7 +580,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-activities-gallery-showcase-poster.webp',
     w: 886,
     h: 1090,
-    alt: 'Guests unwinding in the lounge',
+    alt: 'Create your unforgettable memories.',
     duration: 60,
   },
   {
@@ -609,7 +600,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/gallery/v-video-2026-04-02-10-38-52-poster.webp',
     w: 480,
     h: 848,
-    alt: 'Lunch served by the pool',
+    alt: 'Nothing’s better than drinks in style.',
     duration: 60,
   },
   {

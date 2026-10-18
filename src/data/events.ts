@@ -12,7 +12,7 @@ const MEETING_COPY = [
 ]
 
 const WEDDING_COPY = [
-  'From the engagement to the joyous day and all the important milestones in between, Treasure Island can handle any wedding function with flawless aplomb. Our wedding planners collaborate with the bride and groom to create an event that will delight the couple, the parents and all friends and family who attend. Whether a couple chooses a traditional ceremony or a themed extravaganza, the Treasure Island team ensures that the day is nothing short of perfection. With everything so adroitly handled, the bridal couple is free to relax and anticipate their beautiful ceremony.',
+  'From the engagement to the joyous day and all the important milestones in between, Treasure Island Ada can handle any wedding size without a hitch. Our wedding planners collaborate with the bride and groom to create an event that will delight the couple, the parents and all friends and family who attend. Whether a couple chooses a traditional ceremony or a themed extravaganza, the Treasure Island team ensures that the day is nothing short of perfection. With everything so adroitly handled, the bridal couple is free to relax and anticipate their beautiful ceremony.',
   'A wedding at Treasure Island Resort ensures unique menus designed for each ceremony, gorgeous choices for indoor and outdoor banquet rooms, beautiful accommodations for your guests, and an expert catering team that thrives on making every detail of the event extravagant, elegant and lively.',
 ]
 
@@ -26,7 +26,7 @@ const EVENT_TEASERS: Array<EventTeaser> = [
     slug: 'weddings',
     name: 'Weddings',
     blurb:
-      'From the engagement to the joyous day and all the important milestones in between, Treasure Island can handle any wedding function with flawless aplomb.',
+      'From the engagement to the joyous day and all the important milestones in between, Treasure Island Ada can handle any wedding size without a hitch.',
     image: '/events/wedding-carriage.webp',
     video: '/videos/event-wedding',
     tag: 'Ada Foah',
@@ -49,7 +49,7 @@ const EVENT_TEASERS: Array<EventTeaser> = [
     name: 'Host a Family Party',
     blurb:
       'When you host a party or family reunion, the special celebrations let you strengthen bonds with those you hold most dear.',
-    image: '/photos/pool-loungers.webp',
+    image: '/events/gallery/event-09.webp',
     tag: 'Ada Foah',
     kicker: 'Events & Meetings',
     cta: 'Plan a reunion',
@@ -64,7 +64,7 @@ const EVENT_TYPES: Array<EventType> = [
     name: 'Weddings',
     title: 'Weddings',
     blurb:
-      'From the engagement to the joyous day and all the important milestones in between, Treasure Island can handle any wedding function with flawless aplomb.',
+      'From the engagement to the joyous day and all the important milestones in between, Treasure Island Ada can handle any wedding size without a hitch.',
     description: WEDDING_COPY,
     icon: 'Heart',
     image: '/events/wedding-carriage.webp',
@@ -110,8 +110,8 @@ const EVENT_TYPES: Array<EventType> = [
       'When you host a party or family reunion, the special celebrations let you strengthen bonds with those you hold most dear.',
     description: FAMILY_COPY,
     icon: 'Users',
-    image: '/photos/pool-loungers.webp',
-    gallery: ['/photos/pool-loungers.webp', '/photos/breakfast.webp'],
+    image: '/events/gallery/event-09.webp',
+    gallery: ['/events/gallery/event-09.webp', '/photos/breakfast.webp'],
   },
 ]
 

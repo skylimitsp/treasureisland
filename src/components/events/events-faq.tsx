@@ -23,7 +23,7 @@ const FAQS = [
   },
   {
     q: 'How do we get there?',
-    a: 'By road from Accra it is roughly 100 km, about 2 hours. Tro-tros (shared minibuses) run from major stations including Accra’s Tema Station; taxis or private cars offer direct routes. The resort is on an island in the Volta River, so the journey involves crossing the river: local ferries depart from points along the Volta, and chartered motorboats suit groups.',
+    a: 'By road from Accra it is about 100 km (65 miles), an estimated 2 hours. Tro-tros (shared minibuses) run from major stations including Accra’s Tema Station; taxis or private cars offer direct routes. The resort is on an island near the Volta River and Atlantic Ocean, so the journey involves crossing the river by water taxi pontoon, which departs from our dedicated secured parking at a small cost but is free for overnight stays.',
   },
 ]
 

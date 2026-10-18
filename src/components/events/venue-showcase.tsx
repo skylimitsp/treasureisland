@@ -21,7 +21,7 @@ const SPACES = [
     name: 'Pool & waterfront cabanas',
     caption:
       'Watch the sun rise or set from the beach front cabanas while sipping on your favorite drinks or just relaxing.',
-    image: '/photos/pool-loungers.webp',
+    image: '/photos/swimming-pool-waterfall.webp',
     speed: '1.0',
   },
 ]
