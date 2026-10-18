@@ -337,7 +337,7 @@ const GALLERY: Array<GalleryItem> = [
     thumb: '/photos/restaurant-main.webp',
     w: 1440,
     h: 1920,
-    alt: 'The chef at the evening buffet',
+    alt: 'Dinner Buffet',
   },
   {
     id: 'g-pool-loungers-guests',

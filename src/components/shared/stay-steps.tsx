@@ -4,7 +4,7 @@ import { ArchPhoto } from '#/components/shared/arch-photo'
 import { BookingPreviewCard } from '#/components/shared/booking-preview-card'
 import { ColorBlockPanel } from '#/components/shared/color-block-panel'
 
-// How a stay comes together: four colour-blocked steps, room to extras.
+// How a stay comes together: four colour-blocked steps, room to dinner.
 export function StaySteps() {
   return (
     <section className="page-wrap--wide mt-28" aria-labelledby="steps-title">
@@ -45,17 +45,17 @@ export function StaySteps() {
           tone="warm"
           badge="03"
           title="Arrive and unwind"
-          body="Cross the river to the island and settle in — we’re open 24 hours, and a warm welcome awaits you."
+          body="Cross the river to the island, settle in, then soak in the pool or a jacuzzi under the evening lights."
         >
           <ArchPhoto src="/photos/pool-at-night.webp" />
         </ColorBlockPanel>
         <ColorBlockPanel
           tone="blush"
           badge={<Sparkles size={18} aria-hidden />}
-          title="Add the extras"
-          body="A boat cruise or jet ski, horse riding, the 12D cinema or a jacuzzi bath — add them during your stay."
+          title="Dine in style"
+          body="End the day at our dinner buffet, with a full bar and restaurant serving you by the water."
         >
-          <ArchPhoto src="/photos/ocean-deck-dining.webp" />
+          <ArchPhoto src="/photos/restaurant-main.webp" />
         </ColorBlockPanel>
       </ul>
 
