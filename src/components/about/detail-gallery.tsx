@@ -5,8 +5,8 @@ import { ResponsiveImage } from '#/components/shared/responsive-image'
 const PHOTOS = [
   { src: '/photos/aerial-resort.webp', alt: 'Treasure Island Ada from above' },
   {
-    src: '/photos/ocean-deck-dining.webp',
-    alt: 'Guests dining on the waterside deck',
+    src: '/photos/restaurant-main.webp',
+    alt: 'A guest at the evening buffet on the restaurant terrace',
   },
   {
     src: '/photos/infinity-lounge.webp',
