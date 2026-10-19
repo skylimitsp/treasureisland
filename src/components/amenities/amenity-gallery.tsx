@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
-import { X } from 'lucide-react'
+import { useState } from 'react'
 
+import { AmenityLightbox } from '#/components/amenities/amenity-lightbox'
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { useGsap } from '#/hooks/use-gsap'
 import { gsap, ScrollTrigger } from '#/lib/gsap'
 import { ResponsiveImage } from '#/components/shared/responsive-image'
 
-// Mosaic gallery with a clip-wipe image-reveal per tile and a keyboard-driven
+// Mosaic gallery with a clip-wipe image-reveal per tile and a full-screen
 // lightbox. Hidden with fewer than two photos (the hero already shows one).
 export function AmenityGallery({
   images,
@@ -38,18 +38,6 @@ export function AmenityGallery({
     })
   })
 
-  useEffect(() => {
-    if (open === null) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(null)
-      if (e.key === 'ArrowRight') setOpen((i) => ((i ?? 0) + 1) % images.length)
-      if (e.key === 'ArrowLeft')
-        setOpen((i) => ((i ?? 0) - 1 + images.length) % images.length)
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [open, images.length])
-
   if (images.length < 2) return null
   // A pair sits side by side; three or more lead with one large tile.
   const pair = images.length === 2
@@ -60,7 +48,7 @@ export function AmenityGallery({
       <h2 className="display-title mt-2 text-2xl md:text-3xl">A closer look</h2>
 
       <div
-        className={`mt-6 grid auto-rows-[minmax(0,1fr)] gap-4 sm:grid-cols-2 ${
+        className={`mt-6 grid grid-cols-2 sm:auto-rows-[minmax(0,1fr)] gap-3 sm:gap-4 ${
           pair ? '' : 'lg:grid-cols-3'
         }`}
       >
@@ -69,8 +57,9 @@ export function AmenityGallery({
             key={src + i}
             type="button"
             onClick={() => setOpen(i)}
+            aria-label={`Open photo ${i + 1} of ${images.length}`}
             className={`img-frame group relative overflow-hidden rounded-md border border-line ${
-              i === 0 && !pair ? 'sm:col-span-2 sm:row-span-2' : ''
+              i === 0 && !pair ? 'col-span-2 sm:row-span-2' : ''
             }`}
           >
             <ResponsiveImage
@@ -92,29 +81,13 @@ export function AmenityGallery({
       </div>
 
       {open !== null ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${name} gallery`}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
-          onClick={() => setOpen(null)}
-        >
-          <button
-            type="button"
-            aria-label="Close gallery"
-            className="absolute right-4 top-4 flex size-11 items-center justify-center rounded-full bg-white/15 text-white"
-            onClick={() => setOpen(null)}
-          >
-            <X aria-hidden />
-          </button>
-          <ResponsiveImage
-            sizes="100vw"
-            src={images[open]}
-            alt={`${name} — photo ${open + 1}`}
-            className="max-h-[86vh] max-w-full rounded-md object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
+        <AmenityLightbox
+          images={images}
+          name={name}
+          index={open}
+          onClose={() => setOpen(null)}
+          onSelect={setOpen}
+        />
       ) : null}
     </section>
   )

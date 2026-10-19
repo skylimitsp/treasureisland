@@ -43,6 +43,18 @@ export const IMAGE_MANIFEST: Record<string, ImageMeta | undefined> = {
     avif: false,
     sm: false,
   },
+  '/photos/cabanas-beach-daybeds.webp': {
+    w: 1080,
+    h: 810,
+    avif: false,
+    sm: false,
+  },
+  '/photos/cabanas-poolside-deck.webp': {
+    w: 1200,
+    h: 1600,
+    avif: false,
+    sm: false,
+  },
   '/photos/beach-hero.webp': { w: 1618, h: 1078, avif: true, sm: true },
   '/photos/breakfast.webp': { w: 1066, h: 1600, avif: true, sm: true },
   '/photos/conference-hall.webp': { w: 1620, h: 1080, avif: true, sm: true },

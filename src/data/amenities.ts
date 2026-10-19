@@ -9,10 +9,11 @@ const AMENITIES: Array<Amenity> = [
     name: 'Jacuzzi Bath',
     category: 'Let’s relax',
     blurb:
-      'There is nothing more romantic to round off your city break in Ada than choosing a decadent hotel with a hot tub.',
+      'There is nothing more romantic to round off your city break in Ada than choosing a sublime hotel with a hot tub.',
     description:
-      'There is nothing more romantic to round off your city break in Ada ' +
-      'than choosing a decadent hotel with a hot tub. Whilst the rest of Ada ' +
+      'There’s nothing more relaxing and romantic to round off your city ' +
+      'break in Ada than choosing a sublime hotel and exquisite hot tubs. ' +
+      'Whilst the rest of Ada ' +
       'freezes under a cold snap, you can simply sink into the depths of the ' +
       'hot water and allow the jets and bubbles to soothe your troubles away.',
     image: '/photos/pool-at-night.webp',
@@ -121,9 +122,9 @@ const AMENITIES: Array<Amenity> = [
     hero: '/photos/swimming-pool-waterfall.webp',
     heroPosition: 'center 68%', // frame the guests in the pool, not the rocks
     gallery: [
-      '/photos/palm-pool-aerial.webp',
-      '/photos/pool-loungers.webp',
-      '/photos/beach-hero.webp',
+      '/photos/swimming-pool-waterfall.webp',
+      '/photos/cabanas-beach-daybeds.webp',
+      '/photos/cabanas-poolside-deck.webp',
     ],
     icon: 'waves',
     // Price-list figure is for the swimming pool; the cabana fee is unpublished.
