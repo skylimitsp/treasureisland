@@ -1,6 +1,6 @@
 /**
  * Creates (or resets) a staff admin. Usage:
- *   ADMIN_PASSWORD='…' pnpm db:create-admin <email> "<Full Name>" [--remote]
+ *   ADMIN_PASSWORD='…' yarn db:create-admin <email> "<Full Name>" [--remote]
  * @author Joseph Nartey
  * @github devjoemedia
  */
@@ -14,7 +14,7 @@ const password = process.env.ADMIN_PASSWORD
 
 if (!email || !name || !password || password.length < 10) {
   console.error(
-    'Usage: ADMIN_PASSWORD=<10+ chars> pnpm db:create-admin <email> "<Full Name>" [--remote]',
+    'Usage: ADMIN_PASSWORD=<10+ chars> yarn db:create-admin <email> "<Full Name>" [--remote]',
   )
   process.exit(1)
 }
@@ -27,9 +27,9 @@ const sql =
   `ON CONFLICT(email) DO UPDATE SET password_hash = excluded.password_hash, role = 'admin', active = 1;`
 
 execFileSync(
-  'pnpm',
+  'yarn',
   [
-    'exec',
+    '--silent',
     'wrangler',
     'd1',
     'execute',

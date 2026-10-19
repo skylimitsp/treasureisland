@@ -1,5 +1,5 @@
 /**
- * Seeds D1 from the src/data mocks. Usage: pnpm db:seed [--remote] [--demo]
+ * Seeds D1 from the src/data mocks. Usage: yarn db:seed [--remote] [--demo]
  * @author Joseph Nartey
  * @github devjoemedia
  */
@@ -17,9 +17,9 @@ writeFileSync(file, buildSeedSql({ demo }))
 console.log(`Wrote ${file}${demo ? ' (with demo data)' : ''}`)
 
 execFileSync(
-  'pnpm',
+  'yarn',
   [
-    'exec',
+    '--silent',
     'wrangler',
     'd1',
     'execute',

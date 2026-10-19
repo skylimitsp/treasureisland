@@ -12,52 +12,51 @@ stay**. Contributor conventions are in [`CLAUDE.md`](./CLAUDE.md).
 - **Fraunces** (display) + **Manrope** (body) type; beach-themed design tokens
 - **@faker-js/faker** for mock seed data
 - **Cloudflare Workers** deploy via `@cloudflare/vite-plugin` + `wrangler`
-- **pnpm** (required package manager)
+- **Yarn 1** (`yarn@1.22.22`, required package manager; npm and pnpm installs are refused)
 
 ## Getting started
 
 ```bash
-pnpm install
-pnpm dev        # http://localhost:3000
+yarn install
+yarn dev        # http://localhost:3000
 ```
 
-`pnpm dev` runs the app in the Cloudflare Workers runtime (via
+`yarn dev` runs the app in the Cloudflare Workers runtime (via
 `@cloudflare/vite-plugin`), so local behaviour matches production.
 
-If install prints `ERR_PNPM_IGNORED_BUILDS`, approve the native build scripts in
-[`pnpm-workspace.yaml`](./pnpm-workspace.yaml) (`allowBuilds`) and re-run
-`pnpm install` — do not delete that config.
+Yarn is locked via `packageManager` and `engines` in `package.json` plus
+`engine-strict` in `.npmrc`. Commit `yarn.lock`; never add a `package-lock.json`
+or `pnpm-lock.yaml`.
 
 ## Scripts
 
 ```bash
-pnpm dev               # start dev server (port 3000, Workers runtime)
-pnpm build             # production build (client + Workers bundle → dist/)
-pnpm preview           # preview the build in the Workers runtime
-pnpm deploy            # build + wrangler deploy to Cloudflare
-pnpm generate-routes   # regenerate routeTree.gen.ts
-pnpm lint              # eslint
-pnpm format            # prettier --write + eslint --fix
-pnpm cf-typegen        # regenerate Cloudflare binding types
-pnpm exec tsc --noEmit # typecheck
-pnpm dlx shadcn@latest add <component>   # add a UI primitive
+yarn dev               # start dev server (port 3000, Workers runtime)
+yarn build             # production build (client + Workers bundle → dist/)
+yarn preview           # preview the build in the Workers runtime
+yarn deploy            # build + wrangler deploy to Cloudflare
+yarn generate-routes   # regenerate routeTree.gen.ts
+yarn lint              # eslint
+yarn format            # prettier --write + eslint --fix
+yarn cf-typegen        # regenerate Cloudflare binding types
+yarn tsc --noEmit     # typecheck
+npx shadcn@latest add <component>   # add a UI primitive (installs deps with yarn)
 ```
 
 ## Deploying to Cloudflare
 
 The app builds to a Cloudflare Worker. Deployment config lives in
 [`wrangler.jsonc`](./wrangler.jsonc) (`main` → `@tanstack/react-start/server-entry`,
-`nodejs_compat` enabled). Cloudflare / CI runs `pnpm install && pnpm build`; the
+`nodejs_compat` enabled). Cloudflare / CI runs `yarn install --frozen-lockfile && yarn build`; the
 Worker bundle and client assets land in `dist/`.
 
 ```bash
-pnpm dlx wrangler login   # once, to authenticate
-pnpm deploy               # vite build && wrangler deploy
+yarn wrangler login       # once, to authenticate
+yarn deploy               # vite build && wrangler deploy
 ```
 
-Native build scripts (`esbuild`, `lightningcss`, `unrs-resolver`, `workerd`) are
-pre-approved in `pnpm-workspace.yaml` so CI installs never stall on the
-`ERR_PNPM_IGNORED_BUILDS` prompt. Update `SITE.url` / `SITE.ogImage` in
+Yarn runs the native build scripts (`esbuild`, `lightningcss`, `unrs-resolver`,
+`workerd`) automatically, so no approval config is needed. Update `SITE.url` / `SITE.ogImage` in
 `src/constants/site.ts` to the production domain before launch.
 
 ## Project structure

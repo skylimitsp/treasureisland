@@ -1,4 +1,4 @@
-// Test-only Worker config for `pnpm test` (no rate limits, local-only bindings).
+// Test-only Worker config for `yarn test` (no rate limits, local-only bindings).
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "treasureisland-test",

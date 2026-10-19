@@ -1,7 +1,7 @@
 /**
  * One-paste production setup for the D1 dashboard console (no CLI needed):
  * schema + migration bookkeeping + content + a one-time first-admin invite.
- * Usage: pnpm tsx scripts/build-setup-sql.ts <admin-email> <site-url> <out-dir>
+ * Usage: yarn tsx scripts/build-setup-sql.ts <admin-email> <site-url> <out-dir>
  * @author Joseph Nartey
  * @github devjoemedia
  */

@@ -16,27 +16,27 @@ starts as mock data and swaps to a live API through a single seam (see §6).
 - **Tailwind CSS v4** + **shadcn/ui** (new-york style, `zinc` base, CSS variables).
 - **lucide-react** icons · **@faker-js/faker** for mock seeds.
 - **Cloudflare Workers** target via `@cloudflare/vite-plugin` + `wrangler`.
-- **pnpm** is the required package manager.
+- **Yarn 1** (`yarn@1.22.22`) is the required package manager.
 
 ## 2. Commands
 
 ```bash
-pnpm dev              # dev server on http://localhost:3000 (Workers runtime)
-pnpm build            # production build (client + Worker bundle → dist/)
-pnpm preview          # preview the build in the Workers runtime
-pnpm deploy           # vite build && wrangler deploy
-pnpm generate-routes  # regenerate routeTree.gen.ts (tsr generate)
-pnpm lint             # eslint
-pnpm format           # prettier --write + eslint --fix
-pnpm cf-typegen       # regenerate Cloudflare binding types (wrangler types)
-pnpm exec tsc --noEmit # typecheck
-pnpm dlx shadcn@latest add <component>  # add a shadcn primitive
-pnpm test             # API tests (vitest in workerd, real local D1); test:watch to rerun
-pnpm db:generate      # drizzle-kit: schema changes → new SQL migration in drizzle/
-pnpm db:migrate       # apply migrations to local D1 (db:migrate:remote for production)
-pnpm db:seed [--demo] [--remote]  # load src/data content (+ demo bookings) into D1
-ADMIN_PASSWORD=… pnpm db:create-admin <email> "<Name>" [--remote]  # staff admin
-pnpm exec tsx scripts/build-setup-sql.ts <admin-email> <site-url> <out-dir>  # one-paste prod DB setup (D1 console) + invite link
+yarn dev              # dev server on http://localhost:3000 (Workers runtime)
+yarn build            # production build (client + Worker bundle → dist/)
+yarn preview          # preview the build in the Workers runtime
+yarn deploy           # vite build && wrangler deploy
+yarn generate-routes  # regenerate routeTree.gen.ts (tsr generate)
+yarn lint             # eslint
+yarn format           # prettier --write + eslint --fix
+yarn cf-typegen       # regenerate Cloudflare binding types (wrangler types)
+yarn tsc --noEmit     # typecheck
+npx shadcn@latest add <component>  # add a shadcn primitive
+yarn test             # API tests (vitest in workerd, real local D1); test:watch to rerun
+yarn db:generate      # drizzle-kit: schema changes → new SQL migration in drizzle/
+yarn db:migrate       # apply migrations to local D1 (db:migrate:remote for production)
+yarn db:seed [--demo] [--remote]  # load src/data content (+ demo bookings) into D1
+ADMIN_PASSWORD=… yarn db:create-admin <email> "<Name>" [--remote]  # staff admin
+yarn tsx scripts/build-setup-sql.ts <admin-email> <site-url> <out-dir>  # one-paste prod DB setup (D1 console) + invite link
 ```
 
 Production: Worker `treasureislandghana` on the acathy317 Cloudflare account, D1 `treasureislandghana`.
@@ -45,10 +45,9 @@ The Workers Builds deploy command applies migrations first:
 
 Local secrets/vars live in the git-ignored `.dev.vars` (copy `.dev.vars.example`).
 
-Native build scripts (`esbuild`, `lightningcss`, `unrs-resolver`, `workerd`) are
-approved in `pnpm-workspace.yaml` under `allowBuilds`. If `pnpm install` reports
-`ERR_PNPM_IGNORED_BUILDS`, set the named dependency to `true` there and re-run
-install — do not delete that config, or Cloudflare CI builds will stall.
+Yarn 1 (`yarn@1.22.22`) is locked in via `packageManager` + `engines` in
+`package.json` and `engine-strict=true` in `.npmrc`, so npm and pnpm installs
+fail. Commit `yarn.lock` only; never add `package-lock.json` or `pnpm-lock.yaml`.
 
 ## 3. File & code conventions (required)
 
@@ -73,7 +72,7 @@ These are non-negotiable house rules for this project:
 - **Imports use the `#/*` alias** → `src/*`. Never deep relative paths
   (`../../..`). Example: `import { cn } from '#/lib/utils'`.
 - Prettier + eslint (`@tanstack/eslint-config`) enforce formatting; run
-  `pnpm format` before committing. `noUnusedLocals`/`noUnusedParameters` are on —
+  `yarn format` before committing. `noUnusedLocals`/`noUnusedParameters` are on —
   keep imports clean.
 
 ## 4. Folder structure
@@ -173,7 +172,7 @@ are **not wired to it yet**; that swap is a separate step.
   `[data-count]`, `headerShrink`). All respect `prefers-reduced-motion`. See
   `../docs/animation-guide.md`.
 - Keep contrast strong in both themes; mobile-first; 44px touch targets.
-- Add UI primitives with `pnpm dlx shadcn@latest add <name>` (config in
+- Add UI primitives with `npx shadcn@latest add <name>` (config in
   `components.json`).
 
 ## 8. SEO (required on every page)
@@ -228,8 +227,8 @@ New hook/service files carry a short doc header:
 
 ## 11. Definition of done
 
-- [ ] `pnpm exec tsc --noEmit`, `pnpm lint` and `pnpm test` pass; `pnpm build` succeeds.
-- [ ] `pnpm dev` boots and the page renders.
+- [ ] `yarn tsc --noEmit`, `yarn lint` and `yarn test` pass; `yarn build` succeeds.
+- [ ] `yarn dev` boots and the page renders.
 - [ ] File names kebab-case; one component per file; comments ≤ 2 lines.
 - [ ] Data flows through a hook + `src/data` accessor (no direct mock imports in UI).
 - [ ] The route sets `seo()` metadata (title + description; `noindex` if private).
