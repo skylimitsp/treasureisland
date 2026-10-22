@@ -14,10 +14,14 @@ export function AmenityGallery({
   images,
   name,
   video,
+  videoAt = 0,
+  videoTitle,
 }: {
   images: Array<string>
   name: string
   video?: string
+  videoAt?: number
+  videoTitle?: string
 }) {
   const [open, setOpen] = useState<number | null>(null)
 
@@ -42,12 +46,6 @@ export function AmenityGallery({
     })
   })
 
-  const tiles = images.length + (video ? 1 : 0)
-  // Hidden with fewer than two tiles (the hero already shows one photo).
-  if (tiles < 2) return null
-  // A pair sits side by side; three or more lead with one large tile.
-  const pair = tiles === 2
-  const lead = video && !pair ? 'col-span-2 sm:row-span-2' : ''
   const clip: GalleryItem | null = video
     ? {
         id: video,
@@ -56,9 +54,18 @@ export function AmenityGallery({
         thumb: `${video}-poster.webp`,
         w: 0,
         h: 0,
-        alt: `${name} — video`,
+        alt: videoTitle ?? `${name} — video`,
       }
     : null
+  // Photos keep their lightbox index; the video slots in at `videoAt`.
+  const tiles: Array<number | 'video'> = images.map((_, i) => i)
+  if (clip) tiles.splice(Math.min(videoAt, tiles.length), 0, 'video')
+  // Hidden with fewer than two tiles (the hero already shows one photo).
+  if (tiles.length < 2) return null
+  // A pair sits side by side; three or more lead with one large tile.
+  const pair = tiles.length === 2
+  const span = (slot: number) =>
+    slot === 0 && !pair ? 'col-span-2 sm:row-span-2' : ''
 
   return (
     <section ref={ref} data-reveal>
@@ -70,38 +77,44 @@ export function AmenityGallery({
           pair ? '' : 'lg:grid-cols-3'
         }`}
       >
-        {clip ? (
-          <VideoPlayTile
-            video={clip}
-            className={`${lead} ${pair ? 'aspect-[4/5]' : 'aspect-[4/3] lg:aspect-auto'}`}
-          />
-        ) : null}
-        {images.map((src, i) => (
-          <button
-            key={src + i}
-            type="button"
-            onClick={() => setOpen(i)}
-            aria-label={`Open photo ${i + 1} of ${images.length}`}
-            className={`img-frame group relative overflow-hidden rounded-md border border-line ${
-              i === 0 && !pair && !video ? 'col-span-2 sm:row-span-2' : ''
-            }`}
-          >
-            <ResponsiveImage
-              data-gallery
-              src={src}
-              alt={`${name} — photo ${i + 1}`}
-              loading="lazy"
-              decoding="async"
-              className={`h-full w-full object-cover ${
+        {tiles.map((tile, slot) =>
+          tile === 'video' ? (
+            <VideoPlayTile
+              key="video"
+              video={clip!}
+              className={`${span(slot)} ${
                 pair
                   ? 'aspect-[4/5]'
-                  : i === 0 && !video
-                    ? 'aspect-[4/3] sm:h-full'
+                  : slot === 0
+                    ? 'aspect-[4/3] lg:aspect-auto'
                     : 'aspect-[4/3]'
               }`}
             />
-          </button>
-        ))}
+          ) : (
+            <button
+              key={images[tile] + tile}
+              type="button"
+              onClick={() => setOpen(tile)}
+              aria-label={`Open photo ${tile + 1} of ${images.length}`}
+              className={`img-frame group relative overflow-hidden rounded-md border border-line ${span(slot)}`}
+            >
+              <ResponsiveImage
+                data-gallery
+                src={images[tile]}
+                alt={`${name} — photo ${tile + 1}`}
+                loading="lazy"
+                decoding="async"
+                className={`h-full w-full object-cover ${
+                  pair
+                    ? 'aspect-[4/5]'
+                    : slot === 0
+                      ? 'aspect-[4/3] sm:h-full'
+                      : 'aspect-[4/3]'
+                }`}
+              />
+            </button>
+          ),
+        )}
       </div>
 
       {open !== null ? (

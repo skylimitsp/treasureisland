@@ -30,22 +30,23 @@ const AMENITIES: Array<Amenity> = [
   {
     id: 'a2',
     slug: 'boat-cruise',
-    name: 'Boat Cruise (Including Jet-Ski)',
+    name: 'Boat Cruise & Jet-Skiing',
     category: 'On the water',
     blurb:
-      'You may be floating at a leisurely pace through the hidden countryside.',
+      'Enjoy the beautiful waterways and serendipity found only on our shores.',
     description:
-      'Because it’s a perfect antidote to busy jobs, frenetic tourism, ' +
-      'crowded airports, and also a wonderful way to enjoy the countryside! ' +
-      'A hotel boat holiday is great for couples, singles, stressed ' +
-      'executives & minions, seniors, groups, overseas visitors; just about ' +
-      'anyone who enjoys being pampered in pleasant surroundings! You may be ' +
-      'floating at a leisurely pace through the hidden countryside. You could ' +
-      'just treat yourself to a little well earned relaxation with a piece of ' +
-      'home made cake and that favourite book!',
+      'Sheer sublime. Nothing but beauty, relaxation and uniqueness. Escape ' +
+      'the busy city life and enjoy the perfect antidote here at Treasure ' +
+      'Island Ada. You can treat yourself to a refreshing drink of coconuts, ' +
+      'pampered relaxing massages, the adrenaline of the indoor or outdoor ' +
+      'gym, the paddle court, a relaxing jacuzzi and pool usage.\n\n' +
+      'We make sure to make your visit here very memorable.',
     image: '/photos/jetski-loop.webp',
     hero: '/photos/jetski-loop.webp',
-    gallery: ['/photos/jetski-loop.webp', '/photos/jetski-trail.webp'],
+    galleryVideo: '/videos/boat-cruise-tour',
+    galleryVideoAt: 1,
+    galleryVideoTitle: 'Water Sports',
+    gallery: ['/photos/jetski-loop.webp'],
     icon: 'ship',
     price: null,
     bookable: true,

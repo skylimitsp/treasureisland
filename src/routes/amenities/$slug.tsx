@@ -115,6 +115,8 @@ function AmenityDetailPage() {
               images={a.gallery}
               name={a.name}
               video={a.galleryVideo}
+              videoAt={a.galleryVideoAt}
+              videoTitle={a.galleryVideoTitle}
             />
             <AmenityHighlights amenity={a} />
           </div>

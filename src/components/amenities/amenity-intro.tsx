@@ -9,9 +9,15 @@ export function AmenityIntro({ amenity }: { amenity: Amenity }) {
       <h2 className="display-title mt-2 text-2xl md:text-3xl">
         What to expect
       </h2>
-      <p className="mt-4 max-w-prose text-lg leading-relaxed text-sea-ink-soft">
-        {amenity.description}
-      </p>
+      {/* A blank line in the copy starts a new paragraph. */}
+      {amenity.description.split('\n\n').map((para) => (
+        <p
+          key={para.slice(0, 24)}
+          className="mt-4 max-w-prose text-lg leading-relaxed text-sea-ink-soft"
+        >
+          {para}
+        </p>
+      ))}
     </section>
   )
 }

@@ -80,7 +80,9 @@ export interface Amenity {
   hero: string
   heroPosition?: string // CSS object-position for the hero crop, e.g. 'center 78%'
   heroVideo?: string // /videos base path; phones get the `-720` encode
-  galleryVideo?: string // /videos base path; leads the gallery, poster at `-poster.webp`
+  galleryVideo?: string // /videos base path; poster at `-poster.webp`
+  galleryVideoAt?: number // gallery slot for the video (0 = lead tile)
+  galleryVideoTitle?: string // player caption; defaults to `<name> — video`
   gallery: Array<string>
   highlights?: Array<string>
   icon: AmenityIcon
