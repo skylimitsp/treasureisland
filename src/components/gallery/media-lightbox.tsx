@@ -85,9 +85,11 @@ export function MediaLightbox({
         onClick={(e) => e.stopPropagation()}
       >
         {item.alt}
-        <span className="ml-3 text-white/50 tabular-nums">
-          {index + 1} / {items.length}
-        </span>
+        {items.length > 1 ? (
+          <span className="ml-3 text-white/50 tabular-nums">
+            {index + 1} / {items.length}
+          </span>
+        ) : null}
       </p>
 
       {items.length > 1 ? (

@@ -1,29 +1,28 @@
 import { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import { ResponsiveImage } from '#/components/shared/responsive-image'
+import { GalleryVideoTile } from '#/components/about/gallery-video-tile'
 
 const PHOTOS = [
   { src: '/photos/aerial-resort.webp', alt: 'Treasure Island Ada from above' },
-  {
-    src: '/photos/restaurant-main.webp',
-    alt: 'A guest at the evening buffet on the restaurant terrace',
-  },
   {
     src: '/photos/infinity-lounge.webp',
     alt: 'Rooftop terrace and suites at dusk',
   },
   { src: '/events/wedding-carriage.webp', alt: 'A wedding carriage arrival' },
-  { src: '/rooms/room-1.webp', alt: 'A guest bedroom' },
+  {
+    src: '/photos/restaurant-main.webp',
+    alt: 'A guest at the evening buffet on the restaurant terrace',
+  },
   { src: '/rooms/room-5.webp', alt: 'A loft bedroom' },
   { src: '/rooms/room-6.webp', alt: 'A bedroom with a feature wall' },
 ]
-const [LARGE, ...REST] = PHOTOS
-const RIGHT = REST.slice(0, 2)
-const THUMBS = REST.slice(2)
+const RIGHT = PHOTOS.slice(0, 2)
+const THUMBS = PHOTOS.slice(2)
 const ALL = PHOTOS
 
-// Gallery mosaic matching the StayBox layout: one large tile + two stacked on
-// the right, then a row of four thumbnails, with a focus-trapped lightbox.
+// Gallery mosaic matching the StayBox layout: a large video tile + two photos
+// stacked on the right, then a row of four thumbnails, with a lightbox.
 export function DetailGallery() {
   const [open, setOpen] = useState<number | null>(null)
 
@@ -51,8 +50,7 @@ export function DetailGallery() {
         sizes="(min-width: 1024px) 45vw, 100vw"
         src={photo.src}
         alt=""
-        loading={i === 0 ? 'eager' : 'lazy'}
-        fetchPriority={i === 0 ? 'high' : 'auto'}
+        loading={i < 2 ? 'eager' : 'lazy'}
         decoding="async"
         className="h-full w-full object-cover"
       />
@@ -62,12 +60,12 @@ export function DetailGallery() {
   return (
     <div>
       <div className="grid aspect-[16/10] grid-cols-3 grid-rows-2 gap-3">
-        {tile(LARGE, 0, 'col-span-2 row-span-2')}
-        {tile(RIGHT[0], 1)}
-        {tile(RIGHT[1], 2)}
+        <GalleryVideoTile />
+        {tile(RIGHT[0], 0)}
+        {tile(RIGHT[1], 1)}
       </div>
       <div className="mt-3 grid grid-cols-4 gap-3">
-        {THUMBS.map((photo, i) => tile(photo, i + 3, 'aspect-[4/3]'))}
+        {THUMBS.map((photo, i) => tile(photo, i + 2, 'aspect-[4/3]'))}
       </div>
 
       {open !== null ? (

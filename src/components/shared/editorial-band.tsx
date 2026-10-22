@@ -12,7 +12,7 @@ export function EditorialBand() {
           The Definition of luxury, hospitality and serendipity.
         </h3>
         <h2 className="display-title mt-3 text-3xl leading-tight md:text-4xl italic">
-        SS. Treasure Island Ada
+          About Us
         </h2>
         <p className="mt-5 max-w-prose text-sea-ink-soft">
           A private island resort in its remarkable natural environment situated

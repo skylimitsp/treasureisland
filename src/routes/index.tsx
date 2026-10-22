@@ -90,8 +90,8 @@ function Home() {
   return (
     <main ref={ref}>
       <Hero />
-      <FeaturedRooms />
       <EditorialBand />
+      <FeaturedRooms />
       {/* <EventsVideoBand /> */}
       <ExperiencesMasonry />
       <FixedDivider

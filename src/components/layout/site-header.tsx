@@ -8,12 +8,12 @@ import { headerShrink } from '#/lib/animations'
 
 const NAV = [
   { to: '/', label: 'Home' },
+  { to: '/about', label: 'About Us' },
   { to: '/rooms', label: 'Rooms' },
   { to: '/amenities', label: 'Amenities' },
   ...(isEnabled('menu') ? [{ to: '/menu', label: 'Menu' } as const] : []),
   { to: '/events', label: 'Events' },
   { to: '/gallery', label: 'Gallery' },
-  { to: '/about', label: 'About' },
 ] as const
 
 // Routes whose top is a dark full-bleed hero — the chrome stays transparent
