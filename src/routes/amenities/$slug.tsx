@@ -111,7 +111,11 @@ function AmenityDetailPage() {
         <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
           <div className="space-y-14">
             <AmenityIntro amenity={a} />
-            <AmenityGallery images={a.gallery} name={a.name} />
+            <AmenityGallery
+              images={a.gallery}
+              name={a.name}
+              video={a.galleryVideo}
+            />
             <AmenityHighlights amenity={a} />
           </div>
 

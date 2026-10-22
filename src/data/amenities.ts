@@ -18,9 +18,9 @@ const AMENITIES: Array<Amenity> = [
       'hot water and allow the jets and bubbles to soothe your troubles away.',
     image: '/photos/pool-at-night.webp',
     hero: '/photos/pool-at-night.webp',
+    galleryVideo: '/videos/jacuzzi-tour',
     gallery: [
       '/photos/jacuzzi-night-tubs.webp',
-      '/photos/jacuzzi-night-terrace.webp',
       '/photos/jacuzzi-night-aerial.webp',
     ],
     icon: 'bath',

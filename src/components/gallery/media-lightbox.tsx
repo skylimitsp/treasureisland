@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 
 import type { GalleryItem } from '#/types'
 
-// Full-screen viewer for the current tab's items: photos large, videos with
-// sound and controls. Arrow keys step, Escape closes, page scroll is locked.
+// Full-screen viewer, portalled to <body> so animated (transformed) ancestors
+// can't trap it. Arrow keys step, Escape closes, page scroll is locked.
 export function MediaLightbox({
   items,
   index,
@@ -38,7 +39,7 @@ export function MediaLightbox({
   const navBtn =
     'absolute top-1/2 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur transition-colors hover:bg-white/30'
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -118,6 +119,7 @@ export function MediaLightbox({
           </button>
         </>
       ) : null}
-    </div>
+    </div>,
+    document.body,
   )
 }

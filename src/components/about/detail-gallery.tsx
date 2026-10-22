@@ -1,7 +1,18 @@
 import { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
 import { ResponsiveImage } from '#/components/shared/responsive-image'
-import { GalleryVideoTile } from '#/components/about/gallery-video-tile'
+import { VideoPlayTile } from '#/components/shared/video-play-tile'
+import type { GalleryItem } from '#/types'
+
+const VIDEO: GalleryItem = {
+  id: 'about-tour',
+  kind: 'video',
+  src: '/videos/about-tour.mp4',
+  thumb: '/videos/about-tour-poster.webp',
+  w: 1024,
+  h: 576,
+  alt: 'Treasure Island Ada — video tour',
+}
 
 const PHOTOS = [
   { src: '/photos/aerial-resort.webp', alt: 'Treasure Island Ada from above' },
@@ -60,7 +71,7 @@ export function DetailGallery() {
   return (
     <div>
       <div className="grid aspect-[16/10] grid-cols-3 grid-rows-2 gap-3">
-        <GalleryVideoTile />
+        <VideoPlayTile video={VIDEO} className="col-span-2 row-span-2" />
         {tile(RIGHT[0], 0)}
         {tile(RIGHT[1], 1)}
       </div>
