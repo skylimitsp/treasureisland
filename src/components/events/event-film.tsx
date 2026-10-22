@@ -63,7 +63,7 @@ export function EventFilm() {
           </h2>
           <p className="mt-5 max-w-prose text-white/80 md:text-lg">
             From the first welcome drinks to fire dancers after dark — a look at
-            one celebration at Treasure Island Resort, Ada Foah.
+            one celebration at Treasure Island Ada Foah.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#enquire" className="btn btn-primary no-underline">

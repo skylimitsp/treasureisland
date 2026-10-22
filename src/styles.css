@@ -298,6 +298,7 @@ a {
 
 .nav-link {
   position: relative;
+  white-space: nowrap;
   text-decoration: none;
   color: var(--sea-ink-soft);
 }

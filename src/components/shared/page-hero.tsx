@@ -64,7 +64,7 @@ export function PageHero({
         }}
         aria-hidden
       />
-      <div className="page-wrap w-full pb-14 pt-32">
+      <div className="page-wrap w-full pb-14 pt-32 md:pt-44">
         <div className="max-w-2xl text-white">
           <div data-hero>
             <SectionKicker className="!text-white/85">{kicker}</SectionKicker>

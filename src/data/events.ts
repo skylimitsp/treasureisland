@@ -8,7 +8,7 @@ import type {
 
 // Official Events & Meetings copy (treasureislandghana.com), spelling fixes only.
 const MEETING_COPY = [
-  'Treasure Island Resort offers an environment perfectly designed for successful events. The hotel and resort are located in tranquil and aesthetically pleasing surroundings to refresh the mind and focus attention. At Treasure Island Resort, we believe that perfection is achieved through the harmony of unparalleled location, exemplary service and quiet efficiency. Our service philosophy stems from an understanding of your needs and our attention to the smallest detail. Specially dedicated event consultants will understand your requirements, help you choose the most suitable destination and plan the event to the smallest detail. Our warm and friendly staff will make every effort to ensure your event is memorable and successful.',
+  'Treasure Island Ada offers an environment perfectly designed for successful events. The hotel and resort are located in tranquil and aesthetically pleasing surroundings to refresh the mind and focus attention. At Treasure Island Resort, we believe that perfection is achieved through the harmony of unparalleled location, exemplary service and quiet efficiency. Our service philosophy stems from an understanding of your needs and our attention to the smallest detail. Specially dedicated event consultants will understand your requirements, help you choose the most suitable destination and plan the event to the smallest detail. Our warm and friendly staff will make every effort to ensure your event is memorable and successful.',
 ]
 
 const WEDDING_COPY = [
@@ -90,7 +90,7 @@ const EVENT_TYPES: Array<EventType> = [
     name: 'Meetings & Events',
     title: 'Beach Hotel Meeting',
     blurb:
-      'Treasure Island Resort offers an environment perfectly designed for successful events.',
+      'Treasure Island Ada offers an environment perfectly designed for successful events.',
     description: MEETING_COPY,
     icon: 'Presentation',
     image: '/photos/conference-hall.webp',

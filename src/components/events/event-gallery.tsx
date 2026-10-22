@@ -36,17 +36,17 @@ const TILES: Array<{
     featured: true,
   },
   {
-    image: '/events/wedding-carriage-wide.webp',
-    alt: 'A carriage arrival on the wedding day',
+    image: '/events/gallery/ballroom-couple.webp',
+    alt: 'A bride and groom on the ballroom floor under a floral chandelier',
     featured: true,
   },
   {
-    image: '/photos/beach-hero.webp',
-    alt: 'The resort, pool and beach from above',
+    image: '/events/gallery/guests-in-white.webp',
+    alt: 'Guests dressed in white at an evening party by the pool',
   },
   {
-    image: '/gallery/g-sunset-deck.webp',
-    alt: 'The Golden Hour',
+    image: '/events/gallery/wedding-aisle.webp',
+    alt: 'Guests seated along a flower-lined wedding aisle under the palms',
   },
 ]
 

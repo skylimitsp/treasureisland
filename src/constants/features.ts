@@ -4,6 +4,10 @@
 export const FEATURES = {
   /** The online restaurant menu at /menu. Off until the official menu is published. */
   menu: false,
+  /** Room cards in the home "Rooms & suites" band; off shows the room video tour. */
+  homeRooms: false,
+  /** Room listing and filters at /rooms; off shows the room video tours. */
+  roomsList: false,
   // Admin console sections kept for later; when off they leave the nav and redirect to /admin.
   adminRooms: false,
   adminAvailability: false,

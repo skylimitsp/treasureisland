@@ -15,8 +15,8 @@ const PHOTOS = [
     alt: 'A white-canopied banquet table set beside the lagoon',
   },
   {
-    src: '/events/catering-03.webp',
-    alt: 'A canopied buffet line laid out on the waterfront terrace',
+    src: '/events/catering-04.webp',
+    alt: 'A canopied banquet terrace along the water at sunset',
   },
 ]
 

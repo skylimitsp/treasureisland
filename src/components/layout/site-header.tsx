@@ -24,6 +24,7 @@ const HERO_ROUTES: Array<string> = [
   '/events',
   '/amenities',
   '/gallery',
+  '/book',
 ]
 
 // Global site header: fixed overlay that frosts on scroll (header-shrink), with
@@ -72,7 +73,7 @@ export function SiteHeader() {
           </Link>
 
           <nav
-            className="hidden items-center gap-20 md:flex ml-20"
+            className="hidden items-center gap-6 md:ml-6 md:flex lg:ml-12 lg:gap-12 xl:ml-20 xl:gap-20"
             aria-label="Primary"
           >
             {NAV.map((item) => (
@@ -87,8 +88,8 @@ export function SiteHeader() {
               </Link>
             ))}
             <Link
-              to="/rooms"
-              className="btn btn-primary hidden no-underline sm:inline-flex ml-12"
+              to="/book"
+              className="btn btn-primary hidden no-underline sm:inline-flex lg:ml-4 xl:ml-12"
             >
               Book Now
             </Link>
@@ -161,7 +162,7 @@ export function SiteHeader() {
             </Link>
           ))}
           <Link
-            to="/rooms"
+            to="/book"
             onClick={() => setOpen(false)}
             className="btn btn-primary mt-3 no-underline"
           >

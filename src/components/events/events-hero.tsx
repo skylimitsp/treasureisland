@@ -20,7 +20,7 @@ export function EventsHero() {
           <em style={{ color: 'var(--sunset)' }}>meetings</em>.
         </>
       }
-      body="Treasure Island Resort offers an environment perfectly designed for successful events."
+      body="Treasure Island Ada offers an environment perfectly designed for successful events."
       actions={
         <>
           <button

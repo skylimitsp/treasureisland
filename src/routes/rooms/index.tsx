@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { seo } from '#/lib/seo'
@@ -11,6 +11,11 @@ import { RoomsHero } from '#/components/rooms/rooms-hero'
 import { RoomFiltersBar } from '#/components/rooms/room-filters'
 import { RoomCard } from '#/components/rooms/room-card'
 import { RoomCardSkeleton } from '#/components/rooms/room-card-skeleton'
+import { RoomsVideoTour } from '#/components/rooms/rooms-video-tour'
+import { RoomTypesList } from '#/components/rooms/room-types-list'
+import { SectionKicker } from '#/components/shared/section-kicker'
+import { isEnabled } from '#/constants/features'
+import { ROOMS_TOUR, ROOMS_TOUR_2 } from '#/constants/room-videos'
 import type { RoomCategory, RoomView } from '#/types'
 
 interface RoomsSearch {
@@ -82,6 +87,32 @@ function RoomsPage() {
   const pageCount = Math.max(1, Math.ceil(visible.length / PAGE_SIZE))
   const page = Math.min(Math.max(1, search.page ?? 1), pageCount)
   const paged = visible.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+
+  if (!isEnabled('roomsList')) {
+    return (
+      <main>
+        <RoomsHero />
+        <section className="page-wrap mt-12 pb-24">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <SectionKicker>Stay with us</SectionKicker>
+              <h2 className="display-title mt-2 text-3xl md:text-4xl">
+                Room types
+              </h2>
+            </div>
+            <Link to="/book" className="btn btn-primary no-underline">
+              Book now
+            </Link>
+          </div>
+          <RoomTypesList className="mt-6" />
+          <RoomsVideoTour
+            videos={[ROOMS_TOUR, ROOMS_TOUR_2]}
+            className="mt-10"
+          />
+        </section>
+      </main>
+    )
+  }
 
   return (
     <main>

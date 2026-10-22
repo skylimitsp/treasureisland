@@ -81,17 +81,15 @@ export function MediaLightbox({
         )}
       </div>
 
-      <p
-        className="mt-4 text-center text-sm text-white/85"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {item.alt}
-        {items.length > 1 ? (
-          <span className="ml-3 text-white/50 tabular-nums">
-            {index + 1} / {items.length}
-          </span>
-        ) : null}
-      </p>
+      {/* No captions: only a position counter when there's more than one item. */}
+      {items.length > 1 ? (
+        <p
+          className="mt-4 text-center text-sm text-white/50 tabular-nums"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {index + 1} / {items.length}
+        </p>
+      ) : null}
 
       {items.length > 1 ? (
         <>

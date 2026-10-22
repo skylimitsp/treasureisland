@@ -3,11 +3,16 @@ import { Link } from '@tanstack/react-router'
 import { SectionKicker } from '#/components/shared/section-kicker'
 import { RoomCard } from '#/components/rooms/room-card'
 import { RoomCardSkeleton } from '#/components/rooms/room-card-skeleton'
+import { RoomsVideoTour } from '#/components/rooms/rooms-video-tour'
 import { useRoomsQuery } from '#/hooks/queries/rooms.query'
+import { isEnabled } from '#/constants/features'
+import { ROOMS_TOUR } from '#/constants/room-videos'
 
-// Featured rooms band: first three rooms + a link to the full list.
+// Featured rooms band: first three rooms + a link to the full list, or the
+// room video tour while the `homeRooms` flag is off.
 export function FeaturedRooms() {
   const rooms = useRoomsQuery()
+  const showRooms = isEnabled('homeRooms')
 
   return (
     <section className="page-wrap mt-24">
@@ -18,12 +23,14 @@ export function FeaturedRooms() {
             Rooms &amp; suites
           </h2>
         </div>
-        <Link to="/rooms" className="btn btn-ghost no-underline">
-          View all rooms
+        <Link to="/book" className="btn btn-primary no-underline">
+          Book now
         </Link>
       </div>
 
-      {rooms.isPending ? (
+      {!showRooms ? (
+        <RoomsVideoTour videos={[ROOMS_TOUR]} className="mt-8" />
+      ) : rooms.isPending ? (
         <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3">
           {[0, 1, 2, 3].map((i) => (
             <div key={i} className={i === 3 ? 'md:hidden' : undefined}>

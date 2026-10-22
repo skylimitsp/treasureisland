@@ -40,7 +40,7 @@ const AMENITIES: Array<Amenity> = [
       'Island Ada. You can treat yourself to a refreshing drink of coconuts, ' +
       'pampered relaxing massages, the adrenaline of the indoor or outdoor ' +
       'gym, the paddle court, a relaxing jacuzzi and pool usage.\n\n' +
-      'We make sure to make your visit here very memorable.',
+      'We ensure your visit is always memorable.',
     image: '/photos/jetski-loop.webp',
     hero: '/photos/jetski-loop.webp',
     galleryVideo: '/videos/boat-cruise-tour',
@@ -57,22 +57,21 @@ const AMENITIES: Array<Amenity> = [
     name: '12D Cinema',
     category: 'Family fun',
     blurb:
-      '12D Cinema is a unique venue to shed worries and get an adrenaline rush.',
+      'Our 12D Cinema is a fantastic place to visit and get your adrenaline pumping.',
     description:
-      '12D Cinema is a unique venue to shed worries and get an adrenaline ' +
+      'Our 12D Cinema is a unique venue to shed worries and get an adrenaline ' +
       'rush. Offering the ultimate exclusive experience and HD sound and ' +
       'visual features, the 12D cinema makes you feel the warmth of the dying ' +
       'sun in the horizon and the power of roof-destroying storm. Experience ' +
       'state-of-the-art technology at the 12D Cinema like you’ve never seen ' +
       'it before. A curated library, 9 comfy seats and latest technologies ' +
       'are our offer to lovers of extreme experience.',
-    // No cinema photo yet — a neutral resort view stands in.
-    image: '/photos/aerial-resort.webp',
-    imageAlt: 'Aerial view of Treasure Island Ada',
-    hero: '/photos/aerial-resort.webp',
-    // Resort views until cinema photos arrive.
+    image: '/photos/cinema-12d-guests.webp',
+    hero: '/photos/cinema-12d-guests.webp',
+    heroPosition: 'center 28%', // keep the guests' faces and 3D glasses in frame
+    // Resort views fill in until more cinema photos arrive.
     gallery: [
-      '/photos/resort-night.webp',
+      '/photos/cinema-12d-guests.webp',
       '/photos/island-shore.webp',
       '/photos/lagoon-sunset.webp',
     ],
@@ -83,7 +82,7 @@ const AMENITIES: Array<Amenity> = [
   {
     id: 'a4',
     slug: 'taxi-boat',
-    name: 'Taxi Boat',
+    name: 'Water Taxi',
     category: 'On the water',
     blurb:
       'Board a River Passage Water Taxi at the Hotel Docks located along the riverwalk.',
@@ -91,10 +90,11 @@ const AMENITIES: Array<Amenity> = [
     description:
       'Board a River Passage Water Taxi at the Hotel Docks located along the ' +
       'riverwalk.',
-    image: '/photos/jetski-loop.webp',
-    hero: '/photos/jetski-loop.webp',
+    image: '/photos/taxi-boat-dock.webp',
+    hero: '/photos/taxi-boat-dock.webp',
+    heroPosition: 'center 62%', // portrait shot — keep the boat, not the sky
     gallery: [
-      '/photos/taxi-boat-pontoon.webp',
+      '/photos/taxi-boat-dock.webp',
       '/photos/taxi-boat-arrival.webp',
       '/photos/taxi-boat-shore.webp',
     ],
@@ -122,8 +122,9 @@ const AMENITIES: Array<Amenity> = [
     image: '/photos/swimming-pool-waterfall.webp',
     hero: '/photos/swimming-pool-waterfall.webp',
     heroPosition: 'center 68%', // frame the guests in the pool, not the rocks
+    galleryVideo: '/gallery/v-pool-guests',
+    galleryVideoTitle: 'A swim in the pool',
     gallery: [
-      '/photos/swimming-pool-waterfall.webp',
       '/photos/cabanas-beach-daybeds.webp',
       '/photos/cabanas-poolside-deck.webp',
     ],
